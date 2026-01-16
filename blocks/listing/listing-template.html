@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<script src="/scripts/aem.js" type="module"></script>
+<script src="/scripts/scripts.js" type="module"></script>
+<link rel="stylesheet" href="/styles/styles.css"/>
+</head>
+<body>
+<header></header>
+<main>
+<div><h1 id="listing-block-template">Listing Block Template</h1>
+<h2 id="description">Description</h2>
+<p>Vertical list component displaying content items with images, titles, descriptions, and optional action buttons. Used for saved content, bookmarks, search results, or any repeated list items with dividers.</p>
+<h2 id="figma-source">Figma Source</h2>
+<p><strong>Design URL:</strong> Figma MyAstrazeneca Design
+<strong>Component:</strong> Section: Listing
+<strong>Node ID:</strong> 3970:58630
+<strong>Variants:</strong> default</p>
+<h2 id="structure">Structure</h2>
+<p>Each listing item contains:</p>
+<ul>
+<li>Image (left, 343x194px)</li>
+<li>Content (right): title (h3), description, optional button</li>
+<li>Divider between items</li>
+</ul>
+<h2 id="markdown-syntax">Markdown Syntax</h2>
+<h3 id="basic-listing-single-item">Basic Listing (Single Item)</h3>
+<pre><code class="language-markdown">| Listing |
+|---------|
+| ![Item Image](./images/listing-image.png) |
+| ### Listing item here |
+| Cras mattis iudicium purus sit amet fermentum at nos amice. |
+| [Save](#) |
+</code></pre>
+<h3 id="multiple-items">Multiple Items</h3>
+<pre><code class="language-markdown">| Listing |
+|---------|
+| ![Item 1](./images/listing-image.png) |
+| ### Listing item here |
+| Cras mattis iudicium purus sit amet fermentum at nos amice. |
+| [Save](#) |
+| ![Item 2](./images/listing-image.png) |
+| ### Listing item here |
+| Cras mattis iudicium purus sit amet fermentum at nos amice. |
+| [Save](#) |
+| ![Item 3](./images/listing-image.png) |
+| ### Listing item here |
+| Cras mattis iudicium purus sit amet fermentum at nos amice. |
+| [Save](#) |
+</code></pre>
+<h2 id="content-guidelines">Content Guidelines</h2>
+<ul>
+<li><strong>Title:</strong> 2-5 words, descriptive</li>
+<li><strong>Description:</strong> 1-2 sentences, 15-25 words</li>
+<li><strong>Images:</strong> 343x194px recommended, consistent across items</li>
+<li><strong>Number of items:</strong> Any number, typically 5-20 items per page</li>
+</ul>
+<h2 id="css-tokens-used">CSS Tokens Used</h2>
+<pre><code class="language-css">--listing-max-width
+--listing-padding-x
+--listing-padding-y
+--listing-background-color
+--listing-card-gap
+--listing-card-padding
+--listing-image-width
+--listing-image-height
+--listing-image-border-radius
+--listing-title-font-family
+--listing-title-font-size
+--listing-title-font-weight
+--listing-title-line-height
+--listing-title-color
+--listing-desc-font-family
+--listing-desc-font-size
+--listing-desc-line-height
+--listing-desc-color
+--listing-button-color
+--listing-divider-color
+--listing-divider-height
+</code></pre>
+<h2 id="variants">Variants</h2>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="variant"><div><div>Default</div><div><code>.listing</code></div><div>Vertical list with dividers</div></div></div>
+<h2 id="javascript-decoration">JavaScript Decoration</h2>
+<p>The listing block JavaScript:</p>
+<ol>
+<li>Converts rows to <code>&#x3C;ul></code> / <code>&#x3C;li></code> structure</li>
+<li>Identifies image and content sections</li>
+<li>Applies semantic class names</li>
+<li>Optimizes images for delivery</li>
+</ol>
+<h2 id="example-output">Example Output</h2>
+<p>Listing renders as a vertical stack of items with horizontal layout (image left, content right) and divider lines between items. On mobile, it stacks vertically.</p></div>
+</main>
+<footer></footer>
+</body>
+</html>

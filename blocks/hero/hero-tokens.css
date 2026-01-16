@@ -1,0 +1,156 @@
+/* ========================================
+   HERO BLOCK - COMPONENT DESIGN TOKENS
+   Extracted from Figma: Teaser: Home Hero (3970:58657)
+   ======================================== */
+
+.hero {
+  /* ========================================
+     COLORS - Component-Specific
+     ======================================== */
+
+  /* Background colors */
+  --hero-background-color: #000;
+  --hero-background-overlay: rgb(0 0 0 / 30%);
+  --hero-background-fallback: var(--color-text-primary);
+
+  /* Text colors */
+  --hero-text-color: var(--color-text-light);
+  --hero-heading-color: var(--color-text-light);
+  --hero-description-color: var(--color-text-light);
+  --hero-text-shadow: 0 2px 4px rgb(0 0 0 / 20%);
+
+  /* ========================================
+     TYPOGRAPHY - Component-Specific
+     ======================================== */
+
+  /* Font families */
+  --hero-heading-font-family: var(--font-family-display);
+  --hero-body-font-family: var(--font-family-text);
+
+  /* Font sizes */
+  --hero-heading-font-size: var(--font-size-5xl);
+  --hero-heading-font-size-mobile: var(--font-size-4xl);
+  --hero-body-font-size: var(--font-size-lg);
+  --hero-body-font-size-mobile: var(--font-size-md);
+
+  /* Font weights */
+  --hero-heading-font-weight: var(--font-weight-regular);
+  --hero-body-font-weight: var(--font-weight-regular);
+
+  /* Line heights */
+  --hero-heading-line-height: var(--line-height-4xl);
+  --hero-body-line-height: var(--line-height-lg);
+
+  /* Letter spacing */
+  --hero-heading-letter-spacing: -0.02em;
+  --hero-body-letter-spacing: 0;
+
+  /* ========================================
+     SPACING - Component-Specific
+     ======================================== */
+
+  /* Padding */
+  --hero-padding-x: var(--teaser-hero-pad-x);
+  --hero-padding-y: var(--teaser-hero-pad-y);
+  --hero-padding-top: var(--spacing-lg);
+  --hero-padding-right: var(--spacing-sm);
+  --hero-padding-bottom: var(--spacing-lg);
+  --hero-padding-left: var(--spacing-sm);
+  --hero-padding-mobile: var(--spacing-sm);
+  --hero-padding-desktop: var(--spacing-lg);
+
+  /* Content spacing */
+  --hero-content-gap: 16px; /* FIXED: per Figma gap-[16px] */
+  --hero-heading-margin-bottom: 0;
+  --hero-description-margin-bottom: 0;
+
+  /* Section spacing */
+  --hero-section-margin-top: 0;
+  --hero-section-margin-bottom: var(--spacing-xl);
+
+  /* ========================================
+     LAYOUT - Component-Specific
+     ======================================== */
+
+  /* Container dimensions */
+  --hero-min-height: 480px;
+  --hero-min-height-mobile: 360px;
+  --hero-max-width: var(--max-width-frame);
+  --hero-content-max-width: var(--max-width-site);
+
+  /* Flexbox properties */
+  --hero-display: flex;
+  --hero-flex-direction: column;
+  --hero-justify-content: center;
+  --hero-align-items: flex-start; /* FIXED: was center, per Figma left-aligned */
+  --hero-text-align: left; /* FIXED: was center, per Figma left-aligned */
+
+  /* Grid properties (alternative layout) */
+  --hero-grid-columns: 1fr;
+  --hero-grid-gap: var(--spacing-md);
+
+  /* Z-index layers */
+  --hero-z-background: 0;
+  --hero-z-overlay: 1;
+  --hero-z-content: 2;
+
+  /* ========================================
+     BACKGROUND IMAGE
+     ======================================== */
+
+  /* Image positioning */
+  --hero-bg-image-position: center center;
+  --hero-bg-image-size: cover;
+  --hero-bg-image-repeat: no-repeat;
+  --hero-bg-image-attachment: scroll;
+
+  /* Image overlay */
+  --hero-overlay-opacity: 0.3;
+  --hero-overlay-blend-mode: normal;
+
+  /* ========================================
+     BORDERS & EFFECTS
+     ======================================== */
+
+  /* Border radius */
+  --hero-border-radius: 0;
+
+  /* Shadows */
+  --hero-box-shadow: none;
+  --hero-content-shadow: var(--shadow-md);
+
+  /* Opacity */
+  --hero-content-opacity: 1;
+  --hero-hover-opacity: 0.95;
+
+  /* ========================================
+     TRANSITIONS & ANIMATIONS
+     ======================================== */
+
+  /* Transition properties */
+  --hero-transition-duration: var(--transition-base);
+  --hero-transition-easing: var(--ease-in-out);
+  --hero-transition-property: opacity, transform;
+
+  /* Animation timing */
+  --hero-animation-duration: 0.6s;
+  --hero-animation-delay: 0s;
+  --hero-animation-easing: var(--ease-out);
+
+  /* ========================================
+     RESPONSIVE BREAKPOINTS
+     ======================================== */
+
+  /* Mobile adjustments */
+  --hero-mobile-padding-x: var(--spacing-sm);
+  --hero-mobile-padding-y: var(--spacing-md);
+  --hero-mobile-min-height: 360px;
+
+  /* Tablet adjustments */
+  --hero-tablet-padding-x: var(--spacing-md);
+  --hero-tablet-padding-y: var(--spacing-lg);
+
+  /* Desktop adjustments */
+  --hero-desktop-padding-x: var(--spacing-lg);
+  --hero-desktop-padding-y: var(--spacing-xl);
+}

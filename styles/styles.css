@@ -11,33 +11,177 @@
  */
 
 :root {
-  /* colors */
-  --background-color: white;
-  --light-color: #f8f8f8;
-  --dark-color: #505050;
-  --text-color: #131313;
-  --link-color: #3b63fb;
-  --link-hover-color: #1d3ecf;
+  /* ========================================
+     COLORS - Figma Design Tokens
+     ======================================== */
 
-  /* fonts */
-  --body-font-family: roboto, roboto-fallback, sans-serif;
-  --heading-font-family: roboto-condensed, roboto-condensed-fallback, sans-serif;
+  /* Primary brand colors */
+  --color-primary: #d0006f;
+  --color-primary-dark: #830051;
+  --color-primary-darker: #4f0031;
 
-  /* body sizes */
-  --body-font-size-m: 22px;
-  --body-font-size-s: 19px;
-  --body-font-size-xs: 17px;
+  /* Text colors */
+  --color-text-primary: #363b3b;
+  --color-text-secondary: #3c4242;
+  --color-text-light: #fff;
+  --color-text-interaction: #d0006f;
 
-  /* heading sizes */
-  --heading-font-size-xxl: 55px;
-  --heading-font-size-xl: 44px;
+  /* Background colors */
+  --color-background-white: #fff;
+  --color-background-light: #ebefee;
+  --color-background-transparent: rgb(255 255 255 / 0%);
+
+  /* Border colors */
+  --color-border-light: #ebefee;
+  --color-border-medium: #d7dbdb;
+  --color-border-dark: #363b3b;
+  --color-border-primary: #d0006f;
+
+  /* Button colors */
+  --button-primary-bg: #d0006f;
+  --button-primary-border: #d0006f;
+  --button-primary-text: #fff;
+  --button-secondary-bg: #fff;
+  --button-secondary-border: #d0006f;
+  --button-secondary-text: #d0006f;
+
+  /* Legacy color mappings for EDS compatibility */
+  --background-color: var(--color-background-white);
+  --light-color: var(--color-background-light);
+  --dark-color: var(--color-text-secondary);
+  --text-color: var(--color-text-primary);
+  --link-color: var(--color-primary);
+  --link-hover-color: var(--color-primary-dark);
+
+  /* ========================================
+     TYPOGRAPHY - Figma Design Tokens
+     ======================================== */
+
+  /* Font families */
+  --font-family-display: 'Lexia', serif;
+  --font-family-text: 'Inter', -apple-system, blinkmacsystemfont, 'Segoe UI', sans-serif;
+
+  /* Legacy font family mappings */
+  --body-font-family: var(--font-family-text);
+  --heading-font-family: var(--font-family-display);
+
+  /* Font weights */
+  --font-weight-regular: 400;
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+
+  /* Font sizes */
+  --font-size-sm: 14px;
+  --font-size-md: 16px;
+  --font-size-lg: 18px;
+  --font-size-2xl: 26px;
+  --font-size-4xl: 46px;
+  --font-size-5xl: 56px;
+
+  /* Legacy body sizes */
+  --body-font-size-m: var(--font-size-lg);
+  --body-font-size-s: var(--font-size-md);
+  --body-font-size-xs: var(--font-size-sm);
+
+  /* Legacy heading sizes */
+  --heading-font-size-xxl: var(--font-size-5xl);
+  --heading-font-size-xl: var(--font-size-4xl);
   --heading-font-size-l: 34px;
-  --heading-font-size-m: 27px;
+  --heading-font-size-m: var(--font-size-2xl);
   --heading-font-size-s: 24px;
   --heading-font-size-xs: 22px;
 
+  /* Line heights */
+  --line-height-sm: 1.286;       /* 18px for 14px font */
+  --line-height-md: 1.5;         /* 24px for 16px font */
+  --line-height-lg: 1.556;       /* 28px for 18px font */
+  --line-height-xl: 1.308;       /* 34px for 26px font */
+  --line-height-3xl: 1.087;      /* 50px for 46px font */
+  --line-height-4xl: 1.071;      /* 60px for 56px font */
+
+  /* Paragraph spacing */
+  --paragraph-spacing-md: 24px;
+  --paragraph-spacing-xl: 56px;
+
+  /* ========================================
+     SPACING - Figma Design Tokens
+     ======================================== */
+
+  /* Base spacing scale */
+  --spacing-none: 0;
+  --spacing-xs: 16px;
+  --spacing-sm: 20px;
+  --spacing-md: 24px;
+  --spacing-lg: 40px;
+  --spacing-xl: 56px;
+
+  /* Container padding */
+  --container-padding-none: 0;
+  --container-padding-sm: 20px;
+  --container-padding-md: 40px;
+
+  /* Component-specific spacing */
+  --teaser-hero-pad-x: 20px;
+  --teaser-hero-pad-y: 40px;
+  --teaser-content-pad-x: 24px;
+  --teaser-content-pad-y: 24px;
+
+  /* Mobile padding */
+  --mobile-x-padding: 0;
+
+  /* Title spacing */
+  --title-space: 20px;
+  --title-space-md: 40px;
+
+  /* Text spacing */
+  --text-spacing-x: 0;
+  --text-spacing-y: 16px;
+
+  /* ========================================
+     LAYOUT - Figma Design Tokens
+     ======================================== */
+
+  /* Max widths */
+  --max-width-site: 1180px;
+  --max-width-frame: 1440px;
+
+  /* Container column widths */
+  --col-width-2: 400px;
+  --col-width-3: 296px;
+
+  /* ========================================
+     BORDERS & EFFECTS
+     ======================================== */
+
+  /* Border radius */
+  --radius-base: 4px;
+  --radius-md: 8px;
+  --radius-full: 9999px;
+
+  /* ========================================
+     TRANSITIONS
+     ======================================== */
+
+  /* Duration */
+  --transition-fast: 150ms;
+  --transition-base: 200ms;
+  --transition-slow: 300ms;
+
+  /* Easing */
+  --ease-in: cubic-bezier(0.4, 0, 1, 1);
+  --ease-out: cubic-bezier(0, 0, 0.2, 1);
+  --ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
+
+  /* Shadows */
+  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 5%);
+  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 10%);
+  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 10%);
+
   /* nav height */
   --nav-height: 64px;
+  --header-height: var(--nav-height);
 }
 
 /* fallback fonts */
@@ -78,6 +222,11 @@ body {
   font-family: var(--body-font-family);
   font-size: var(--body-font-size-m);
   line-height: 1.6;
+  overflow-x: hidden; /* FIXED: Prevent horizontal scroll */
+}
+
+html {
+  overflow-x: hidden; /* FIXED: Prevent horizontal scroll */
 }
 
 body.appear {
@@ -112,8 +261,15 @@ h6 {
   scroll-margin: 40px;
 }
 
-h1 { font-size: var(--heading-font-size-xxl); }
-h2 { font-size: var(--heading-font-size-xl); }
+h1 { font-size: var(--heading-font-size-xxl);
+  color: #830051;
+  font-weight: 400;
+}
+
+h2 {
+  font-size: var(--heading-font-size-xl);
+  color: var(--color-primary); /* Magenta/purple color for H2 */
+}
 h3 { font-size: var(--heading-font-size-l); }
 h4 { font-size: var(--heading-font-size-m); }
 h5 { font-size: var(--heading-font-size-s); }
@@ -173,7 +329,7 @@ button {
   max-width: 100%;
   margin: 12px 0;
   border: 2px solid transparent;
-  border-radius: 2.4em;
+  border-radius: 8px;
   padding: 0.5em 1.2em;
   font-family: var(--body-font-family);
   font-style: normal;
@@ -233,7 +389,7 @@ main > .section {
 }
 
 main > .section > div {
-  max-width: 1200px;
+  max-width: var(--max-width-site); /* 1180px per Figma */
   margin: auto;
   padding: 0 24px;
 }
@@ -254,4 +410,26 @@ main .section.highlight {
   background-color: var(--light-color);
   margin: 0;
   padding: 40px 0;
+}
+
+.section.hidden {
+  display: none;
+}
+
+/* ========================================
+   INTRO TEXT - 3 LINE CLAMP
+   ======================================== */
+
+.intro-text {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  line-height: 1.5;
+  font-family: var(--font-family-text);
+  font-size: var(--font-size-md);
+  font-weight: var(--font-weight-light);
+  color: var(--color-text-secondary);
+  margin-bottom: 2px;
 }

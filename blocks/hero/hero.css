@@ -1,37 +1,201 @@
-.hero-container .hero-wrapper {
-  max-width: unset;
+/* ========================================
+   HERO BLOCK - 100% Token-Based Styling
+   Import component tokens first
+   ======================================== */
+
+@import url('hero-tokens.css');
+
+/* ========================================
+   CONTAINER WRAPPER - Full Width Override
+   ======================================== */
+
+/* Override global section constraints for full-width hero */
+main > .section.hero-container {
+  margin: 0;
   padding: 0;
+  overflow-x: hidden; /* FIXED: Prevent horizontal scroll */
 }
+
+main > .section.hero-container > .hero-wrapper {
+  max-width: 100vw; /* FIXED: Constrain to viewport width */
+  padding: 0;
+  margin: 0;
+  overflow-x: hidden;
+}
+
+/* ========================================
+   HERO BLOCK BASE
+   ======================================== */
 
 .hero {
   position: relative;
-  padding: 40px 24px;
-  min-height: 300px;
+  display: var(--hero-display);
+  flex-direction: var(--hero-flex-direction);
+  justify-content: var(--hero-justify-content);
+  align-items: var(--hero-align-items);
+  width: 100%;
+  max-width: 100vw; /* FIXED: Constrain to viewport width to prevent horizontal scroll */
+  min-height: var(--hero-min-height-mobile);
+  padding: var(--hero-padding-y) var(--hero-padding-x);
+  gap: var(--hero-content-gap);
+  background-color: var(--hero-background-color);
+  text-align: var(--hero-text-align);
+  border-radius: var(--hero-border-radius);
+  box-shadow: var(--hero-box-shadow);
+  transition: var(--hero-transition-property) var(--hero-transition-duration) var(--hero-transition-easing);
+  overflow: hidden; /* FIXED: Clip any overflow */
 }
 
-.hero h1 {
-  max-width: 1200px;
-  margin-left: auto;
-  margin-right: auto;
-  color: var(--background-color);
+/* ========================================
+   TYPOGRAPHY
+   ======================================== */
+
+.hero h1,
+.hero h2,
+.hero h3,
+.hero h4,
+.hero h5,
+.hero h6 {
+  max-width: var(--hero-content-max-width);
+  margin: 0; /* FIXED: Use parent gap instead of margins */
+  font-family: var(--hero-heading-font-family);
+  font-size: var(--hero-heading-font-size-mobile);
+  font-weight: var(--hero-heading-font-weight);
+  line-height: var(--hero-heading-line-height);
+  letter-spacing: normal; /* FIXED: Remove negative letter-spacing per Figma */
+  color: var(--hero-heading-color);
+  text-shadow: var(--hero-text-shadow);
 }
 
-.hero picture {
+.hero p {
+  max-width: 577px; /* FIXED: Reduced from 1180px per Figma for better readability */
+  margin: 0; /* FIXED: Use parent gap instead of margins */
+  font-family: var(--hero-body-font-family);
+  font-size: var(--hero-body-font-size-mobile);
+  font-weight: var(--hero-body-font-weight);
+  line-height: var(--hero-body-line-height);
+  letter-spacing: var(--hero-body-letter-spacing);
+  color: var(--hero-description-color);
+  text-shadow: var(--hero-text-shadow);
+}
+
+/* ========================================
+   NO-IMAGE VARIANT
+   ======================================== */
+
+.hero.no-image * {
+  color: var(--color-text-primary);
+  text-shadow: none;
+}
+
+.hero.no-image {
+  background-color: var(--hero-background-fallback);
+}
+
+/* ========================================
+   CONTENT WRAPPER
+   ======================================== */
+
+.hero > div {
+  position: relative;
+  z-index: var(--hero-z-content);
+  display: var(--hero-display);
+  flex-direction: var(--hero-flex-direction);
+  gap: var(--hero-content-gap);
+  max-width: var(--hero-content-max-width);
+  opacity: var(--hero-content-opacity);
+}
+
+/* ========================================
+   BACKGROUND IMAGE
+   ======================================== */
+
+.hero > div:first-child {
   position: absolute;
-  z-index: -1;
+  z-index: var(--hero-z-background);
   inset: 0;
-  object-fit: cover;
-  box-sizing: border-box;
-}
-
-.hero img {
-  object-fit: cover;
+  max-width: none; /* FIXED: Override content max-width for image container */
   width: 100%;
   height: 100%;
 }
 
+.hero picture {
+  position: absolute;
+  z-index: var(--hero-z-background);
+  inset: 0;
+  display: block;
+}
+
+.hero picture::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--hero-background-overlay);
+  opacity: var(--hero-overlay-opacity);
+  z-index: var(--hero-z-overlay);
+  mix-blend-mode: var(--hero-overlay-blend-mode);
+}
+
+.hero img {
+  object-fit: var(--hero-bg-image-size);
+  object-position: var(--hero-bg-image-position);
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+/* ========================================
+   RESPONSIVE - TABLET (>= 600px)
+   ======================================== */
+
+@media (width >= 600px) {
+  .hero {
+    padding: var(--hero-tablet-padding-y) var(--hero-tablet-padding-x);
+  }
+
+  .hero h1,
+  .hero h2,
+  .hero h3,
+  .hero h4,
+  .hero h5,
+  .hero h6 {
+    font-size: var(--hero-heading-font-size);
+  }
+
+  .hero p {
+    font-size: var(--hero-body-font-size);
+  }
+}
+
+/* ========================================
+   RESPONSIVE - DESKTOP (>= 900px)
+   ======================================== */
+
 @media (width >= 900px) {
   .hero {
-    padding: 40px 32px;
+    min-height: var(--hero-min-height);
+    padding: var(--hero-desktop-padding-y) var(--hero-desktop-padding-x);
   }
+}
+
+/* ========================================
+   DARK VARIANT
+   ======================================== */
+
+.hero.dark {
+  background-color: var(--color-background-grey);
+}
+
+.hero.dark * {
+  color: var(--color-text-light);
+}
+
+.hero.dark a {
+  background-color: var(--color-primary);
+  color: var(--color-text-light);
+  padding: 8px 16px;
+  border-radius: 4px;
+  text-decoration: none;
+  display: inline-block;
+  font-weight: var(--font-weight-semibold);
 }

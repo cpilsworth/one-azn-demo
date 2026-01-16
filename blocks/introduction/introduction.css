@@ -1,0 +1,127 @@
+/* ========================================
+   INTRODUCTION BLOCK - 100% Token-Based Styling
+   Import component tokens first
+   ======================================== */
+
+@import url('introduction-tokens.css');
+
+/* ========================================
+   CONTAINER WRAPPER
+   ======================================== */
+
+.introduction-container {
+  display: var(--introduction-display);
+  width: var(--introduction-width);
+  background-color: var(--introduction-background-color);
+}
+
+.introduction-container .introduction-wrapper {
+  max-width: var(--max-width-site); /* 1180px - use global token directly since parent can't inherit from child */
+  width: 100%;
+  margin: 0 auto;
+  padding: var(--introduction-padding-y, 0) var(--introduction-container-padding-x-mobile, 16px);
+  overflow: clip;
+}
+
+/* ========================================
+   INTRODUCTION BLOCK BASE
+   ======================================== */
+
+.introduction {
+  display: var(--introduction-display);
+  flex-direction: var(--introduction-flex-direction);
+  align-items: var(--introduction-align-items);
+  width: var(--introduction-width);
+}
+
+/* ========================================
+   TITLE (First div > div > p/h1/h2/h3)
+   ======================================== */
+
+/* ========================================
+   BODY TEXT (Subsequent divs > div > p)
+   ======================================== */
+
+.introduction > div:not(:first-child) {
+  width: var(--introduction-width);
+  display: var(--introduction-display);
+  padding: var(--introduction-text-padding-y) var(--introduction-padding-x-mobile);
+}
+
+.introduction > div:first-child {
+  width: var(--introduction-width);
+  display: var(--introduction-display);
+  padding: var(--introduction-padding-y) var(--introduction-padding-x-mobile);
+}
+
+.introduction > div:first-child > div {
+  width: var(--introduction-width);
+}
+
+.introduction > div:first-child h1,
+.introduction > div:first-child h2,
+.introduction > div:first-child h3,
+.introduction > div:first-child h4,
+.introduction > div:first-child h5,
+.introduction > div:first-child h6,
+.introduction > div:first-child p {
+  margin: 0 0 var(--introduction-title-margin-bottom) 0;
+  font-family: var(--introduction-title-font-family);
+  font-size: var(--introduction-title-font-size-mobile);
+  font-weight: var(--introduction-title-font-weight);
+  line-height: var(--introduction-title-line-height-mobile);
+  letter-spacing: var(--introduction-title-letter-spacing);
+  color: var(--introduction-title-color);
+  text-align: var(--introduction-title-align);
+}
+
+.introduction > div:not(:first-child) > div {
+  width: var(--introduction-width);
+}
+
+.introduction > div:not(:first-child) p {
+  margin: 0 0 var(--introduction-text-margin-bottom) 0;
+  font-family: var(--introduction-body-font-family);
+  font-size: var(--introduction-body-font-size);
+  font-weight: var(--introduction-body-font-weight);
+  line-height: var(--introduction-body-line-height);
+  letter-spacing: var(--introduction-body-letter-spacing);
+  color: var(--introduction-text-color);
+  text-align: var(--introduction-text-align);
+}
+
+.introduction > div:not(:first-child) p:last-child {
+  margin-bottom: 0;
+}
+
+/* ========================================
+   RESPONSIVE - TABLET (>= 600px)
+   ======================================== */
+
+@media (width >= 600px) {
+  .introduction-container .introduction-wrapper {
+    padding-left: var(--introduction-container-padding-x);
+    padding-right: var(--introduction-container-padding-x);
+  }
+
+  .introduction > div:first-child {
+    padding-left: var(--introduction-padding-x);
+    padding-right: var(--introduction-padding-x);
+  }
+
+  .introduction > div:not(:first-child) {
+    padding-left: var(--introduction-padding-x);
+    padding-right: var(--introduction-padding-x);
+  }
+
+  .introduction > div:first-child h1,
+  .introduction > div:first-child h2,
+  .introduction > div:first-child h3,
+  .introduction > div:first-child h4,
+  .introduction > div:first-child h5,
+  .introduction > div:first-child h6,
+  .introduction > div:first-child p {
+    font-size: var(--introduction-title-font-size);
+    line-height: var(--introduction-title-line-height);
+  }
+}

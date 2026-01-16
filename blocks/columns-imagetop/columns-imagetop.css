@@ -1,0 +1,142 @@
+/* Import component-specific tokens */
+@import './columns-imagetop-tokens.css';
+
+/* ========================================
+   COLUMNS IMAGETOP CONTAINER
+   ======================================== */
+
+.columns-imagetop-container {
+  background-color: var(--color-background-white);
+}
+
+.columns-imagetop-container .columns-imagetop-wrapper {
+  max-width: var(--columns-imagetop-max-width);
+  margin: 0 auto;
+}
+
+/* ========================================
+   COLUMNS IMAGETOP BLOCK
+   ======================================== */
+
+.columns-imagetop {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  padding: var(--columns-imagetop-padding-y) var(--columns-imagetop-padding-x);
+  max-width: var(--columns-imagetop-max-width);
+  margin: 0 auto;
+}
+
+/* ========================================
+   ROW LAYOUT - Each row contains 3 cells
+   ======================================== */
+
+.columns-imagetop > div {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--columns-imagetop-gap);
+}
+
+/* Each cell in a row */
+.columns-imagetop > div > div {
+  background-color: var(--columns-imagetop-card-bg);
+  overflow: hidden;
+}
+
+/* First row - images - rounded top corners */
+.columns-imagetop > div:first-child > div {
+  border-radius: var(--columns-imagetop-card-radius) var(--columns-imagetop-card-radius) 0 0;
+}
+
+/* Last row - buttons - rounded bottom corners */
+.columns-imagetop > div:last-child > div {
+  border-radius: 0 0 var(--columns-imagetop-card-radius) var(--columns-imagetop-card-radius);
+  padding: var(--columns-imagetop-content-padding);
+}
+
+/* Middle rows - no border radius */
+.columns-imagetop > div:not(:first-child):not(:last-child) > div {
+  padding: var(--columns-imagetop-content-padding) var(--columns-imagetop-content-padding) 0;
+}
+
+/* ========================================
+   IMAGE SECTION
+   ======================================== */
+
+.columns-imagetop picture {
+  display: block;
+  width: 100%;
+  height: var(--columns-imagetop-image-height);
+  overflow: hidden;
+}
+
+.columns-imagetop picture img {
+  width: 100%;
+  height: 100%;
+  object-fit: var(--columns-imagetop-image-object-fit);
+}
+
+/* ========================================
+   TITLE STYLING
+   ======================================== */
+
+.columns-imagetop strong {
+  display: block;
+  font-family: var(--columns-imagetop-title-font-family);
+  font-size: var(--columns-imagetop-title-font-size);
+  font-weight: var(--columns-imagetop-title-font-weight);
+  line-height: var(--columns-imagetop-title-line-height);
+  color: var(--columns-imagetop-title-color);
+  margin: 0;
+}
+
+/* Paragraph wrapper for strong */
+.columns-imagetop p {
+  margin: 0;
+}
+
+/* ========================================
+   BUTTON STYLING
+   ======================================== */
+
+.columns-imagetop a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: fit-content;
+  min-height: var(--columns-imagetop-btn-min-height);
+  padding: var(--columns-imagetop-btn-padding-y) var(--columns-imagetop-btn-padding-x);
+  background-color: var(--columns-imagetop-btn-bg);
+  color: var(--columns-imagetop-btn-color);
+  border: var(--columns-imagetop-btn-border);
+  border-radius: var(--columns-imagetop-btn-radius);
+  font-family: var(--columns-imagetop-btn-font-family);
+  font-size: var(--columns-imagetop-btn-font-size);
+  font-weight: var(--columns-imagetop-btn-font-weight);
+  line-height: var(--columns-imagetop-btn-line-height);
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color var(--transition-base) var(--ease-in-out),
+              border-color var(--transition-base) var(--ease-in-out);
+}
+
+.columns-imagetop a:hover {
+  background-color: var(--columns-imagetop-btn-hover-bg);
+  border: var(--columns-imagetop-btn-hover-border);
+  text-decoration: none;
+}
+
+/* ========================================
+   RESPONSIVE - DESKTOP
+   ======================================== */
+
+@media (width >= 900px) {
+  .columns-imagetop {
+    padding: var(--columns-imagetop-desktop-padding-y) var(--columns-imagetop-padding-x);
+  }
+
+  .columns-imagetop > div {
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--columns-imagetop-desktop-gap);
+  }
+}

@@ -1,0 +1,64 @@
+/* ========================================
+   COLUMNS IMAGETOP - Component Tokens
+   Extracted from Figma: Columns : Image Top | Text Bottom
+   ======================================== */
+
+.columns-imagetop {
+  /* Container */
+  --columns-imagetop-bg: var(--color-background-light);
+  --columns-imagetop-padding-x: 24px;
+  --columns-imagetop-padding-y: 40px;
+  --columns-imagetop-max-width: var(--max-width-site);
+  --columns-imagetop-gap: 24px;
+
+  /* Card */
+  --columns-imagetop-card-bg: var(--color-background-light);
+  --columns-imagetop-card-radius: var(--radius-md);
+  --columns-imagetop-card-overflow: hidden;
+
+  /* Image */
+  --columns-imagetop-image-height: 218px;
+  --columns-imagetop-image-object-fit: cover;
+  --columns-imagetop-image-bg: #e8ebea;
+
+  /* Content */
+  --columns-imagetop-content-padding: var(--spacing-md);
+  --columns-imagetop-content-gap: 16px;
+  --columns-imagetop-content-bg: var(--color-background-light);
+
+  /* Title */
+  --columns-imagetop-title-font-family: var(--font-family-display);
+  --columns-imagetop-title-font-size: var(--font-size-2xl);
+  --columns-imagetop-title-font-weight: var(--font-weight-regular);
+  --columns-imagetop-title-line-height: var(--line-height-xl);
+  --columns-imagetop-title-color: var(--color-primary-darker);
+  --columns-imagetop-title-margin: 0;
+
+  /* Description (optional, not in current design) */
+  --columns-imagetop-desc-font-family: var(--font-family-text);
+  --columns-imagetop-desc-font-size: var(--font-size-lg);
+  --columns-imagetop-desc-line-height: var(--line-height-lg);
+  --columns-imagetop-desc-color: var(--color-text-primary);
+  --columns-imagetop-desc-margin: 0;
+
+  /* Button */
+  --columns-imagetop-btn-padding-x: 16px;
+  --columns-imagetop-btn-padding-y: 8px;
+  --columns-imagetop-btn-bg: var(--color-primary);
+  --columns-imagetop-btn-color: #000000;  /* Changed to black for visibility */
+  --columns-imagetop-btn-border: 1px solid var(--color-primary);
+  --columns-imagetop-btn-radius: var(--radius-base);
+  --columns-imagetop-btn-font-family: var(--font-family-text);
+  --columns-imagetop-btn-font-size: var(--font-size-md);
+  --columns-imagetop-btn-font-weight: var(--font-weight-semibold);
+  --columns-imagetop-btn-line-height: var(--line-height-md);
+  --columns-imagetop-btn-min-height: 42px;
+
+  /* Button hover */
+  --columns-imagetop-btn-hover-bg: var(--color-primary-dark);
+  --columns-imagetop-btn-hover-border: 1px solid var(--color-primary-dark);
+
+  /* Responsive - Desktop */
+  --columns-imagetop-desktop-gap: 24px;
+  --columns-imagetop-desktop-padding-y: 56px;
+}

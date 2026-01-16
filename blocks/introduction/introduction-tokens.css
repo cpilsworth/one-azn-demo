@@ -1,0 +1,53 @@
+/* ========================================
+   INTRODUCTION BLOCK - COMPONENT TOKENS
+   Extracted from Figma: Introduction Block
+   Node ID: 3970:58659
+   ======================================== */
+
+.introduction {
+  /* Layout & Structure */
+  --introduction-display: flex;
+  --introduction-flex-direction: column;
+  --introduction-align-items: center;
+  --introduction-max-width: var(--max-width-site);
+  --introduction-width: 100%;
+
+  /* Background & Colors */
+  --introduction-background-color: var(--color-background-white);
+  --introduction-title-color: var(--color-primary-dark);
+  --introduction-text-color: var(--color-text-primary);
+
+  /* Typography - Title */
+  --introduction-title-font-family: var(--font-family-display);
+  --introduction-title-font-size-mobile: var(--font-size-3xl);
+  --introduction-title-font-size: var(--font-size-5xl);
+  --introduction-title-font-weight: var(--font-weight-normal);
+  --introduction-title-line-height-mobile: var(--line-height-3xl);
+  --introduction-title-line-height: var(--line-height-4xl);
+  --introduction-title-letter-spacing: normal;
+
+  /* Typography - Body */
+  --introduction-body-font-family: var(--font-family-text);
+  --introduction-body-font-size: var(--font-size-md);
+  --introduction-body-font-weight: var(--font-weight-normal);
+  --introduction-body-line-height: var(--line-height-md);
+  --introduction-body-letter-spacing: normal;
+
+  /* Spacing */
+  --introduction-padding-x-mobile: var(--spacing-xs);
+  --introduction-padding-x: var(--spacing-md);
+  --introduction-padding-y: 0;
+  --introduction-title-margin-bottom: 0;
+  --introduction-text-padding-x: 0;
+  --introduction-text-padding-y: var(--spacing-xs);
+  --introduction-text-margin-bottom: var(--spacing-md);
+
+  /* Container Spacing */
+  --introduction-container-padding-x-mobile: var(--spacing-xs);
+  --introduction-container-padding-x: var(--spacing-md);
+  --introduction-container-overflow: clip;
+
+  /* Text Alignment */
+  --introduction-text-align: left;
+  --introduction-title-align: left;
+}

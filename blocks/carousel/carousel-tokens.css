@@ -1,0 +1,141 @@
+/* ========================================
+   CAROUSEL BLOCK - DESIGN TOKENS
+   100% Token-Based Styling System
+   ======================================== */
+
+/* ========================================
+   CONTAINER TOKENS
+   ======================================== */
+
+:root {
+  /* Container */
+  --carousel-background-color: #ebefee;
+  --carousel-container-max-width: 1200px;
+  --carousel-container-padding-y: 40px;
+  --carousel-container-padding-x: 40px;
+  --carousel-container-padding-x-mobile: 20px;
+  --carousel-display: flex;
+  --carousel-flex-direction: column;
+  --carousel-align-items: center;
+  --carousel-width: 100%;
+
+  /* Slides Container */
+  --carousel-slides-position: relative;
+  --carousel-slides-width: 100%;
+  --carousel-slides-overflow: hidden;
+
+  /* Slide */
+  --carousel-slide-display: grid;
+  --carousel-slide-grid-columns: 1fr;
+  --carousel-slide-grid-columns-desktop: 1fr 1fr;
+  --carousel-slide-gap: 30px;
+  --carousel-slide-width: 100%;
+
+  /* Image */
+  --carousel-image-aspect-ratio: 1 / 1;
+  --carousel-image-object-fit: cover;
+  --carousel-image-object-position: center;
+
+  /* Content */
+  --carousel-content-display: flex;
+  --carousel-content-flex-direction: column;
+  --carousel-content-gap: 16px;
+  --carousel-content-padding-y: 32px;
+  --carousel-content-padding-x: 32px;
+  --carousel-content-padding-x-mobile: 20px;
+
+  /* Brand Slot */
+  --carousel-brand-height: 52px;
+  --carousel-brand-margin-bottom: 24px;
+
+  /* Title */
+  --carousel-title-font-family: var(--font-family-heading);
+  --carousel-title-font-size: 26px;
+  --carousel-title-font-size-mobile: 22px;
+  --carousel-title-font-weight: var(--font-weight-regular);
+  --carousel-title-line-height: 1.3;
+  --carousel-title-color: #4f0031;
+
+  /* Description */
+  --carousel-description-font-family: var(--font-family-body);
+  --carousel-description-font-size: 18px;
+  --carousel-description-font-size-mobile: 16px;
+  --carousel-description-font-weight: var(--font-weight-regular);
+  --carousel-description-line-height: 1.5;
+  --carousel-description-color: var(--color-text-primary);
+
+  /* Button */
+  --carousel-button-font-family: var(--font-family-body);
+  --carousel-button-font-size: 16px;
+  --carousel-button-font-weight: var(--font-weight-semibold);
+  --carousel-button-padding-y: 12px;
+  --carousel-button-padding-x: 24px;
+  --carousel-button-background: var(--color-primary);
+  --carousel-button-text: var(--color-text-light);
+  --carousel-button-border-radius: 4px;
+  --carousel-button-min-height: 44px;
+
+  /* Navigation Arrows */
+  --carousel-arrow-size: 56px;
+  --carousel-arrow-background: var(--color-primary);
+  --carousel-arrow-color: var(--color-text-light);
+  --carousel-arrow-border-radius: 50%;
+  --carousel-arrow-position-offset: 80px;
+  --carousel-arrow-position-offset-mobile: -8px;
+  --carousel-arrow-z-index: 10;
+  --carousel-arrow-transition: opacity 0.3s ease;
+
+  /* Pagination */
+  --carousel-pagination-display: flex;
+  --carousel-pagination-gap: 16px;
+  --carousel-pagination-margin-top: 16px;
+  --carousel-pagination-dot-size: 8px;
+  --carousel-pagination-dot-radius: 50%;
+  --carousel-pagination-dot-inactive: #363b3b;
+  --carousel-pagination-dot-active: var(--color-primary);
+  --carousel-pagination-dot-transition: background-color 0.3s ease;
+
+  /* Blocked Overlay */
+  --carousel-overlay-backdrop-blur: blur(11px);
+  --carousel-overlay-background: rgb(46 50 50 / 80%);
+  --carousel-overlay-z-index: 5;
+  --carousel-overlay-padding: 32px;
+  --carousel-overlay-gap: 16px;
+
+  /* Overlay Text */
+  --carousel-overlay-title-font-family: var(--font-family-heading);
+  --carousel-overlay-title-font-size: 32px;
+  --carousel-overlay-title-font-size-mobile: 24px;
+  --carousel-overlay-title-font-weight: var(--font-weight-semibold);
+  --carousel-overlay-title-color: var(--color-text-light);
+  --carousel-overlay-subtitle-font-family: var(--font-family-body);
+  --carousel-overlay-subtitle-font-size: 16px;
+  --carousel-overlay-subtitle-font-size-mobile: 14px;
+  --carousel-overlay-subtitle-color: var(--color-text-light);
+
+  /* Overlay Button */
+  --carousel-overlay-button-background: var(--color-primary);
+  --carousel-overlay-button-text: var(--color-text-light);
+  --carousel-overlay-button-padding-y: 12px;
+  --carousel-overlay-button-padding-x: 32px;
+  --carousel-overlay-button-min-height: 48px;
+
+  /* Hero Variant */
+  --carousel-hero-min-height: 480px;
+  --carousel-hero-content-padding: 40px 20px;
+  --carousel-hero-title-font-family: var(--font-family-heading);
+  --carousel-hero-title-font-size: 56px;
+  --carousel-hero-title-font-size-mobile: 36px;
+  --carousel-hero-title-font-weight: 400;
+  --carousel-hero-title-line-height: 60px;
+  --carousel-hero-title-line-height-mobile: 40px;
+  --carousel-hero-title-color: #fff;
+  --carousel-hero-description-font-family: var(--font-family-body);
+  --carousel-hero-description-font-size: 18px;
+  --carousel-hero-description-line-height: 28px;
+  --carousel-hero-description-color: #fff;
+
+  /* Arrow Colors - Updated for Figma */
+  --carousel-arrow-border-color: #d0006f;
+  --carousel-arrow-hover-background: rgb(208 0 111 / 10%);
+}

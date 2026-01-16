@@ -1,0 +1,38 @@
+/* Listing Block Tokens - Extracted from Figma design */
+.listing {
+  /* Container */
+  --listing-max-width: var(--max-width-site, 1180px);
+  --listing-padding-x: var(--spacing-lg, 40px);
+  --listing-padding-y: var(--spacing-lg, 40px);
+  --listing-background-color: var(--color-background, #fff);
+
+  /* Card Layout */
+  --listing-card-gap: 24px;
+  --listing-card-padding: 20px;
+
+  /* Image */
+  --listing-image-width: 343px;
+  --listing-image-height: 194px;
+  --listing-image-border-radius: var(--border-radius-md, 8px);
+
+  /* Title */
+  --listing-title-font-family: var(--font-family-display, 'Lexia', serif);
+  --listing-title-font-size: 36px;
+  --listing-title-font-weight: var(--font-weight-bold, 700);
+  --listing-title-line-height: 40px;
+  --listing-title-color: #830051;
+
+  /* Description */
+  --listing-desc-font-family: var(--font-family-text, 'Inter', sans-serif);
+  --listing-desc-font-size: var(--font-size-body, 16px);
+  --listing-desc-line-height: 1.5;
+  --listing-desc-color: #363b3b;
+
+  /* Button/Save Icon */
+  --listing-button-color: #d0006f;
+  --listing-button-size: 28px;
+
+  /* Divider */
+  --listing-divider-color: var(--color-border, #b1b9b9);
+  --listing-divider-height: 1px;
+}

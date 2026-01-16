@@ -1,0 +1,289 @@
+/* ========================================
+   TEASER BLOCK - 100% Token-Based Styling
+   Import component tokens first
+   ======================================== */
+
+@import url('teaser-tokens.css');
+
+/* ========================================
+   TEASER CONTAINER
+   ======================================== */
+
+.teaser-container {
+  background-color: var(--color-background-white);
+}
+
+.teaser-container .teaser-wrapper {
+  max-width: var(--max-width-site);
+  margin: 0 auto;
+  padding: 40px 24px;
+}
+
+.teaser-container.light {
+  background-color: var(--color-background-light);
+}
+
+/* ========================================
+   TEASER BLOCK BASE
+   ======================================== */
+
+.teaser {
+  display: var(--teaser-display);
+  flex-direction: var(--teaser-flex-direction);
+  align-items: var(--teaser-align-items);
+  width: var(--teaser-width);
+  max-width: var(--teaser-max-width);
+  padding: var(--teaser-padding-y) var(--teaser-padding-x);
+}
+
+/* ========================================
+   GRID LAYOUT (Image + Content)
+   ======================================== */
+
+.teaser .teaser-grid {
+  display: var(--teaser-grid-display);
+  grid-template-columns: var(--teaser-grid-columns);
+  gap: var(--teaser-grid-gap);
+  width: var(--teaser-width);
+  position: relative;
+}
+
+/* ========================================
+   IMAGE SECTION
+   ======================================== */
+
+.teaser .teaser-image {
+  position: relative;
+  width: var(--teaser-image-width);
+  line-height: 0;
+  overflow: hidden;
+}
+
+/* Handle nested div structure in image row */
+.teaser .teaser-image > div {
+  width: 100%;
+  line-height: 0;
+}
+
+.teaser .teaser-image picture {
+  display: block;
+  width: 100%;
+  height: var(--teaser-image-height);
+}
+
+.teaser .teaser-image img {
+  width: 100%;
+  height: var(--teaser-image-height);
+  aspect-ratio: var(--teaser-image-aspect-ratio);
+  object-fit: var(--teaser-image-object-fit);
+  object-position: var(--teaser-image-object-position);
+  display: block;
+}
+
+/* ========================================
+   CONTENT SECTION
+   ======================================== */
+
+.teaser .teaser-content {
+  display: var(--teaser-content-display);
+  flex-direction: var(--teaser-content-flex-direction);
+  gap: var(--teaser-content-gap);
+  padding: var(--teaser-content-padding-y) var(--teaser-content-padding-x-mobile);
+  justify-content: var(--teaser-content-justify);
+  align-items: var(--teaser-content-align);
+}
+
+/* Brand Slot */
+.teaser .teaser-brand {
+  height: var(--teaser-brand-height);
+  width: var(--teaser-brand-width);
+  margin-bottom: var(--teaser-brand-margin-bottom);
+}
+
+.teaser .teaser-brand img {
+  height: var(--teaser-brand-height);
+  width: var(--teaser-brand-width);
+  object-fit: contain;
+  object-position: left center;
+}
+
+/* Title */
+.teaser .teaser-title {
+  font-family: var(--teaser-title-font-family);
+  font-size: var(--teaser-title-font-size-mobile);
+  font-weight: var(--teaser-title-font-weight);
+  line-height: var(--teaser-title-line-height);
+  letter-spacing: var(--teaser-title-letter-spacing);
+  color: var(--teaser-title-color);
+  margin-bottom: var(--teaser-title-margin-bottom);
+}
+
+.teaser .teaser-title p,
+.teaser .teaser-title h1,
+.teaser .teaser-title h2,
+.teaser .teaser-title h3,
+.teaser .teaser-title h4,
+.teaser .teaser-title h5,
+.teaser .teaser-title h6 {
+  margin: 0;
+  font-family: inherit;
+  font-size: inherit;
+  font-weight: inherit;
+  line-height: inherit;
+  color: inherit;
+}
+
+/* Description */
+.teaser .teaser-description {
+  font-family: var(--teaser-description-font-family);
+  font-size: var(--teaser-description-font-size-mobile);
+  font-weight: var(--teaser-description-font-weight);
+  line-height: var(--teaser-description-line-height);
+  letter-spacing: var(--teaser-description-letter-spacing);
+  color: var(--teaser-description-color);
+  margin-bottom: var(--teaser-description-margin-bottom);
+}
+
+.teaser .teaser-description p {
+  margin: 0;
+  font-family: inherit;
+  font-size: inherit;
+  font-weight: inherit;
+  line-height: inherit;
+  color: inherit;
+}
+
+/* Button Container */
+.teaser .teaser-button {
+  margin: 0;
+}
+
+.teaser .teaser-button a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: var(--teaser-button-min-height);
+  padding: var(--teaser-button-padding-y) var(--teaser-button-padding-x);
+  font-family: var(--teaser-button-font-family);
+  font-size: var(--teaser-button-font-size);
+  font-weight: var(--teaser-button-font-weight);
+  line-height: var(--teaser-button-line-height);
+  color: var(--teaser-button-text);
+  background-color: var(--teaser-button-background);
+  border: var(--teaser-button-border-width) solid var(--teaser-button-border-color);
+  border-radius: var(--teaser-button-border-radius);
+  text-decoration: none;
+  white-space: nowrap;
+  transition: opacity 0.3s ease;
+}
+
+.teaser .teaser-button a:hover {
+  opacity: 0.9;
+}
+
+/* ========================================
+   BLOCKED OVERLAY VARIANT
+   ======================================== */
+
+.teaser.blocked .teaser-overlay {
+  position: var(--teaser-overlay-position);
+  inset: var(--teaser-overlay-inset);
+  z-index: var(--teaser-overlay-z-index);
+  backdrop-filter: var(--teaser-overlay-backdrop-blur);
+  background: var(--teaser-overlay-background);
+  display: var(--teaser-overlay-display);
+  flex-direction: var(--teaser-overlay-flex-direction);
+  justify-content: var(--teaser-overlay-justify);
+  align-items: var(--teaser-overlay-align);
+  padding: var(--teaser-overlay-padding);
+  gap: var(--teaser-overlay-gap);
+}
+
+.teaser.blocked .teaser-overlay-title {
+  font-family: var(--teaser-overlay-title-font-family);
+  font-size: var(--teaser-overlay-title-font-size-mobile);
+  font-weight: var(--teaser-overlay-title-font-weight);
+  line-height: var(--teaser-overlay-title-line-height);
+  color: var(--teaser-overlay-title-color);
+  text-align: var(--teaser-overlay-title-text-align);
+  margin-bottom: var(--teaser-overlay-title-margin-bottom);
+}
+
+.teaser.blocked .teaser-overlay-subtitle {
+  font-family: var(--teaser-overlay-subtitle-font-family);
+  font-size: var(--teaser-overlay-subtitle-font-size-mobile);
+  font-weight: var(--teaser-overlay-subtitle-font-weight);
+  line-height: var(--teaser-overlay-subtitle-line-height);
+  color: var(--teaser-overlay-subtitle-color);
+  text-align: var(--teaser-overlay-subtitle-text-align);
+  margin-bottom: var(--teaser-overlay-subtitle-margin-bottom);
+}
+
+.teaser.blocked .teaser-overlay-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: var(--teaser-overlay-button-min-height);
+  padding: var(--teaser-overlay-button-padding-y) var(--teaser-overlay-button-padding-x);
+  font-family: var(--teaser-overlay-button-font-family);
+  font-size: var(--teaser-overlay-button-font-size);
+  font-weight: var(--teaser-overlay-button-font-weight);
+  line-height: var(--teaser-overlay-button-line-height);
+  color: var(--teaser-overlay-button-text);
+  background-color: var(--teaser-overlay-button-background);
+  border: var(--teaser-overlay-button-border-width) solid var(--teaser-overlay-button-background);
+  border-radius: var(--teaser-overlay-button-border-radius);
+  text-decoration: none;
+  cursor: pointer;
+  transition: opacity 0.3s ease;
+}
+
+.teaser.blocked .teaser-overlay-button:hover {
+  opacity: 0.9;
+}
+
+/* ========================================
+   RESPONSIVE - TABLET (>= 600px)
+   ======================================== */
+
+@media (width >= 600px) {
+  .teaser .teaser-content {
+    padding-left: var(--teaser-content-padding-x);
+    padding-right: var(--teaser-content-padding-x);
+  }
+
+  .teaser .teaser-title {
+    font-size: var(--teaser-title-font-size);
+  }
+
+  .teaser .teaser-description {
+    font-size: var(--teaser-description-font-size);
+  }
+
+  .teaser.blocked .teaser-overlay-title {
+    font-size: var(--teaser-overlay-title-font-size);
+  }
+
+  .teaser.blocked .teaser-overlay-subtitle {
+    font-size: var(--teaser-overlay-subtitle-font-size);
+  }
+}
+
+/* ========================================
+   RESPONSIVE - DESKTOP (>= 900px)
+   ======================================== */
+
+@media (width >= 900px) {
+  .teaser .teaser-grid {
+    grid-template-columns: var(--teaser-grid-columns-desktop);
+  }
+
+  /* Image Right Variant - Reverse column order */
+  .teaser.image-right .teaser-image {
+    order: 2;
+  }
+
+  .teaser.image-right .teaser-content {
+    order: 1;
+  }
+}

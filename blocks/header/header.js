@@ -63,6 +63,20 @@ function toggleAllNavSections(sections, expanded = false) {
 }
 
 /**
+ * Processes sections with metadata to organize them by placement
+ * @param {Element} nav The nav element containing all sections
+ * @returns {Object} Object with topSections, mainSections, and bottomSections arrays
+ */
+function processSectionsWithMetadata(nav) {
+  return Array.from(nav.children).reduce((acc, section) => {
+    const placement = ['top', 'bottom'].find((pos) => section.classList.contains(pos)) || 'main';
+
+    acc[`${placement}Sections`].push(section);
+    return acc;
+  }, { topSections: [], mainSections: [], bottomSections: [] });
+}
+
+/**
  * Toggles the entire nav
  * @param {Element} nav The container element
  * @param {Element} navSections The nav sections within the container element
@@ -113,17 +127,41 @@ export default async function decorate(block) {
   const navPath = navMeta ? new URL(navMeta, window.location).pathname : '/nav';
   const fragment = await loadFragment(navPath);
 
+  // handle case where fragment failed to load
+  if (!fragment) {
+    // eslint-disable-next-line no-console
+    console.warn('Failed to load navigation fragment from', navPath);
+    return;
+  }
+
   // decorate nav DOM
   block.textContent = '';
   const nav = document.createElement('nav');
   nav.id = 'nav';
   while (fragment.firstElementChild) nav.append(fragment.firstElementChild);
 
+  const { topSections, mainSections, bottomSections } = processSectionsWithMetadata(nav);
+  nav.replaceChildren(...mainSections);
+
   const classes = ['brand', 'sections', 'tools'];
   classes.forEach((c, i) => {
     const section = nav.children[i];
     if (section) section.classList.add(`nav-${c}`);
   });
+
+  // create containers for extra sections
+  const createContainer = (sections, containerClass, sectionClass) => {
+    const container = document.createElement('div');
+    container.className = containerClass;
+    sections.forEach((section) => {
+      section.classList.add(sectionClass);
+      container.append(section);
+    });
+    return container;
+  };
+
+  const topContainer = createContainer(topSections, 'nav-top-container', 'nav-top-section');
+  const bottomContainer = createContainer(bottomSections, 'nav-bottom-container', 'nav-bottom-section');
 
   const navBrand = nav.querySelector('.nav-brand');
   const brandLink = navBrand.querySelector('.button');
@@ -161,6 +199,6 @@ export default async function decorate(block) {
 
   const navWrapper = document.createElement('div');
   navWrapper.className = 'nav-wrapper';
-  navWrapper.append(nav);
+  navWrapper.append(topContainer, nav, bottomContainer);
   block.append(navWrapper);
 }

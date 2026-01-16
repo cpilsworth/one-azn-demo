@@ -1,0 +1,152 @@
+<div><h1 id="header-block-template">Header Block Template</h1>
+<h2 id="description">Description</h2>
+<p>The Header block provides a responsive navigation structure with a top utility bar, main navigation with dropdown menus, and tools section. It's designed to match the AstraZeneca brand guidelines.</p>
+<h2 id="figma-source">Figma Source</h2>
+<p><strong>Design URL:</strong> https://www.figma.com/design/zaeVL96YxqSeMWcicZPtmj/One-AZ-3.1-%E2%80%93-Market-Master?node-id=3973-34623
+<strong>Component:</strong> Header
+<strong>Node ID:</strong> 3973-34623</p>
+<h2 id="structure">Structure</h2>
+<p>The header consists of three main areas:</p>
+<ol>
+<li><strong>Top Utility Bar</strong> (optional): Contains utility links and language switcher</li>
+<li><strong>Main Navigation</strong>: Logo, navigation menu items with optional dropdowns</li>
+<li><strong>Tools Section</strong>: Search icon and action buttons (e.g., Login)</li>
+</ol>
+<h2 id="navigation-file-structure-navmd">Navigation File Structure (nav.md)</h2>
+<p>The header loads content from <code>/nav.md</code> (or a custom path specified in page metadata). The nav.md file should follow this structure:</p>
+<pre><code class="language-markdown">[Contact Us](#) | [AZ Employee Login](#) | [EN](#) | [FR](#)
+
+| Section Metadata |  |
+|------------------|---|
+| Style            | top |
+
+---
+
+[![AstraZeneca](/icons/astrazeneca-logo.svg)](/)
+
+---
+
+- Products Translation
+  - [Product 1](#)
+  - [Product 2](#)
+  - [Product 3](#)
+- Therapies Translation
+  - [Therapy 1](#)
+  - [Therapy 2](#)
+  - [Therapy 3](#)
+- [News Translation](#)
+
+---
+
+[![Search](/icons/search.svg)](#) **[Login](#)**
+</code></pre>
+<h2 id="section-breakdown">Section Breakdown</h2>
+<h3 id="top-utility-bar">Top Utility Bar</h3>
+<ul>
+<li>First section with <code>Style: top</code> metadata</li>
+<li>Contains utility links separated by <code>|</code></li>
+<li>Language switcher (EN | FR)</li>
+</ul>
+<h3 id="brand-section">Brand Section</h3>
+<ul>
+<li>Contains the logo as an image link</li>
+<li>Logo should link to homepage (<code>/</code>)</li>
+</ul>
+<h3 id="navigation-sections">Navigation Sections</h3>
+<ul>
+<li>Unordered list with top-level navigation items</li>
+<li>Nested lists create dropdown menus</li>
+<li>Items without nested lists are direct links</li>
+</ul>
+<h3 id="tools-section">Tools Section</h3>
+<ul>
+<li>Search icon (linked image)</li>
+<li>Primary action button (Login) - wrapped in <code>**bold**</code> for primary styling</li>
+</ul>
+<h2 id="css-classes-applied">CSS Classes Applied</h2>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="element"><div><div>Wrapper</div><div><code>.nav-wrapper</code></div><div>Contains all header elements</div></div><div><div>Top Bar</div><div><code>.nav-top-container</code></div><div>Utility bar container</div></div><div><div>Main Nav</div><div><code>nav</code></div><div>Main navigation element</div></div><div><div>Brand</div><div><code>.nav-brand</code></div><div>Logo container</div></div><div><div>Sections</div><div><code>.nav-sections</code></div><div>Navigation menu container</div></div><div><div>Tools</div><div><code>.nav-tools</code></div><div>Right-side tools container</div></div><div><div>Dropdown</div><div><code>.nav-drop</code></div><div>Navigation items with submenus</div></div><div><div>Hamburger</div><div><code>.nav-hamburger</code></div><div>Mobile menu toggle</div></div></div>
+<h2 id="css-variables-used">CSS Variables Used</h2>
+<pre><code class="language-css">/* Colors */
+--color-primary: #d0006f;
+--color-text-primary: #363b3b;
+--color-background-white: #fff;
+--color-border-light: #ebefee;
+
+/* Typography */
+--font-size-sm: 14px;
+--font-size-md: 16px;
+--font-weight-medium: 500;
+
+/* Layout */
+--nav-height: 64px;
+--nav-top-height: 40px;
+</code></pre>
+<h2 id="responsive-behavior">Responsive Behavior</h2>
+<ul>
+<li><strong>Desktop (900px+)</strong>: Full horizontal navigation with dropdown menus</li>
+<li><strong>Mobile (&#x3C;900px)</strong>: Hamburger menu, top bar hidden, stacked navigation</li>
+</ul>
+<h2 id="content-guidelines">Content Guidelines</h2>
+<ul>
+<li><strong>Logo</strong>: SVG format recommended, max-height 40px</li>
+<li><strong>Navigation Items</strong>: Keep to 3-5 main items for best UX</li>
+<li><strong>Dropdown Items</strong>: Limit to 5-7 items per dropdown</li>
+<li><strong>Utility Links</strong>: Keep text short and concise</li>
+</ul>
+<h2 id="example-output">Example Output</h2>
+<p>The header renders as a fixed position element at the top of the page with:</p>
+<ul>
+<li>White background</li>
+<li>Subtle box shadow</li>
+<li>Responsive layout adapting to screen size</li>
+</ul></div>

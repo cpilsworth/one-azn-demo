@@ -1,0 +1,88 @@
+{
+  "page_name": "Carousel Component",
+  "figma_url": "https://www.figma.com/design/kQplMQTStmD7cRMJiG4T6c/One-AZ-3.1-%E2%80%93-Market-Master?node-id=2243-39206",
+  "page_node_id": "2243:39206",
+  "blocks": [
+    {
+      "block_name": "carousel",
+      "variant": "image-right",
+      "figma_node_id": "2214:33370",
+      "figma_component_name": "Carousel: Teaser – Text and Image / Image Right",
+      "css_selector": ".carousel:not(.image-left):not(.hero):not(.image-only)",
+      "elements": [
+        {
+          "node_id": "2214:33370",
+          "name": "Carousel Container",
+          "type": "INSTANCE",
+          "css_selector": ".carousel"
+        },
+        {
+          "node_id": "I2214:33370;2619:8584;2510:4980;2617:7579;2165:4379",
+          "name": "Title",
+          "type": "TEXT",
+          "css_selector": ".carousel .carousel-slide-content strong"
+        },
+        {
+          "node_id": "I2214:33370;2619:8584;2510:4980;2617:7579;2165:4381",
+          "name": "Description",
+          "type": "TEXT",
+          "css_selector": ".carousel .carousel-slide-content p"
+        },
+        {
+          "node_id": "I2214:33370;2619:8584;2510:4980;2617:7580",
+          "name": "Navigation Arrows",
+          "type": "FRAME",
+          "css_selector": ".carousel .carousel-navigation-buttons"
+        },
+        {
+          "node_id": "I2214:33370;2619:8584;2510:4980;2617:7585",
+          "name": "Pagination",
+          "type": "FRAME",
+          "css_selector": ".carousel .carousel-slide-indicators"
+        }
+      ]
+    },
+    {
+      "block_name": "carousel",
+      "variant": "hero",
+      "figma_node_id": "2217:37161",
+      "figma_component_name": "Carousel: Teaser – Hero / Centre Aligned",
+      "css_selector": ".carousel.hero",
+      "elements": [
+        {
+          "node_id": "2217:37161",
+          "name": "Carousel Hero Container",
+          "type": "INSTANCE",
+          "css_selector": ".carousel.hero"
+        },
+        {
+          "node_id": "I2217:37161;2619:8584;2510:4980;2617:7579;2164:3943",
+          "name": "Hero Title",
+          "type": "TEXT",
+          "css_selector": ".carousel.hero .carousel-slide-content strong"
+        },
+        {
+          "node_id": "I2217:37161;2619:8584;2510:4980;2617:7579;2164:3945",
+          "name": "Hero Description",
+          "type": "TEXT",
+          "css_selector": ".carousel.hero .carousel-slide-content p"
+        }
+      ]
+    },
+    {
+      "block_name": "carousel",
+      "variant": "image-only",
+      "figma_node_id": "2214:38197",
+      "figma_component_name": "Carousel: Image / Ratio 16:9",
+      "css_selector": ".carousel.image-only",
+      "elements": [
+        {
+          "node_id": "2214:38197",
+          "name": "Carousel Image Only",
+          "type": "INSTANCE",
+          "css_selector": ".carousel.image-only"
+        }
+      ]
+    }
+  ]
+}

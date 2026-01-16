@@ -1,0 +1,133 @@
+/* ========================================
+   TEASER BLOCK - DESIGN TOKENS
+   100% Token-Based Styling System
+   ======================================== */
+
+/* ========================================
+   LAYOUT TOKENS
+   ======================================== */
+
+:root {
+  /* Container */
+  --teaser-display: flex;
+  --teaser-flex-direction: column;
+  --teaser-align-items: center;
+  --teaser-width: 100%;
+  --teaser-max-width: 1200px;
+  --teaser-padding-y: 0;
+  --teaser-padding-x: 0;
+
+  /* Grid Layout for Image + Content */
+  --teaser-grid-display: grid;
+  --teaser-grid-columns: 1fr;
+  --teaser-grid-columns-desktop: 1fr 1fr;
+  --teaser-grid-gap: 0;
+
+  /* Content Area */
+  --teaser-content-display: flex;
+  --teaser-content-flex-direction: column;
+  --teaser-content-gap: 24px; /* FIXED: was 16px, per Figma critique */
+  --teaser-content-padding-y: 48px; /* FIXED: was 40px, per Figma critique */
+  --teaser-content-padding-x: 40px; /* FIXED: was 32px, per Figma critique */
+  --teaser-content-padding-x-mobile: 20px;
+  --teaser-content-justify: flex-start;
+  --teaser-content-align: flex-start;
+
+  /* Brand Slot */
+  --teaser-brand-height: 52px;
+  --teaser-brand-width: auto;
+  --teaser-brand-margin-bottom: 24px;
+
+  /* Image */
+  --teaser-image-aspect-ratio: 1 / 1;
+  --teaser-image-object-fit: cover;
+  --teaser-image-object-position: center;
+  --teaser-image-width: 100%;
+  --teaser-image-height: 100%;
+
+  /* Title (H4 style) */
+  --teaser-title-font-family: var(--font-family-heading);
+  --teaser-title-font-size: 32px; /* FIXED: was 26px, per Figma critique */
+  --teaser-title-font-size-mobile: 24px; /* FIXED: was 22px, per Figma critique */
+  --teaser-title-font-weight: var(--font-weight-regular);
+  --teaser-title-line-height: 1.3;
+  --teaser-title-letter-spacing: normal;
+  --teaser-title-color: #4f0031;
+  --teaser-title-margin-bottom: 16px; /* FIXED: was 0, per Figma critique */
+
+  /* Description */
+  --teaser-description-font-family: var(--font-family-body);
+  --teaser-description-font-size: 18px;
+  --teaser-description-font-size-mobile: 16px;
+  --teaser-description-font-weight: var(--font-weight-regular);
+  --teaser-description-line-height: 1.5;
+  --teaser-description-letter-spacing: normal;
+  --teaser-description-color: var(--color-text-primary);
+  --teaser-description-margin-bottom: 24px; /* FIXED: was 0, per Figma critique */
+
+  /* Button */
+  --teaser-button-font-family: var(--font-family-body);
+  --teaser-button-font-size: 16px;
+  --teaser-button-font-weight: var(--font-weight-semibold);
+  --teaser-button-line-height: 1.5;
+  --teaser-button-padding-y: 12px;
+  --teaser-button-padding-x: 24px;
+  --teaser-button-background: var(--color-primary);
+  --teaser-button-text: var(--color-text-light);
+  --teaser-button-border-radius: 4px;
+  --teaser-button-border-width: 1px;
+  --teaser-button-border-color: var(--color-primary);
+  --teaser-button-min-height: 48px; /* FIXED: was 44px, per Figma critique */
+}
+
+/* ========================================
+   BLOCKED OVERLAY VARIANT TOKENS
+   ======================================== */
+
+.teaser.blocked {
+  /* Overlay Container */
+  --teaser-overlay-position: absolute;
+  --teaser-overlay-inset: 0;
+  --teaser-overlay-z-index: 10;
+  --teaser-overlay-backdrop-blur: blur(11px);
+  --teaser-overlay-background: rgb(46 50 50 / 80%);
+  --teaser-overlay-display: flex;
+  --teaser-overlay-flex-direction: column;
+  --teaser-overlay-justify: center;
+  --teaser-overlay-align: center;
+  --teaser-overlay-padding: 32px;
+  --teaser-overlay-gap: 16px;
+
+  /* Overlay Title */
+  --teaser-overlay-title-font-family: var(--font-family-heading);
+  --teaser-overlay-title-font-size: 32px;
+  --teaser-overlay-title-font-size-mobile: 24px;
+  --teaser-overlay-title-font-weight: var(--font-weight-semibold);
+  --teaser-overlay-title-line-height: 1.3;
+  --teaser-overlay-title-color: var(--color-text-light);
+  --teaser-overlay-title-text-align: center;
+  --teaser-overlay-title-margin-bottom: 8px;
+
+  /* Overlay Subtitle */
+  --teaser-overlay-subtitle-font-family: var(--font-family-body);
+  --teaser-overlay-subtitle-font-size: 16px;
+  --teaser-overlay-subtitle-font-size-mobile: 14px;
+  --teaser-overlay-subtitle-font-weight: var(--font-weight-regular);
+  --teaser-overlay-subtitle-line-height: 1.5;
+  --teaser-overlay-subtitle-color: var(--color-text-light);
+  --teaser-overlay-subtitle-text-align: center;
+  --teaser-overlay-subtitle-margin-bottom: 24px;
+
+  /* Overlay Button */
+  --teaser-overlay-button-font-family: var(--font-family-body);
+  --teaser-overlay-button-font-size: 16px;
+  --teaser-overlay-button-font-weight: var(--font-weight-semibold);
+  --teaser-overlay-button-line-height: 1.5;
+  --teaser-overlay-button-padding-y: 12px;
+  --teaser-overlay-button-padding-x: 32px;
+  --teaser-overlay-button-background: var(--color-primary);
+  --teaser-overlay-button-text: var(--color-text-light);
+  --teaser-overlay-button-border-radius: 4px;
+  --teaser-overlay-button-border-width: 0;
+  --teaser-overlay-button-min-height: 48px;
+}

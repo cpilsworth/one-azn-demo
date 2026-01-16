@@ -1,0 +1,58 @@
+/* Accordion One-AZ Design Tokens - Extracted from Figma */
+.accordion-oneaz {
+  /* Container Colors */
+  --accordion-container-bg: #d8dfde;
+  --accordion-container-radius: 16px;
+
+  /* Header Colors (Demo/Title Section) */
+  --accordion-header-bg: #f2d5f0;
+  --accordion-header-text-color: #830051;
+  --accordion-header-font-family: 'Inter', sans-serif;
+  --accordion-header-font-size: 65px;
+  --accordion-header-font-weight: 600;
+  --accordion-header-line-height: 1.4;
+  --accordion-header-letter-spacing: -1px;
+  --accordion-header-padding-x: 96px;
+  --accordion-header-height: 224px;
+  --accordion-header-gap: 24px;
+
+  /* Icon */
+  --accordion-icon-size: 96px;
+
+  /* Item (Pane) Styles */
+  --accordion-item-bg: #fff;
+  --accordion-item-border-radius: 8px;
+  --accordion-item-padding-x: 24px;
+  --accordion-item-padding-y: 16px;
+  --accordion-item-margin-bottom: 16px;
+  --accordion-item-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+
+  /* Item Label/Title */
+  --accordion-label-color: #830051;
+  --accordion-label-font-family: 'Inter', sans-serif;
+  --accordion-label-font-size: 18px;
+  --accordion-label-font-weight: 400;
+  --accordion-label-line-height: 1.5;
+
+  /* Chevron Icon */
+  --accordion-chevron-color: #830051;
+  --accordion-chevron-size: 10px;
+  --accordion-chevron-border-width: 2px;
+
+  /* Content Slot (Expanded State) */
+  --accordion-content-bg: #e6f7f5;
+  --accordion-content-border-color: #00a499;
+  --accordion-content-border-width: 2px;
+  --accordion-content-border-style: dashed;
+  --accordion-content-text-color: #00a499;
+  --accordion-content-padding: 24px;
+  --accordion-content-margin-top: 16px;
+
+  /* Spacing */
+  --accordion-section-padding: 40px;
+  --accordion-items-gap: 24px;
+
+  /* Transitions */
+  --accordion-transition-duration: 200ms;
+  --accordion-transition-easing: ease-in-out;
+}

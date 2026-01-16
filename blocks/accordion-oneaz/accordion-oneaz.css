@@ -1,0 +1,89 @@
+/* Import component-specific tokens */
+@import './accordion-oneaz-tokens.css';
+
+/* Accordion One-AZ Block Styles */
+.accordion-oneaz {
+  background-color: var(--accordion-container-bg);
+  border-radius: var(--accordion-container-radius);
+  padding: var(--accordion-section-padding);
+}
+
+/* Accordion Item (details element) */
+.accordion-oneaz details {
+  background-color: var(--accordion-item-bg);
+  border-radius: var(--accordion-item-border-radius);
+  box-shadow: var(--accordion-item-shadow);
+  overflow: hidden;
+}
+
+.accordion-oneaz details + details {
+  margin-top: var(--accordion-items-gap);
+}
+
+/* Summary (clickable label) */
+.accordion-oneaz details summary {
+  position: relative;
+  padding: var(--accordion-item-padding-y) var(--accordion-item-padding-x);
+  padding-right: 56px;
+  cursor: pointer;
+  list-style: none;
+  color: var(--accordion-label-color);
+  font-family: var(--accordion-label-font-family);
+  font-size: var(--accordion-label-font-size);
+  font-weight: var(--accordion-label-font-weight);
+  line-height: var(--accordion-label-line-height);
+  transition: background-color var(--accordion-transition-duration) var(--accordion-transition-easing);
+}
+
+.accordion-oneaz details summary::-webkit-details-marker {
+  display: none;
+}
+
+/* Chevron icon */
+.accordion-oneaz details summary::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  right: 24px;
+  width: var(--accordion-chevron-size);
+  height: var(--accordion-chevron-size);
+  border: solid var(--accordion-chevron-color);
+  border-width: 0 var(--accordion-chevron-border-width) var(--accordion-chevron-border-width) 0;
+  transform: translateY(-50%) rotate(-45deg);
+  transition: transform var(--accordion-transition-duration) var(--accordion-transition-easing);
+}
+
+/* Rotate chevron when open */
+.accordion-oneaz details[open] summary::after {
+  transform: translateY(-50%) rotate(45deg);
+}
+
+/* Accordion Item Body */
+.accordion-oneaz details .accordion-item-body {
+  padding: 0 var(--accordion-item-padding-x) var(--accordion-item-padding-y);
+}
+
+/* Content slot styling when open (matches Figma teal border) */
+.accordion-oneaz details[open] .accordion-item-body {
+  background-color: var(--accordion-content-bg);
+  border: var(--accordion-content-border-width) var(--accordion-content-border-style) var(--accordion-content-border-color);
+  border-radius: var(--accordion-item-border-radius);
+  margin: var(--accordion-content-margin-top) var(--accordion-item-padding-x) var(--accordion-item-padding-y);
+  padding: var(--accordion-content-padding);
+  color: var(--accordion-content-text-color);
+}
+
+/* Hover and focus states */
+.accordion-oneaz details summary:hover,
+.accordion-oneaz details summary:focus {
+  background-color: var(--color-background-light, #f5f5f5);
+}
+
+/* Paragraph spacing in content */
+.accordion-oneaz details p {
+  margin: 0 0 0.8em;
+}
+
+.accordion-oneaz details p:last-child {
+  margin-bottom: 0;
+}

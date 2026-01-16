@@ -1,10 +1,16 @@
+/* ========================================
+   CARDS BLOCK - BASE STYLES
+   ======================================== */
+
+@import url('cards-therapeutic-tokens.css');
+
 .cards > ul {
   list-style: none;
   margin: 0;
   padding: 0;
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(257px, 1fr));
-  gap: 24px;
+  grid-gap: 24px;
 }
 
 .cards > ul > li {
@@ -24,4 +30,141 @@
   width: 100%;
   aspect-ratio: 4 / 3;
   object-fit: cover;
+}
+
+/* ========================================
+   THERAPEUTIC VARIANT - 100% Token-Based
+   ======================================== */
+
+.cards-container.therapeutic-container {
+  background-color: var(--cards-therapeutic-background-color);
+}
+
+.cards-container.therapeutic-container .cards-wrapper {
+  max-width: var(--cards-therapeutic-max-width);
+  padding: var(--cards-therapeutic-section-padding-y) var(--cards-therapeutic-container-padding-x-mobile);
+}
+
+.cards.therapeutic {
+  display: var(--cards-therapeutic-display);
+  flex-direction: var(--cards-therapeutic-flex-direction);
+  align-items: var(--cards-therapeutic-align-items);
+  width: var(--cards-therapeutic-width);
+}
+
+.cards.therapeutic > ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--cards-therapeutic-container-gap);
+  width: 100%;
+  max-width: var(--cards-therapeutic-max-width);
+  padding: 0;
+  margin: 0;
+}
+
+.cards.therapeutic > ul > li {
+  flex: 1 1 0;
+  min-width: var(--cards-therapeutic-card-min-width);
+  display: flex;
+  flex-direction: column;
+  background-color: var(--cards-therapeutic-card-background);
+  border: none;
+  border-radius: var(--cards-therapeutic-card-border-radius);
+  overflow: hidden;
+  box-shadow: var(--cards-therapeutic-card-box-shadow); /* ADDED: per Figma critique */
+}
+
+.cards.therapeutic .cards-card-image {
+  line-height: 0;
+  overflow: hidden;
+}
+
+.cards.therapeutic .cards-card-image img {
+  width: 100%;
+  aspect-ratio: var(--cards-therapeutic-image-aspect-ratio);
+  object-fit: var(--cards-therapeutic-image-object-fit);
+  object-position: var(--cards-therapeutic-image-object-position);
+}
+
+/* EDS creates multiple .cards-card-body divs as siblings - style accordingly */
+.cards.therapeutic .cards-card-body {
+  padding: 0 var(--cards-therapeutic-card-padding-x);
+  margin: 0;
+}
+
+/* First cards-card-body (title) - add top padding after image */
+.cards.therapeutic .cards-card-image + .cards-card-body {
+  padding-top: var(--cards-therapeutic-card-image-gap);
+}
+
+/* Add gap between cards-card-body elements using margin */
+.cards.therapeutic .cards-card-body + .cards-card-body {
+  margin-top: var(--cards-therapeutic-card-gap);
+}
+
+/* Last cards-card-body (button) - add bottom padding */
+.cards.therapeutic > ul > li > .cards-card-body:last-child {
+  padding-bottom: var(--cards-therapeutic-card-padding-y);
+}
+
+/* Title styling */
+.cards.therapeutic .cards-card-body h1,
+.cards.therapeutic .cards-card-body h2,
+.cards.therapeutic .cards-card-body h3,
+.cards.therapeutic .cards-card-body h4,
+.cards.therapeutic .cards-card-body h5,
+.cards.therapeutic .cards-card-body h6 {
+  margin: 0;
+  font-family: var(--cards-therapeutic-title-font-family);
+  font-size: var(--cards-therapeutic-title-font-size);
+  font-weight: var(--cards-therapeutic-title-font-weight);
+  line-height: var(--cards-therapeutic-title-line-height);
+  letter-spacing: var(--cards-therapeutic-title-letter-spacing);
+  color: var(--cards-therapeutic-title-color);
+}
+
+/* Description styling */
+.cards.therapeutic .cards-card-body p:not(.button-container) {
+  margin: 0;
+  font-family: var(--cards-therapeutic-desc-font-family);
+  font-size: var(--cards-therapeutic-desc-font-size);
+  font-weight: var(--cards-therapeutic-desc-font-weight);
+  line-height: var(--cards-therapeutic-desc-line-height);
+  letter-spacing: var(--cards-therapeutic-desc-letter-spacing);
+  color: var(--cards-therapeutic-text-color);
+}
+
+/* Button container */
+.cards.therapeutic .cards-card-body .button-container {
+  margin: 0;
+}
+
+.cards.therapeutic .cards-card-body .button-container a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: var(--cards-therapeutic-button-min-height);
+  padding: var(--cards-therapeutic-button-padding-y) var(--cards-therapeutic-button-padding-x);
+  margin: 0;
+  font-family: var(--cards-therapeutic-button-font-family);
+  font-size: var(--cards-therapeutic-button-font-size);
+  font-weight: var(--cards-therapeutic-button-font-weight);
+  line-height: var(--cards-therapeutic-button-line-height);
+  color: var(--cards-therapeutic-button-text);
+  background-color: var(--cards-therapeutic-button-background);
+  border: var(--cards-therapeutic-button-border-width) solid var(--cards-therapeutic-button-border);
+  border-radius: var(--cards-therapeutic-button-border-radius);
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.cards.therapeutic .cards-card-body .button-container a:hover {
+  opacity: 0.9;
+}
+
+@media (width >= 600px) {
+  .cards-container.cards-therapeutic-container .cards-wrapper {
+    padding-left: var(--cards-therapeutic-container-padding-x);
+    padding-right: var(--cards-therapeutic-container-padding-x);
+  }
 }

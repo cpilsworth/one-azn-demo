@@ -1,0 +1,79 @@
+/* ========================================
+   CARDS BLOCK - THERAPEUTIC VARIANT TOKENS
+   Extracted from Figma: Therapeutic Area Cards
+   Node ID: 3970:58662
+   ======================================== */
+
+.cards.therapeutic {
+  /* Layout & Structure */
+  --cards-therapeutic-display: flex;
+  --cards-therapeutic-flex-direction: column;
+  --cards-therapeutic-align-items: center;
+  --cards-therapeutic-max-width: var(--max-width-site);
+  --cards-therapeutic-width: 100%;
+
+  /* Background & Colors */
+  --cards-therapeutic-background-color: var(--color-background-grey);
+  --cards-therapeutic-card-background: var(--color-background-white);
+  --cards-therapeutic-title-color: var(--color-primary-darker);
+  --cards-therapeutic-text-color: var(--color-text-primary);
+  --cards-therapeutic-button-background: var(--color-primary);
+  --cards-therapeutic-button-text: var(--color-text-light);
+  --cards-therapeutic-button-border: var(--color-primary);
+
+  /* Typography - Title */
+  --cards-therapeutic-title-font-family: var(--font-family-display);
+  --cards-therapeutic-title-font-size: var(--font-size-2xl);
+  --cards-therapeutic-title-font-weight: var(--font-weight-normal);
+  --cards-therapeutic-title-line-height: var(--line-height-xl);
+  --cards-therapeutic-title-letter-spacing: normal;
+
+  /* Typography - Description */
+  --cards-therapeutic-desc-font-family: var(--font-family-text);
+  --cards-therapeutic-desc-font-size: var(--font-size-lg);
+  --cards-therapeutic-desc-font-weight: var(--font-weight-normal);
+  --cards-therapeutic-desc-line-height: var(--line-height-lg);
+  --cards-therapeutic-desc-letter-spacing: normal;
+
+  /* Typography - Button */
+  --cards-therapeutic-button-font-family: var(--font-family-text);
+  --cards-therapeutic-button-font-size: var(--font-size-md);
+  --cards-therapeutic-button-font-weight: var(--font-weight-semibold);
+  --cards-therapeutic-button-line-height: var(--line-height-md);
+
+  /* Spacing - Section */
+  --cards-therapeutic-section-padding-y: var(--spacing-lg);
+  --cards-therapeutic-section-padding-x-mobile: 0;
+  --cards-therapeutic-section-padding-x: 0;
+
+  /* Spacing - Cards Container */
+  --cards-therapeutic-container-gap: 32px; /* FIXED: was 10px, per Figma critique */
+  --cards-therapeutic-container-padding-x-mobile: var(--spacing-xs);
+  --cards-therapeutic-container-padding-x: var(--spacing-md);
+
+  /* Spacing - Individual Card */
+  --cards-therapeutic-card-padding-x: 24px; /* FIXED: was 16px, per Figma critique */
+  --cards-therapeutic-card-padding-y: 24px; /* FIXED: was 16px, per Figma critique */
+  --cards-therapeutic-card-image-gap: 32px; /* Space between image and title - user requested more */
+  --cards-therapeutic-card-gap: 16px; /* FIXED: was 24px (spacing-md), Figma specifies 16px */
+  --cards-therapeutic-card-border-radius: 8px; /* Per Figma design */
+  --cards-therapeutic-card-min-width: 320px; /* FIXED: was 296px */
+  --cards-therapeutic-card-box-shadow: 0 4px 12px rgb(0 0 0 / 8%); /* ADDED: per Figma critique */
+
+  /* Image */
+  --cards-therapeutic-image-aspect-ratio: 1/1;
+  --cards-therapeutic-image-object-fit: cover;
+  --cards-therapeutic-image-object-position: center;
+
+  /* Button */
+  --cards-therapeutic-button-padding-x: var(--spacing-xs);
+  --cards-therapeutic-button-padding-y: 8px;
+  --cards-therapeutic-button-border-radius: 4px;
+  --cards-therapeutic-button-min-height: 42px;
+  --cards-therapeutic-button-border-width: 1px;
+
+  /* Grid */
+  --cards-therapeutic-columns-mobile: 1;
+  --cards-therapeutic-columns-tablet: 2;
+  --cards-therapeutic-columns-desktop: 3;
+}

@@ -1,0 +1,125 @@
+{
+  "page_name": "1.0 Home Page",
+  "figma_url": "https://www.figma.com/design/kQplMQTStmD7cRMJiG4T6c/One-AZ-3.1-%E2%80%93-Market-Master?node-id=3970-58655",
+  "page_node_id": "3970:58655",
+  "blocks": [
+    {
+      "block_name": "hero",
+      "figma_node_id": "3970:58657",
+      "figma_component_name": "Teaser: Home Hero",
+      "css_selector": ".hero",
+      "elements": [
+        {
+          "node_id": "3970:58657",
+          "name": "Teaser: Home Hero",
+          "type": "FRAME",
+          "css_selector": ".hero"
+        },
+        {
+          "node_id": "I3970:58657;2162:3711",
+          "name": "Title",
+          "type": "TEXT",
+          "css_selector": ".hero h3"
+        },
+        {
+          "node_id": "I3970:58657;2162:3715",
+          "name": "Description",
+          "type": "TEXT",
+          "css_selector": ".hero p"
+        }
+      ]
+    },
+    {
+      "block_name": "introduction",
+      "figma_node_id": "3970:58659",
+      "figma_component_name": "Introduction Block",
+      "css_selector": ".introduction",
+      "elements": [
+        {
+          "node_id": "3970:58659",
+          "name": "Introduction Block",
+          "type": "FRAME",
+          "css_selector": ".introduction"
+        },
+        {
+          "node_id": "I3970:58659;2499:7473;2016:111",
+          "name": "Title",
+          "type": "TEXT",
+          "css_selector": ".introduction h2"
+        }
+      ]
+    },
+    {
+      "block_name": "cards",
+      "figma_node_id": "3970:58662",
+      "figma_component_name": "Columns : Image Top | Text Bottom",
+      "css_selector": ".cards.therapeutic",
+      "elements": [
+        {
+          "node_id": "3970:58662",
+          "name": "Columns Container",
+          "type": "FRAME",
+          "css_selector": ".cards-container.therapeutic-container"
+        },
+        {
+          "node_id": "I3970:58662;2511:4497;2510:4992;2501:7650",
+          "name": "Card 1",
+          "type": "INSTANCE",
+          "css_selector": ".cards.therapeutic > ul > li:nth-child(1)"
+        },
+        {
+          "node_id": "I3970:58662;2511:4497;2510:4992;2501:7650;2165:4611",
+          "name": "Card Title",
+          "type": "TEXT",
+          "css_selector": ".cards.therapeutic .cards-card-body > div:first-child"
+        },
+        {
+          "node_id": "I3970:58662;2511:4497;2510:4992;2501:7650;2165:4613",
+          "name": "Card Description",
+          "type": "TEXT",
+          "css_selector": ".cards.therapeutic .cards-card-body > div:nth-child(2)"
+        }
+      ]
+    },
+    {
+      "block_name": "carousel",
+      "figma_node_id": "3970:58666",
+      "figma_component_name": "Carousel",
+      "css_selector": ".carousel",
+      "elements": [
+        {
+          "node_id": "3970:58666",
+          "name": "Carousel",
+          "type": "FRAME",
+          "css_selector": ".carousel"
+        },
+        {
+          "node_id": "I3970:58666;2619:8584;2510:4980;2617:7579;2165:4361",
+          "name": "Carousel Title",
+          "type": "TEXT",
+          "css_selector": ".carousel .carousel-slide-content h2"
+        }
+      ]
+    },
+    {
+      "block_name": "teaser",
+      "figma_node_id": "3970:58667",
+      "figma_component_name": "Container: Multiple Slots",
+      "css_selector": ".teaser",
+      "elements": [
+        {
+          "node_id": "3970:58667",
+          "name": "Teaser Section",
+          "type": "FRAME",
+          "css_selector": ".teaser"
+        },
+        {
+          "node_id": "I3970:58667;2194:12549;2194:9643;2165:4361",
+          "name": "Teaser Title",
+          "type": "TEXT",
+          "css_selector": ".teaser h2"
+        }
+      ]
+    }
+  ]
+}

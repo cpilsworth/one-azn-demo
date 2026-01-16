@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<script src="/scripts/aem.js" type="module"></script>
+<script src="/scripts/scripts.js" type="module"></script>
+<link rel="stylesheet" href="/styles/styles.css"/>
+</head>
+<body>
+<header></header>
+<main>
+<div><h1 id="carousel-block-template">Carousel Block Template</h1>
+<h2 id="description">Description</h2>
+<p>Interactive slideshow component for displaying multiple content slides with navigation controls. Each slide contains an image and content section with brand, title, description, and button.</p>
+<h2 id="figma-source">Figma Source</h2>
+<p><strong>Design URL:</strong> Figma MyAstrazeneca Design
+<strong>Component:</strong> Carousel/Slideshow
+<strong>Variants:</strong> default, blocked (individual slides)</p>
+<h2 id="structure">Structure</h2>
+<p>Carousel contains:</p>
+<ul>
+<li>Multiple slides (each as a table row)</li>
+<li>Each slide has:
+<ul>
+<li>Image (left column)</li>
+<li>Content (right column): brand, title, description, button</li>
+</ul>
+</li>
+<li>Navigation: Previous/Next buttons + dot indicators</li>
+<li>Smooth scroll animation between slides</li>
+</ul>
+<h2 id="markdown-syntax">Markdown Syntax</h2>
+<h3 id="basic-carousel-3-slides">Basic Carousel (3 slides)</h3>
+<pre><code class="language-markdown">| Carousel |  |
+|----------|------|
+| ![Slide 1](./images/slide1.jpg) | **AstraZeneca**&#x3C;br>#### Teaser Title&#x3C;br>Cras mattis iudicium purus sit amet fermentum. Petierunt uti sibi concilium totius Galliae in diem certam indicere.&#x3C;br>[Button](#) |
+| ![Slide 2](./images/slide2.jpg) | **AstraZeneca**&#x3C;br>#### Teaser Title&#x3C;br>Etiam habebis sem dicantur magna mollis euismod.&#x3C;br>[Button](#) |
+| ![Slide 3](./images/slide3.jpg) | **AstraZeneca**&#x3C;br>#### Teaser Title&#x3C;br>Nihil hic munitissimus habendi senatus locus, nihil horum.&#x3C;br>[Button](#) |
+</code></pre>
+<h3 id="carousel-with-blocked-slide">Carousel with Blocked Slide</h3>
+<pre><code class="language-markdown">| Carousel |  |
+|----------|------|
+| blocked | |
+| ![Blocked Slide](./images/blocked.jpg) | **AstraZeneca**&#x3C;br>#### Premium Content&#x3C;br>This content requires login to view.&#x3C;br>[Login](#) |
+| ![Slide 2](./images/slide2.jpg) | **AstraZeneca**&#x3C;br>#### Free Content&#x3C;br>Description text.&#x3C;br>[Button](#) |
+</code></pre>
+<h3 id="multi-line-format-alternative">Multi-line Format (Alternative)</h3>
+<pre><code class="language-markdown">| Carousel |  |
+|----------|------|
+| ![Slide 1](./images/slide1.jpg) | **AstraZeneca** |
+| | #### Slide Title 1 |
+| | Description for slide 1. |
+| | [Learn More](#) |
+| ![Slide 2](./images/slide2.jpg) | **AstraZeneca** |
+| | #### Slide Title 2 |
+| | Description for slide 2. |
+| | [Learn More](#) |
+</code></pre>
+<h3 id="carousel-with-image-left">Carousel with Image Left</h3>
+<pre><code class="language-markdown">| Carousel (image-left) |  |
+|----------|------|
+| ![Slide 1](./images/slide1.jpg) | **Teaser Title**&#x3C;br>Cras mattis iudicium purus sit amet fermentum. Petierunt uti sibi concilium totius Galliae in diem certam indicere.&#x3C;br>[Button](#) |
+| ![Slide 2](./images/slide2.jpg) | **Teaser Title 2**&#x3C;br>Etiam habebis sem dicantur magna mollis euismod. Morbi fringilla convallis sapien.&#x3C;br>[Button](#) |
+| ![Slide 3](./images/slide3.jpg) | **Teaser Title 3**&#x3C;br>Cum sociis natoque penatibus et magnis dis parturient montes.&#x3C;br>[Button](#) |
+</code></pre>
+<h3 id="carousel-hero-centre-aligned">Carousel Hero (Centre Aligned)</h3>
+<pre><code class="language-markdown">| Carousel (hero) |  |
+|----------|------|
+| ![Hero 1](./images/hero1.jpg) | **Teaser Title**&#x3C;br>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et aliqua.&#x3C;br>[Button](#) |
+| ![Hero 2](./images/hero2.jpg) | **Teaser Title 2**&#x3C;br>Etiam habebis sem dicantur magna mollis euismod.&#x3C;br>[Button](#) |
+| ![Hero 3](./images/hero3.jpg) | **Teaser Title 3**&#x3C;br>Cum sociis natoque penatibus et magnis dis parturient.&#x3C;br>[Button](#) |
+</code></pre>
+<h3 id="carousel-image-only-169-ratio">Carousel Image Only (16:9 Ratio)</h3>
+<pre><code class="language-markdown">| Carousel (image-only) |  |
+|----------|------|
+| ![Image 1](./images/image1.jpg) |  |
+| ![Image 2](./images/image2.jpg) |  |
+| ![Image 3](./images/image3.jpg) |  |
+</code></pre>
+<h2 id="content-guidelines">Content Guidelines</h2>
+<ul>
+<li><strong>Number of slides:</strong> 2-5 slides recommended</li>
+<li><strong>Brand:</strong> Company or category name</li>
+<li><strong>Title:</strong> 2-5 words per slide</li>
+<li><strong>Description:</strong> 1-2 sentences, 15-30 words</li>
+<li><strong>Images:</strong> Consistent size across slides, recommended 800x450px</li>
+<li><strong>Button:</strong> Clear call-to-action</li>
+</ul>
+<h2 id="css-tokens-used">CSS Tokens Used</h2>
+<pre><code class="language-css">--carousel-background-color
+--carousel-slide-gap
+--carousel-content-padding
+--carousel-brand-font-size
+--carousel-brand-color
+--carousel-title-font-family
+--carousel-title-font-size
+--carousel-title-color
+--carousel-desc-font-size
+--carousel-desc-color
+--carousel-button-background
+--carousel-button-text
+--carousel-nav-button-size
+--carousel-indicator-size
+--carousel-indicator-active-color
+</code></pre>
+<h2 id="javascript-features">JavaScript Features</h2>
+<p>The carousel JavaScript provides:</p>
+<ol>
+<li>Smooth scroll between slides</li>
+<li>Previous/Next navigation buttons</li>
+<li>Dot indicator navigation</li>
+<li>Intersection Observer for active slide detection</li>
+<li>Keyboard accessibility (tabindex management)</li>
+<li>ARIA attributes for screen readers</li>
+<li>Blocked slide overlay support</li>
+</ol>
+<h2 id="variants">Variants</h2>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="variant"><div><div>Default</div><div><code>.carousel</code></div><div>Standard carousel with navigation, image right</div></div><div><div>Image Left</div><div><code>.carousel.image-left</code></div><div>Carousel with image positioned on the left</div></div><div><div>Hero</div><div><code>.carousel.hero</code></div><div>Hero-style carousel with centre-aligned content</div></div><div><div>Image Only</div><div><code>.carousel.image-only</code></div><div>Image carousel without text content (16:9 ratio)</div></div><div><div>Blocked Slide</div><div><code>.blocked</code> (on row)</div><div>Individual slide shows login overlay</div></div></div>
+<h2 id="accessibility">Accessibility</h2>
+<ul>
+<li><code>role="region"</code> on carousel container</li>
+<li><code>aria-roledescription="Carousel"</code></li>
+<li><code>aria-hidden</code> on inactive slides</li>
+<li><code>aria-label</code> on navigation buttons</li>
+<li>Keyboard navigation support</li>
+</ul>
+<h2 id="example-output">Example Output</h2>
+<p>Carousel renders as a full-width slideshow with smooth horizontal scrolling and bottom dot navigation.</p></div>
+</main>
+<footer></footer>
+</body>
+</html>

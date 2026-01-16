@@ -1,0 +1,45 @@
+{
+  "page_name": "0.2 Saved Content",
+  "figma_url": "https://www.figma.com/design/kQplMQTStmD7cRMJiG4T6c/One-AZ-3.1-%E2%80%93-Market-Master?node-id=3970-58630",
+  "page_node_id": "3970:58630",
+  "blocks": [
+    {
+      "block_name": "listing",
+      "figma_node_id": "3970:58630",
+      "figma_component_name": "Section: Listing",
+      "css_selector": ".listing",
+      "elements": [
+        {
+          "node_id": "3970:58630",
+          "name": "Section: Listing",
+          "type": "FRAME",
+          "css_selector": ".listing"
+        },
+        {
+          "node_id": "3970:58631",
+          "name": "Listing Card",
+          "type": "INSTANCE",
+          "css_selector": ".listing > ul > li:first-child"
+        },
+        {
+          "node_id": "I3970:58631;2666:9193",
+          "name": "Title",
+          "type": "TEXT",
+          "css_selector": ".listing .listing-card-body strong"
+        },
+        {
+          "node_id": "I3970:58631;2666:9194",
+          "name": "Description",
+          "type": "TEXT",
+          "css_selector": ".listing .listing-card-body p"
+        },
+        {
+          "node_id": "I3970:58631;2666:9192",
+          "name": "Image",
+          "type": "RECTANGLE",
+          "css_selector": ".listing .listing-card-image img"
+        }
+      ]
+    }
+  ]
+}

@@ -4,7 +4,7 @@ Der systemische Lupus erythematodes (SLE) ist eine Autoimmunerkrankung aus dem F
 
 ---
 
-| Cards (therapeutic cols-4) |  |
+| Cards (therapeutic, cols-4) |  |
 |---|---|
 | ![Deutsche S3-Leitlinie SLE](https://cms.mein-medcampus.de/storage/uploads/2023/06/07/Teaser_uid_648077a885663.png) | **Deutsche S3-Leitlinie SLE veröffentlicht** <br><br> Die wichtigsten Inhalte der ersten deutschen SLE-Leitlinie kompakt für Sie zusammengefasst. <br><br> [Mehr erfahren](#) |
 | ![Lupus Perspectives 2025](https://cms.mein-medcampus.de/storage/uploads/2023/06/07/Teaser_uid_648077a885663.png) | **Lupus Perspectives 2025 – Remission und Lupus-Versorgung** <br><br> Lupus Perspectives, Hannover. CME-zertifiziertes Symposium mit Expert:innen aus Forschung und Praxis. <br><br> [Mehr erfahren](#) |

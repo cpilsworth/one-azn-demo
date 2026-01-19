@@ -9,7 +9,7 @@ Grid of cards displaying content with images, titles, descriptions, and call-to-
 **Design URL:** Figma MyAstrazeneca Design
 **Component:** Therapeutic Area Cards
 **Node ID:** 3970:58662
-**Variants:** default, therapeutic, therapeutic cols-2, therapeutic cols-3, therapeutic cols-4
+**Variants:** default, therapeutic, (therapeutic, cols-2), (therapeutic, cols-3), (therapeutic, cols-4)
 
 ## Structure
 
@@ -24,7 +24,7 @@ Each card contains:
 ### Therapeutic Variant (3 cards, fixed 3 columns)
 
 ```markdown
-| Cards (therapeutic cols-3) |
+| Cards (therapeutic, cols-3) |
 |---------------------|
 | ![Card Image](./images/therapeutic-card.jpg) |
 | ### Teaser Title |
@@ -54,7 +54,7 @@ Repeat the row pattern for each card:
 ### Therapeutic Variant (2 columns, fixed)
 
 ```markdown
-| Cards (therapeutic cols-2) |
+| Cards (therapeutic, cols-2) |
 |---|---|
 | ![Card 1](./images/card1.jpg) | ![Card 2](./images/card2.jpg) |
 | ### Card Title 1 | ### Card Title 2 |
@@ -65,7 +65,7 @@ Repeat the row pattern for each card:
 ### Therapeutic Variant (4 columns, fixed)
 
 ```markdown
-| Cards (therapeutic cols-4) |
+| Cards (therapeutic, cols-4) |
 |---|---|---|---|
 | ![Card 1](./images/card1.jpg) | ![Card 2](./images/card2.jpg) | ![Card 3](./images/card3.jpg) | ![Card 4](./images/card4.jpg) |
 | ### Card Title 1 | ### Card Title 2 | ### Card Title 3 | ### Card Title 4 |
@@ -90,6 +90,7 @@ Repeat the row pattern for each card:
   - Therapeutic variant: Square (1:1 aspect ratio), recommended 400x400px
   - Default variant: 4:3 aspect ratio, recommended 400x300px
 - **Number of cards:** 3-6 cards work best for therapeutic variant
+- **Column variant:** It is preferable to always specify a column variant (cols-2, cols-3, or cols-4) for consistent grid layouts and better CTA alignment across cards
 
 ## CSS Tokens Used
 

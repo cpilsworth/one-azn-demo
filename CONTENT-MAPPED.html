@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<script src="/scripts/aem.js" type="module"></script>
+<script src="/scripts/scripts.js" type="module"></script>
+<link rel="stylesheet" href="/styles/styles.css"/>
+</head>
+<body>
+<header></header>
+<main>
+<div><h1 id="content-mappedmd">CONTENT-MAPPED.md</h1><p>Project-specific content mapping patterns and learnings for EDS migrations.</p></div>
+<div><h2 id="project-specific-block-patterns">Project-Specific Block Patterns</h2><h3 id="cards-therapeutic-block">cards-therapeutic Block</h3><p><strong>Location:</strong> <code>blocks/cards/cards.css</code> (variant: therapeutic)</p><p><strong>Structure:</strong></p><ul>
+<li>Each table row = one card (NOT each cell)</li>
+<li>2-column format: <code>| image | content |</code></li>
+<li>Column variants specified in block name: <code>Cards (therapeutic, cols-4)</code></li>
+</ul><p><strong>Markdown Template:</strong></p><pre><code class="language-markdown">| Cards (therapeutic, cols-4) |  |
+|---|---|
+| ![alt](/content/images/image.png) | **Card Title**&#x3C;br>&#x3C;br>Description text here.&#x3C;br>&#x3C;br>[Call to Action](https://link-url) |
+</code></pre><p><strong>Key Rules:</strong></p><ul>
+<li>Use <code>**bold**</code> for titles (NOT <code>###</code> markdown headings - they don't work in tables)</li>
+<li>Use <code>&#x3C;br>&#x3C;br></code> for line breaks between title, description, and CTA</li>
+<li>Column options: <code>cols-2</code>, <code>cols-3</code>, <code>cols-4</code></li>
+</ul><h3 id="accordion-oneaz-block-preferred-over-accordion">accordion-oneaz Block (PREFERRED over accordion)</h3><p><strong>Location:</strong> <code>blocks/accordion-oneaz/accordion-oneaz.css</code></p><p><strong>⚠️ IMPORTANT:</strong> Always use <code>accordion-oneaz</code> instead of generic <code>accordion</code> for AstraZeneca/MeinMedcampus projects.</p><p><strong>Brand Styling:</strong></p><ul>
+<li>Card-style items with shadows and rounded corners</li>
+<li>Teal/cyan left border on expanded content (AstraZeneca brand color)</li>
+<li>Magenta text for accordion labels</li>
+<li>Chevron rotation animation when expanded</li>
+<li>One-AZ typography and spacing from Figma design system</li>
+</ul><p><strong>Markdown Template:</strong></p><pre><code class="language-markdown">| Accordion-Oneaz |
+|---|
+| **Section Title** |
+| Content paragraph with details... |
+| **Another Section** |
+| More content here... |
+</code></pre><p><strong>Key Rules:</strong></p><ul>
+<li>Use <code>**bold**</code> for section titles (clickable headers)</li>
+<li>Plain text or HTML for content (follows the title row)</li>
+<li>Each title + content pair creates one accordion item</li>
+</ul></div>
+<div><h2 id="block-variant-selection">Block Variant Selection</h2><h3 id="️-critical-always-check-for-branded-variants">⚠️ CRITICAL: Always Check for Branded Variants</h3><p><strong>Problem:</strong> Using generic blocks when branded variants exist leads to inconsistent design.</p><p><strong>Rule:</strong> Before using a generic block, check if a branded variant exists:</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="generic-block"><div><div><code>accordion</code></div><div><code>accordion-oneaz</code></div><div>All AstraZeneca/MeinMedcampus projects</div></div><div><div><code>cards</code></div><div><code>cards-therapeutic</code></div><div>Medical/therapeutic content</div></div><div><div><code>hero</code></div><div><code>hero-oneaz</code></div><div>AstraZeneca branded pages</div></div></div><p><strong>How to Check:</strong></p><pre><code class="language-bash">ls blocks/ | grep -i oneaz    # Find AstraZeneca branded blocks
+ls blocks/ | grep -i &#x3C;name>   # Find all variants of a block
+</code></pre><p><strong>Why It Matters:</strong></p><ul>
+<li>Branded variants include design tokens (colors, shadows, typography)</li>
+<li>Ensures consistency with Figma design system</li>
+<li>Avoids rework when reviewer catches wrong block</li>
+</ul></div>
+<div><h2 id="layout-solutions">Layout Solutions</h2><h3 id="column-layouts">Column Layouts</h3>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="variant"><div><div><code>cols-2</code></div><div>Large cards with detailed content</div></div><div><div><code>cols-3</code></div><div>Standard card grids</div></div><div><div><code>cols-4</code></div><div>Compact cards, thumbnail galleries</div></div></div><p><strong>Always ask user for column preference upfront</strong> - default assumptions lead to rework.</p></div>
+<div><h2 id="troubleshooting-guide">Troubleshooting Guide</h2><h3 id="images-not-rendering">Images Not Rendering</h3><p><strong>Problem:</strong> External images from authenticated/protected sites show as broken.</p><p><strong>Cause:</strong> Hotlinking protection blocks external image requests.</p><p><strong>Solution:</strong></p><ol>
+<li>Download images locally to <code>content/images/</code></li>
+<li>Update markdown to use local paths: <code>![alt](/content/images/filename.png)</code></li>
+<li>Note: CDN domains may differ from main site (e.g., <code>cms.example.com</code> vs <code>www.example.com</code>)</li>
+</ol><h3 id="session-expiration">Session Expiration</h3><p><strong>Problem:</strong> Authentication expires between operations.</p><p><strong>Solution:</strong></p><ol>
+<li>Handle cookie consent dialogs first</li>
+<li>Re-authenticate if session expires</li>
+<li>Consider downloading all assets in one batch after login</li>
+</ol><h3 id="block-not-recognized">Block Not Recognized</h3><p><strong>Problem:</strong> Content renders as plain list instead of styled block.</p><p><strong>Cause:</strong> Incorrect table syntax or block name mismatch.</p><p><strong>Solution:</strong></p><ol>
+<li>Verify block name matches exactly (case-sensitive)</li>
+<li>Check table has proper <code>|---|---|</code> separator row</li>
+<li>Ensure each card is a complete row, not split across rows</li>
+</ol></div>
+<div><h2 id="code-templates">Code Templates</h2><h3 id="image-download-script-bash">Image Download Script (Bash)</h3><pre><code class="language-bash"># Download images from source site
+curl -o content/images/image-name.png "https://source-cdn.com/path/to/image.png"
+</code></pre><h3 id="cards-row-template">Cards Row Template</h3><pre><code class="language-markdown">| ![Image Alt](/content/images/image.png) | **Title**&#x3C;br>&#x3C;br>Description text.&#x3C;br>&#x3C;br>[CTA Text](https://url) |
+</code></pre></div>
+<div><h2 id="workflow-improvements">Workflow Improvements</h2><h3 id="recommended-process-order">Recommended Process Order</h3><ol>
+<li><strong>Ask layout preference first</strong> - Confirm cols-2/3/4 before mapping</li>
+<li><strong>Handle authentication early</strong> - Login and accept cookies immediately</li>
+<li><strong>Download images in batch</strong> - After login, download all images before session expires</li>
+<li><strong>Verify block structure</strong> - Read target block template before writing markdown</li>
+<li><strong>Preview before completion</strong> - Always screenshot to verify rendering</li>
+</ol><h3 id="lessons-learned">Lessons Learned</h3>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="issue"><div><div>External images blocked</div><div>Always download to local <code>content/images/</code></div></div><div><div>Wrong column count</div><div>Ask user for layout preference upfront</div></div><div><div>Markdown headings in tables</div><div>Use <code>**bold**</code> instead of <code>###</code></div></div><div><div>Session timeout</div><div>Batch asset downloads after authentication</div></div><div><div>Generic teaser images</div><div>Note when multiple cards share same image for content authors</div></div><div><div><strong>Used generic block</strong></div><div><strong>Always check for branded variants (<code>-oneaz</code>, <code>-therapeutic</code>) before using generic blocks</strong></div></div></div></div>
+<div><h2 id="migration-history">Migration History</h2><h3 id="test-1md-2025-01-19">test-1.md (2025-01-19)</h3><p><strong>Source:</strong> <code>https://www.mein-medcampus.de/systemischer-lupus-erythematodes/deutsche-S3-Leitlinie-SLE-verof-fentlicht</code></p><p><strong>Blocks Used:</strong></p><ul>
+<li><code>accordion-oneaz</code> - For 5 expandable therapy sections</li>
+<li>Default content - For title, intro, footnotes, references</li>
+</ul><p><strong>Content Migrated:</strong></p><ul>
+<li>Page title: "Deutsche S3-Leitlinie SLE veröffentlicht"</li>
+<li>Bold intro text and main paragraph</li>
+<li>Treatment diagram image with caption</li>
+<li>5 accordion sections (Biologika, Remission, Hydroxychloroquin, Glucocorticoide, Fatigue)</li>
+<li>Footnotes (DORIS, ST definitions)</li>
+<li>5 references with links</li>
+<li>External links (Pflichttext, Fachinformation)</li>
+</ul><p><strong>Issues Resolved:</strong></p><ol>
+<li>Initially used generic <code>accordion</code> → Changed to <code>accordion-oneaz</code> for brand consistency</li>
+<li>Required authentication with cookie consent handling</li>
+</ol><p><strong>Key Learning:</strong> Always check for branded block variants (<code>-oneaz</code>) before using generic blocks on AstraZeneca projects.</p></div>
+<div><h3 id="test-1md-2025-01-19-1">test-1.md (2025-01-19)</h3><p><strong>Source:</strong> <code>https://www.mein-medcampus.de/systemischer-lupus-erythematodes/deutsche-S3-Leitlinie-SLE-verof-fentlicht</code></p><p><strong>Blocks Used:</strong></p><ul>
+<li><code>accordion-oneaz</code> - For 5 expandable therapy sections</li>
+<li>Default content - For title, intro, image, footnotes, references</li>
+</ul><p><strong>Content Migrated:</strong></p><ul>
+<li>Page title: "Deutsche S3-Leitlinie SLE veröffentlicht"</li>
+<li>Bold intro text and main paragraph with superscript references</li>
+<li>Treatment diagram image with caption (downloaded locally to <code>/content/images/sle-leitlinie-grafik.webp</code>)</li>
+<li>5 accordion sections:
+<ol>
+<li>Biologika als Standardtherapie bei SLE</li>
+<li>Übergeordnetes Therapieziel Remission</li>
+<li>Die Initialtherapie: Hydroxychloroquin als Basis</li>
+<li>Glucocorticoide als Überbrückungstherapie</li>
+<li>Fatigue bei SLE</li>
+</ol>
+</li>
+<li>Footnotes (DORIS, ST definitions)</li>
+<li>5 references with links</li>
+<li>External links (Pflichttext Saphnelo®, Fachinformation Saphnelo®)</li>
+<li>Document code: DE-81817/04-25</li>
+</ul><p><strong>Issues Resolved:</strong></p><ol>
+<li>Initially used incorrect accordion format (single column) → Fixed to 2-column format (label | content)</li>
+<li>Required authentication with cookie consent handling</li>
+</ol></div>
+<div><h3 id="lupus-test-2md-2025-01-19">lupus-test-2.md (2025-01-19)</h3><p><strong>Source:</strong> <code>https://www.mein-medcampus.de/systemischer-lupus-erythematodes</code></p><p><strong>Block Used:</strong> <code>cards-therapeutic</code> with <code>cols-4</code> layout</p><p><strong>Content Migrated:</strong></p><ul>
+<li>16 article cards about Systemischer Lupus Erythematodes (SLE)</li>
+<li>Each card: image, title, description, "Mehr erfahren" CTA</li>
+</ul><p><strong>Images Downloaded:</strong></p><ul>
+<li><code>teaser.png</code> - Generic Lupus Perspectives teaser</li>
+<li><code>lupus-perspectives-teaser.png</code> - Branded image</li>
+<li><code>real-world-study.png</code> - Real-world study</li>
+<li><code>initiative-lupus.png</code> - Initiative image</li>
+<li><code>eular-studienevidenz.png</code> - EULAR study</li>
+<li><code>infusionsservice.webp</code> - Home infusion service</li>
+<li><code>saphnelo-remission.jpg</code> - Saphnelo remission</li>
+<li><code>anifrolumab-1jahr.png</code> - 1 Year Anifrolumab</li>
+</ul><p><strong>Issues Resolved:</strong></p><ol>
+<li>External images blocked → Downloaded locally</li>
+<li>Initial 3-col layout → Changed to 4-col per user request</li>
+<li>Session expiration → Re-authenticated mid-workflow</li>
+</ol></div>
+<div><h2 id="next-steps-for-future-migrations">Next Steps for Future Migrations</h2><ol>
+<li>Reference this file before starting new content mapping tasks</li>
+<li>Check if target block has documented patterns above</li>
+<li>Follow workflow improvements to avoid common issues</li>
+<li>Update this file with new learnings after each migration</li>
+</ol></div>
+</main>
+<footer></footer>
+</body>
+</html>

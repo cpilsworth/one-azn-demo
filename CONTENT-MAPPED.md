@@ -27,6 +27,61 @@ Project-specific content mapping patterns and learnings for EDS migrations.
 - Use `<br><br>` for line breaks between title, description, and CTA
 - Column options: `cols-2`, `cols-3`, `cols-4`
 
+### accordion-oneaz Block (PREFERRED over accordion)
+
+**Location:** `blocks/accordion-oneaz/accordion-oneaz.css`
+
+**⚠️ IMPORTANT:** Always use `accordion-oneaz` instead of generic `accordion` for AstraZeneca/MeinMedcampus projects.
+
+**Brand Styling:**
+- Card-style items with shadows and rounded corners
+- Teal/cyan left border on expanded content (AstraZeneca brand color)
+- Magenta text for accordion labels
+- Chevron rotation animation when expanded
+- One-AZ typography and spacing from Figma design system
+
+**Markdown Template:**
+```markdown
+| Accordion-Oneaz |
+|---|
+| **Section Title** |
+| Content paragraph with details... |
+| **Another Section** |
+| More content here... |
+```
+
+**Key Rules:**
+- Use `**bold**` for section titles (clickable headers)
+- Plain text or HTML for content (follows the title row)
+- Each title + content pair creates one accordion item
+
+---
+
+## Block Variant Selection
+
+### ⚠️ CRITICAL: Always Check for Branded Variants
+
+**Problem:** Using generic blocks when branded variants exist leads to inconsistent design.
+
+**Rule:** Before using a generic block, check if a branded variant exists:
+
+| Generic Block | Branded Variant | When to Use Branded |
+|---------------|-----------------|---------------------|
+| `accordion` | `accordion-oneaz` | All AstraZeneca/MeinMedcampus projects |
+| `cards` | `cards-therapeutic` | Medical/therapeutic content |
+| `hero` | `hero-oneaz` | AstraZeneca branded pages |
+
+**How to Check:**
+```bash
+ls blocks/ | grep -i oneaz    # Find AstraZeneca branded blocks
+ls blocks/ | grep -i <name>   # Find all variants of a block
+```
+
+**Why It Matters:**
+- Branded variants include design tokens (colors, shadows, typography)
+- Ensures consistency with Figma design system
+- Avoids rework when reviewer catches wrong block
+
 ---
 
 ## Layout Solutions
@@ -111,10 +166,65 @@ curl -o content/images/image-name.png "https://source-cdn.com/path/to/image.png"
 | Markdown headings in tables | Use `**bold**` instead of `###` |
 | Session timeout | Batch asset downloads after authentication |
 | Generic teaser images | Note when multiple cards share same image for content authors |
+| **Used generic block** | **Always check for branded variants (`-oneaz`, `-therapeutic`) before using generic blocks** |
 
 ---
 
 ## Migration History
+
+### test-1.md (2025-01-19)
+
+**Source:** `https://www.mein-medcampus.de/systemischer-lupus-erythematodes/deutsche-S3-Leitlinie-SLE-verof-fentlicht`
+
+**Blocks Used:**
+- `accordion-oneaz` - For 5 expandable therapy sections
+- Default content - For title, intro, footnotes, references
+
+**Content Migrated:**
+- Page title: "Deutsche S3-Leitlinie SLE veröffentlicht"
+- Bold intro text and main paragraph
+- Treatment diagram image with caption
+- 5 accordion sections (Biologika, Remission, Hydroxychloroquin, Glucocorticoide, Fatigue)
+- Footnotes (DORIS, ST definitions)
+- 5 references with links
+- External links (Pflichttext, Fachinformation)
+
+**Issues Resolved:**
+1. Initially used generic `accordion` → Changed to `accordion-oneaz` for brand consistency
+2. Required authentication with cookie consent handling
+
+**Key Learning:** Always check for branded block variants (`-oneaz`) before using generic blocks on AstraZeneca projects.
+
+---
+
+### test-1.md (2025-01-19)
+
+**Source:** `https://www.mein-medcampus.de/systemischer-lupus-erythematodes/deutsche-S3-Leitlinie-SLE-verof-fentlicht`
+
+**Blocks Used:**
+- `accordion-oneaz` - For 5 expandable therapy sections
+- Default content - For title, intro, image, footnotes, references
+
+**Content Migrated:**
+- Page title: "Deutsche S3-Leitlinie SLE veröffentlicht"
+- Bold intro text and main paragraph with superscript references
+- Treatment diagram image with caption (downloaded locally to `/content/images/sle-leitlinie-grafik.webp`)
+- 5 accordion sections:
+  1. Biologika als Standardtherapie bei SLE
+  2. Übergeordnetes Therapieziel Remission
+  3. Die Initialtherapie: Hydroxychloroquin als Basis
+  4. Glucocorticoide als Überbrückungstherapie
+  5. Fatigue bei SLE
+- Footnotes (DORIS, ST definitions)
+- 5 references with links
+- External links (Pflichttext Saphnelo®, Fachinformation Saphnelo®)
+- Document code: DE-81817/04-25
+
+**Issues Resolved:**
+1. Initially used incorrect accordion format (single column) → Fixed to 2-column format (label | content)
+2. Required authentication with cookie consent handling
+
+---
 
 ### lupus-test-2.md (2025-01-19)
 

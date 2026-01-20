@@ -1,0 +1,89 @@
+/* Import component-specific tokens */
+@import './accordion-section-tokens.css';
+
+/* Accordion Section Block Styles */
+.accordion-section {
+  width: 100%;
+}
+
+.accordion-section .accordion-section-wrapper {
+  max-width: var(--accordion-section-max-width);
+  margin: 0 auto;
+}
+
+/* Accordion Item (details element) */
+.accordion-section details {
+  border-bottom: var(--accordion-section-header-border-width) var(--accordion-section-header-border-style) var(--accordion-section-header-border-color);
+}
+
+.accordion-section details + details {
+  margin-top: 0;
+}
+
+/* Summary (clickable label) */
+.accordion-section details summary {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--accordion-section-container-gap);
+  padding: var(--accordion-section-header-padding-top) 0 var(--accordion-section-header-padding-bottom);
+  cursor: pointer;
+  list-style: none;
+  font-family: var(--accordion-section-title-font-family);
+  font-size: var(--accordion-section-title-font-size);
+  font-weight: var(--accordion-section-title-font-weight);
+  line-height: var(--accordion-section-title-line-height);
+  color: var(--accordion-section-title-color);
+  transition: opacity var(--accordion-section-transition-duration) var(--accordion-section-transition-easing);
+}
+
+.accordion-section details summary::-webkit-details-marker {
+  display: none;
+}
+
+/* Normalize strong tags inside summary to inherit font-weight */
+.accordion-section details summary strong {
+  font-weight: inherit;
+}
+
+/* Chevron icon */
+.accordion-section details summary::after {
+  content: '';
+  flex-shrink: 0;
+  width: var(--accordion-section-chevron-size);
+  height: var(--accordion-section-chevron-size);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24' fill='none' stroke='%23363b3b' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+  background-size: contain;
+  background-repeat: no-repeat;
+  transition: transform var(--accordion-section-transition-duration) var(--accordion-section-transition-easing);
+}
+
+/* Rotate chevron when open */
+.accordion-section details[open] summary::after {
+  transform: rotate(180deg);
+}
+
+/* Accordion Item Body */
+.accordion-section details .accordion-item-body {
+  padding: var(--accordion-section-slot-padding-y) var(--accordion-section-slot-padding-x);
+  margin-bottom: var(--accordion-section-panel-padding-y);
+  background-color: var(--accordion-section-slot-bg);
+  border: var(--accordion-section-slot-border-width) var(--accordion-section-slot-border-style) var(--accordion-section-slot-border-color);
+  border-radius: var(--accordion-section-slot-border-radius);
+}
+
+/* Hover and focus states */
+.accordion-section details summary:hover,
+.accordion-section details summary:focus {
+  opacity: 0.8;
+}
+
+/* Paragraph spacing in content */
+.accordion-section details p {
+  margin: 0 0 0.8em;
+}
+
+.accordion-section details p:last-child {
+  margin-bottom: 0;
+}

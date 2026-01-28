@@ -994,18 +994,28 @@
 
       function isTaskAssociatedWithCurrentPage(previewUrl) {
         // #region agent log
-        fetch('http://127.0.0.1:7243/ingest/a3ecbb51-80a5-44fa-9c04-f36450814d2c',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'index.html:isTaskAssociatedWithCurrentPage:entry',message:'Function entry',data:{previewUrl:previewUrl},timestamp:Date.now(),sessionId:'debug-session',hypothesisId:'H1'})}).catch(()=>{});
+        console.log('[DEBUG H1] isTaskAssociatedWithCurrentPage entry:', { previewUrl });
         // #endregion
-        if (!previewUrl) return false
+        if (!previewUrl) {
+          // #region agent log
+          console.log('[DEBUG H1] previewUrl is empty, returning false');
+          // #endregion
+          return false
+        }
         
         const params = new URLSearchParams(window.location.search)
         const referrer = params.get('referrer') || document.referrer
         
         // #region agent log
-        fetch('http://127.0.0.1:7243/ingest/a3ecbb51-80a5-44fa-9c04-f36450814d2c',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'index.html:isTaskAssociatedWithCurrentPage:referrer',message:'Referrer value',data:{referrer:referrer,queryParamReferrer:params.get('referrer'),documentReferrer:document.referrer},timestamp:Date.now(),sessionId:'debug-session',hypothesisId:'H2'})}).catch(()=>{});
+        console.log('[DEBUG H2] Referrer values:', { referrer, queryParamReferrer: params.get('referrer'), documentReferrer: document.referrer });
         // #endregion
         
-        if (!referrer) return false
+        if (!referrer) {
+          // #region agent log
+          console.log('[DEBUG H2] referrer is empty, returning false');
+          // #endregion
+          return false
+        }
         
         // Compare the preview URL with the referrer
         try {
@@ -1013,12 +1023,16 @@
           const referrerUrlObj = new URL(referrer)
           
           // #region agent log
-          fetch('http://127.0.0.1:7243/ingest/a3ecbb51-80a5-44fa-9c04-f36450814d2c',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'index.html:isTaskAssociatedWithCurrentPage:comparison',message:'URL comparison',data:{previewHostname:previewUrlObj.hostname,previewPathname:previewUrlObj.pathname,referrerHostname:referrerUrlObj.hostname,referrerPathname:referrerUrlObj.pathname},timestamp:Date.now(),sessionId:'debug-session',hypothesisId:'H3'})}).catch(()=>{});
+          console.log('[DEBUG H3] URL comparison:', { previewHostname: previewUrlObj.hostname, previewPathname: previewUrlObj.pathname, referrerHostname: referrerUrlObj.hostname, referrerPathname: referrerUrlObj.pathname });
           // #endregion
           
           // Compare pathname and hostname (ignore protocol, query params, and hash)
-          return previewUrlObj.hostname === referrerUrlObj.hostname && 
+          const result = previewUrlObj.hostname === referrerUrlObj.hostname && 
                  previewUrlObj.pathname === referrerUrlObj.pathname
+          // #region agent log
+          console.log('[DEBUG H3] URL match result:', result);
+          // #endregion
+          return result
         } catch (e) {
           // If URL parsing fails, do a simple string comparison
           return previewUrl === referrer || referrer.includes(previewUrl) || previewUrl.includes(referrer)
@@ -1027,19 +1041,25 @@
 
       function renderApprovalButton(task, previewUrl) {
         // #region agent log
-        fetch('http://127.0.0.1:7243/ingest/a3ecbb51-80a5-44fa-9c04-f36450814d2c',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'index.html:renderApprovalButton:entry',message:'renderApprovalButton called',data:{taskId:task?.ID,previewUrl:previewUrl},timestamp:Date.now(),sessionId:'debug-session',hypothesisId:'H4'})}).catch(()=>{});
+        console.log('[DEBUG H4] renderApprovalButton called:', { taskId: task?.ID, taskName: task?.name, previewUrl });
         // #endregion
         
         const isAssociated = isTaskAssociatedWithCurrentPage(previewUrl)
         
         // #region agent log
-        fetch('http://127.0.0.1:7243/ingest/a3ecbb51-80a5-44fa-9c04-f36450814d2c',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'index.html:renderApprovalButton:result',message:'isAssociated result',data:{isAssociated:isAssociated},timestamp:Date.now(),sessionId:'debug-session',hypothesisId:'H4'})}).catch(()=>{});
+        console.log('[DEBUG H4] isAssociated result:', isAssociated);
         // #endregion
         
         if (!isAssociated) {
+          // #region agent log
+          console.log('[DEBUG H4] Not associated, returning empty string (no button)');
+          // #endregion
           return ''
         }
 
+        // #region agent log
+        console.log('[DEBUG H4] Rendering approval button');
+        // #endregion
         return `
           <div class="approval-section">
             <div class="approval-button-container">

@@ -993,10 +993,17 @@
       }
 
       function isTaskAssociatedWithCurrentPage(previewUrl) {
+        // #region agent log
+        fetch('http://127.0.0.1:7243/ingest/a3ecbb51-80a5-44fa-9c04-f36450814d2c',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'index.html:isTaskAssociatedWithCurrentPage:entry',message:'Function entry',data:{previewUrl:previewUrl},timestamp:Date.now(),sessionId:'debug-session',hypothesisId:'H1'})}).catch(()=>{});
+        // #endregion
         if (!previewUrl) return false
         
         const params = new URLSearchParams(window.location.search)
         const referrer = params.get('referrer') || document.referrer
+        
+        // #region agent log
+        fetch('http://127.0.0.1:7243/ingest/a3ecbb51-80a5-44fa-9c04-f36450814d2c',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'index.html:isTaskAssociatedWithCurrentPage:referrer',message:'Referrer value',data:{referrer:referrer,queryParamReferrer:params.get('referrer'),documentReferrer:document.referrer},timestamp:Date.now(),sessionId:'debug-session',hypothesisId:'H2'})}).catch(()=>{});
+        // #endregion
         
         if (!referrer) return false
         
@@ -1004,6 +1011,10 @@
         try {
           const previewUrlObj = new URL(previewUrl)
           const referrerUrlObj = new URL(referrer)
+          
+          // #region agent log
+          fetch('http://127.0.0.1:7243/ingest/a3ecbb51-80a5-44fa-9c04-f36450814d2c',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'index.html:isTaskAssociatedWithCurrentPage:comparison',message:'URL comparison',data:{previewHostname:previewUrlObj.hostname,previewPathname:previewUrlObj.pathname,referrerHostname:referrerUrlObj.hostname,referrerPathname:referrerUrlObj.pathname},timestamp:Date.now(),sessionId:'debug-session',hypothesisId:'H3'})}).catch(()=>{});
+          // #endregion
           
           // Compare pathname and hostname (ignore protocol, query params, and hash)
           return previewUrlObj.hostname === referrerUrlObj.hostname && 
@@ -1015,7 +1026,17 @@
       }
 
       function renderApprovalButton(task, previewUrl) {
-        if (!isTaskAssociatedWithCurrentPage(previewUrl)) {
+        // #region agent log
+        fetch('http://127.0.0.1:7243/ingest/a3ecbb51-80a5-44fa-9c04-f36450814d2c',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'index.html:renderApprovalButton:entry',message:'renderApprovalButton called',data:{taskId:task?.ID,previewUrl:previewUrl},timestamp:Date.now(),sessionId:'debug-session',hypothesisId:'H4'})}).catch(()=>{});
+        // #endregion
+        
+        const isAssociated = isTaskAssociatedWithCurrentPage(previewUrl)
+        
+        // #region agent log
+        fetch('http://127.0.0.1:7243/ingest/a3ecbb51-80a5-44fa-9c04-f36450814d2c',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'index.html:renderApprovalButton:result',message:'isAssociated result',data:{isAssociated:isAssociated},timestamp:Date.now(),sessionId:'debug-session',hypothesisId:'H4'})}).catch(()=>{});
+        // #endregion
+        
+        if (!isAssociated) {
           return ''
         }
 

@@ -30,4 +30,18 @@ export default function decorate(block) {
 
   block.textContent = '';
   block.append(wrapper);
+
+  // Auto-close other accordion items when one is opened
+  wrapper.querySelectorAll('details').forEach((details) => {
+    details.addEventListener('toggle', () => {
+      if (details.open) {
+        // Close all other open details elements in this accordion
+        wrapper.querySelectorAll('details[open]').forEach((openDetails) => {
+          if (openDetails !== details) {
+            openDetails.removeAttribute('open');
+          }
+        });
+      }
+    });
+  });
 }

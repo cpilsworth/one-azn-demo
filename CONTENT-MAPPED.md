@@ -28,33 +28,35 @@ Project-specific content mapping patterns and learnings for EDS migrations.
 - Use `<br><br>` for line breaks between title and description
 - Column options: `cols-2`, `cols-3`, `cols-4`
 
-### accordion-oneaz Block (PREFERRED over accordion)
+### accordion-section Block (PREFERRED)
 
-**Location:** `blocks/accordion-oneaz/accordion-oneaz.css`
+**Location:** `blocks/accordion-section/accordion-section.css`
 
-**⚠️ IMPORTANT:** Always use `accordion-oneaz` instead of generic `accordion` for AstraZeneca/MeinMedcampus projects.
+**⚠️ IMPORTANT:** Always use `accordion-section` for expandable content sections. This is the preferred accordion block.
 
-**Brand Styling:**
-- Card-style items with shadows and rounded corners
-- Teal/cyan left border on expanded content (AstraZeneca brand color)
-- Magenta text for accordion labels
+**Styling:**
+- Clean, minimal design with border separators
 - Chevron rotation animation when expanded
-- One-AZ typography and spacing from Figma design system
+- Responsive typography and spacing
 
-**Markdown Template:**
+**Markdown Template (Grid Table Format):**
 ```markdown
-| Accordion-Oneaz |
-|---|
-| **Section Title** |
-| Content paragraph with details... |
-| **Another Section** |
-| More content here... |
++---------------------------------------------------------------------------------------------------------------+
+| **Accordion-Section**                                                                                         |
++-----------------------------------------------+---------------------------------------------------------------+
+| Section Title                                 | Content text for this section goes here. Can be multiple      |
+|                                               | lines of text describing the topic in detail.                 |
++-----------------------------------------------+---------------------------------------------------------------+
+| Another Section Title                         | More content here with details about this topic.              |
++-----------------------------------------------+---------------------------------------------------------------+
 ```
 
 **Key Rules:**
-- Use `**bold**` for section titles (clickable headers)
-- Plain text or HTML for content (follows the title row)
-- Each title + content pair creates one accordion item
+- Use grid table format with `+---+` borders
+- First row contains block name: `**Accordion-Section**`
+- Each subsequent row: `| Title | Content |` (2 columns)
+- Title in left column, content in right column
+- Each row creates one accordion item
 
 ---
 
@@ -66,16 +68,16 @@ Project-specific content mapping patterns and learnings for EDS migrations.
 
 **Rule:** Before using a generic block, check if a branded variant exists:
 
-| Generic Block | Branded Variant | When to Use Branded |
-|---------------|-----------------|---------------------|
-| `accordion` | `accordion-oneaz` | All AstraZeneca/MeinMedcampus projects |
+| Generic Block | Preferred Variant | When to Use |
+|---------------|-------------------|-------------|
+| `accordion` | `accordion-section` | All expandable content sections |
 | `cards` | `cards-therapeutic` | Medical/therapeutic content |
-| `hero` | `hero-oneaz` | AstraZeneca branded pages |
+| `hero` | `hero` | All hero banners |
 
 **How to Check:**
 ```bash
-ls blocks/ | grep -i oneaz    # Find AstraZeneca branded blocks
 ls blocks/ | grep -i <name>   # Find all variants of a block
+ls blocks/                    # List all available blocks
 ```
 
 **Why It Matters:**
@@ -168,44 +170,19 @@ curl -o content/images/image-name.png "https://source-cdn.com/path/to/image.png"
 | Markdown headings in tables | Use `**bold**` instead of `###` |
 | Session timeout | Batch asset downloads after authentication |
 | Generic teaser images | Note when multiple cards share same image for content authors |
-| **Used generic block** | **Always check for branded variants (`-oneaz`, `-therapeutic`) before using generic blocks** |
+| **Used generic block** | **Use preferred variants: `accordion-section` for accordions, `cards-therapeutic` for cards** |
 | **CTA in cards** | **Do NOT migrate CTA links in cards blocks - cards should only have image, title, and description** |
 
 ---
 
 ## Migration History
 
-### test-1.md (2025-01-19)
+### sle.md (2025-01-19)
 
 **Source:** `https://www.mein-medcampus.de/systemischer-lupus-erythematodes/deutsche-S3-Leitlinie-SLE-verof-fentlicht`
 
 **Blocks Used:**
-- `accordion-oneaz` - For 5 expandable therapy sections
-- Default content - For title, intro, footnotes, references
-
-**Content Migrated:**
-- Page title: "Deutsche S3-Leitlinie SLE veröffentlicht"
-- Bold intro text and main paragraph
-- Treatment diagram image with caption
-- 5 accordion sections (Biologika, Remission, Hydroxychloroquin, Glucocorticoide, Fatigue)
-- Footnotes (DORIS, ST definitions)
-- 5 references with links
-- External links (Pflichttext, Fachinformation)
-
-**Issues Resolved:**
-1. Initially used generic `accordion` → Changed to `accordion-oneaz` for brand consistency
-2. Required authentication with cookie consent handling
-
-**Key Learning:** Always check for branded block variants (`-oneaz`) before using generic blocks on AstraZeneca projects.
-
----
-
-### test-1.md (2025-01-19)
-
-**Source:** `https://www.mein-medcampus.de/systemischer-lupus-erythematodes/deutsche-S3-Leitlinie-SLE-verof-fentlicht`
-
-**Blocks Used:**
-- `accordion-oneaz` - For 5 expandable therapy sections
+- `accordion-section` - For 5 expandable therapy sections (grid table format)
 - Default content - For title, intro, image, footnotes, references
 
 **Content Migrated:**
@@ -224,8 +201,10 @@ curl -o content/images/image-name.png "https://source-cdn.com/path/to/image.png"
 - Document code: DE-81817/04-25
 
 **Issues Resolved:**
-1. Initially used incorrect accordion format (single column) → Fixed to 2-column format (label | content)
+1. Used grid table format for accordion-section (2-column: title | content)
 2. Required authentication with cookie consent handling
+
+**Key Learning:** Use `accordion-section` with grid table format for expandable content sections.
 
 ---
 

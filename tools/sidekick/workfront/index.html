@@ -10,26 +10,33 @@
     <meta name="robots" content="noindex" />
     <base href="/" />
 
-    <!-- Import map for Spectrum 2 theme dependencies -->
+    <!-- ES Module Shims for better import map support -->
+    <script async src="https://ga.jspm.io/npm:es-module-shims@1.10.1/dist/es-module-shims.js"></script>
+
+    <!-- Import map for Spectrum Web Components -->
     <script type="importmap">
       {
         "imports": {
-          "@spectrum-web-components/base": "https://cdn.jsdelivr.net/npm/@spectrum-web-components/base@1.11.0/src/index.js",
-          "@spectrum-web-components/core": "https://cdn.jsdelivr.net/npm/@spectrum-web-components/core@0.0.2/dist/index.js",
-          "@spectrum-web-components/core/": "https://cdn.jsdelivr.net/npm/@spectrum-web-components/core@0.0.2/dist/",
-          "lit": "https://cdn.jsdelivr.net/npm/lit@3.1.3/index.js",
-          "@lit/reactive-element": "https://cdn.jsdelivr.net/npm/@lit/reactive-element@2.0.4/index.js",
-          "lit-html": "https://cdn.jsdelivr.net/npm/lit-html@3.1.2/lit-html.js",
-          "lit-element/lit-element.js": "https://cdn.jsdelivr.net/npm/lit-element@4.0.4/lit-element.js",
-          "lit-element": "https://cdn.jsdelivr.net/npm/lit-element@4.0.4/index.js"
+          "@spectrum-web-components/theme/": "https://jspm.dev/@spectrum-web-components/theme/",
+          "@spectrum-web-components/button/": "https://jspm.dev/@spectrum-web-components/button/",
+          "@spectrum-web-components/badge/": "https://jspm.dev/@spectrum-web-components/badge/",
+          "@spectrum-web-components/divider/": "https://jspm.dev/@spectrum-web-components/divider/",
+          "@spectrum-web-components/checkbox/": "https://jspm.dev/@spectrum-web-components/checkbox/",
+          "@spectrum-web-components/progress-circle/": "https://jspm.dev/@spectrum-web-components/progress-circle/",
+          "@spectrum-web-components/action-button/": "https://jspm.dev/@spectrum-web-components/action-button/",
+          "@spectrum-web-components/textfield/": "https://jspm.dev/@spectrum-web-components/textfield/",
+          "@spectrum-web-components/picker/": "https://jspm.dev/@spectrum-web-components/picker/",
+          "@spectrum-web-components/menu/": "https://jspm.dev/@spectrum-web-components/menu/",
+          "@spectrum-web-components/avatar/": "https://jspm.dev/@spectrum-web-components/avatar/",
+          "lit": "https://jspm.dev/lit"
         }
       }
     </script>
 
-    <!-- Spectrum Web Components from JSPM CDN (selected components only) -->
+    <!-- Spectrum Web Components -->
     <script type="module">
       import 'https://jspm.dev/@spectrum-web-components/theme/sp-theme.js';
-      import 'https://cdn.jsdelivr.net/npm/@spectrum-web-components/theme@1.11.0/src/spectrum-two/themes.js';
+      import 'https://jspm.dev/@spectrum-web-components/theme/src/themes.js';
       import 'https://jspm.dev/@spectrum-web-components/button/sp-button.js';
       import 'https://jspm.dev/@spectrum-web-components/badge/sp-badge.js';
       import 'https://jspm.dev/@spectrum-web-components/divider/sp-divider.js';
@@ -422,7 +429,7 @@
   </head>
 
   <body>
-    <sp-theme system="spectrum-two" scale="medium" color="light">
+    <sp-theme system="spectrum" scale="medium" color="light">
       <div class="container">
         <div class="header">
           <h1>My Work</h1>

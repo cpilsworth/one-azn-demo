@@ -26,36 +26,8 @@
       }
     </script>
 
-    <script>
-      // #region agent log
-      fetch('http://127.0.0.1:7243/ingest/a3ecbb51-80a5-44fa-9c04-f36450814d2c',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'workfront/index.html:importmap:boot',message:'Import map boot check',data:{hasImportMap:!!document.querySelector('script[type=\"importmap\"]'),url:window.location.href},timestamp:Date.now(),sessionId:'debug-session',runId:'pre-fix',hypothesisId:'H1'})}).catch(()=>{});
-      // #endregion
-    </script>
-
-    <script>
-      // #region agent log
-      fetch('http://127.0.0.1:7243/ingest/a3ecbb51-80a5-44fa-9c04-f36450814d2c',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'workfront/index.html:importmap:support',message:'Import map support',data:{supportsImportMap:!!(window.HTMLScriptElement && HTMLScriptElement.supports && HTMLScriptElement.supports('importmap'))},timestamp:Date.now(),sessionId:'debug-session',runId:'pre-fix',hypothesisId:'H3'})}).catch(()=>{});
-      // #endregion
-
-      window.addEventListener('error', (event) => {
-        // #region agent log
-        fetch('http://127.0.0.1:7243/ingest/a3ecbb51-80a5-44fa-9c04-f36450814d2c',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'workfront/index.html:window:error',message:'Window error captured',data:{message:event?.message,filename:event?.filename},timestamp:Date.now(),sessionId:'debug-session',runId:'pre-fix',hypothesisId:'H2'})}).catch(()=>{});
-        // #endregion
-      });
-    </script>
-
     <!-- Spectrum Web Components from JSPM CDN (selected components only) -->
     <script type="module">
-      // #region agent log
-      fetch('http://127.0.0.1:7243/ingest/a3ecbb51-80a5-44fa-9c04-f36450814d2c',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'workfront/index.html:module:entry',message:'Spectrum modules boot',data:{},timestamp:Date.now(),sessionId:'debug-session',runId:'pre-fix',hypothesisId:'H2'})}).catch(()=>{});
-      // #endregion
-      // #region agent log
-      import('@spectrum-web-components/core/shared/base/Base.js').then(() => {
-        fetch('http://127.0.0.1:7243/ingest/a3ecbb51-80a5-44fa-9c04-f36450814d2c',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'workfront/index.html:module:core-import',message:'Resolved core Base.js',data:{resolved:true},timestamp:Date.now(),sessionId:'debug-session',runId:'pre-fix',hypothesisId:'H2'})}).catch(()=>{});
-      }).catch((err) => {
-        fetch('http://127.0.0.1:7243/ingest/a3ecbb51-80a5-44fa-9c04-f36450814d2c',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'workfront/index.html:module:core-import',message:'Failed to resolve core Base.js',data:{message:err && err.message},timestamp:Date.now(),sessionId:'debug-session',runId:'pre-fix',hypothesisId:'H2'})}).catch(()=>{});
-      });
-      // #endregion
       import 'https://jspm.dev/@spectrum-web-components/theme/sp-theme.js';
       import 'https://cdn.jsdelivr.net/npm/@spectrum-web-components/theme@1.11.0/src/spectrum-two/themes.js';
       import 'https://jspm.dev/@spectrum-web-components/button/sp-button.js';
@@ -1028,27 +1000,14 @@
 
       function isTaskAssociatedWithCurrentPage(previewUrl, publishUrl) {
         const candidateUrls = [previewUrl, publishUrl].filter(Boolean)
-        // #region agent log
-        console.log('[DEBUG H1] isTaskAssociatedWithCurrentPage entry:', { previewUrl, publishUrl, candidateCount: candidateUrls.length });
-        // #endregion
         if (!candidateUrls.length) {
-          // #region agent log
-          console.log('[DEBUG H1] No candidate URLs, returning false');
-          // #endregion
           return false
         }
         
         const params = new URLSearchParams(window.location.search)
         const referrer = params.get('referrer') || document.referrer
         
-        // #region agent log
-        console.log('[DEBUG H2] Referrer values:', { referrer, queryParamReferrer: params.get('referrer'), documentReferrer: document.referrer });
-        // #endregion
-        
         if (!referrer) {
-          // #region agent log
-          console.log('[DEBUG H2] referrer is empty, returning false');
-          // #endregion
           return false
         }
         
@@ -1059,17 +1018,9 @@
           try {
             const candidateUrlObj = new URL(candidateUrl)
 
-            // #region agent log
-            console.log('[DEBUG H3] URL comparison:', { candidateUrl, candidateHostname: candidateUrlObj.hostname, candidatePathname: candidateUrlObj.pathname, referrerHostname: referrerUrlObj.hostname, referrerPathname: referrerUrlObj.pathname });
-            // #endregion
-
             // Compare pathname and hostname (ignore protocol, query params, and hash)
-            const result = candidateUrlObj.hostname === referrerUrlObj.hostname &&
+            return candidateUrlObj.hostname === referrerUrlObj.hostname &&
                  candidateUrlObj.pathname === referrerUrlObj.pathname
-            // #region agent log
-            console.log('[DEBUG H3] URL match result:', result);
-            // #endregion
-            return result
           } catch (e) {
             // If URL parsing fails, do a simple string comparison
             return candidateUrl === referrer || referrer.includes(candidateUrl) || candidateUrl.includes(referrer)
@@ -1078,26 +1029,12 @@
       }
 
       function renderApprovalButton(task, previewUrl, publishUrl) {
-        // #region agent log
-        console.log('[DEBUG H4] renderApprovalButton called:', { taskId: task?.ID, taskName: task?.name, previewUrl, publishUrl });
-        // #endregion
-        
         const isAssociated = isTaskAssociatedWithCurrentPage(previewUrl, publishUrl)
         
-        // #region agent log
-        console.log('[DEBUG H4] isAssociated result:', isAssociated);
-        // #endregion
-        
         if (!isAssociated) {
-          // #region agent log
-          console.log('[DEBUG H4] Not associated, returning empty string (no button)');
-          // #endregion
           return ''
         }
 
-        // #region agent log
-        console.log('[DEBUG H4] Rendering approval button');
-        // #endregion
         return `
           <div class="approval-section">
             <div class="approval-button-container">

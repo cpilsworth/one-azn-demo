@@ -3,31 +3,32 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Spectrum Web Components Demo</title>
+    <title>Spectrum Web Components - Fixed</title>
 
     <script type="module">
-        import 'https://unpkg.com/@spectrum-web-components/theme/sp-theme.js';
-        import 'https://unpkg.com/@spectrum-web-components/theme/src/themes.js';
-        import 'https://unpkg.com/@spectrum-web-components/button/sp-button.js';
+        import 'https://esm.sh/@spectrum-web-components/theme/sp-theme.js';
+        import 'https://esm.sh/@spectrum-web-components/theme/src/themes.js';
+        import 'https://esm.sh/@spectrum-web-components/button/sp-button.js';
     </script>
 
     <style>
         body {
             display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
             height: 100vh;
             margin: 0;
-            background-color: #f5f5f5;
-            font-family: adobe-clean, sans-serif;
+            background-color: #f8f8f8;
+            font-family: "Adobe Clean", sans-serif;
         }
     </style>
 </head>
 <body>
 
-    <sp-theme theme="spectrum" color="light" scale="medium">
+    <sp-theme system="spectrum" color="light" scale="medium">
         
-        <sp-button variant="accent" onclick="alert('Button clicked!')">
+        <sp-button variant="accent" onclick="console.log('Clicked!')">
             Click
         </sp-button>
 

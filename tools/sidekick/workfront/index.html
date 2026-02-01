@@ -27,6 +27,18 @@
       // #endregion
     </script>
 
+    <script>
+      // #region agent log
+      fetch('http://127.0.0.1:7243/ingest/a3ecbb51-80a5-44fa-9c04-f36450814d2c',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'workfront/index.html:importmap:support',message:'Import map support',data:{supportsImportMap:!!(window.HTMLScriptElement && HTMLScriptElement.supports && HTMLScriptElement.supports('importmap'))},timestamp:Date.now(),sessionId:'debug-session',runId:'pre-fix',hypothesisId:'H3'})}).catch(()=>{});
+      // #endregion
+
+      window.addEventListener('error', (event) => {
+        // #region agent log
+        fetch('http://127.0.0.1:7243/ingest/a3ecbb51-80a5-44fa-9c04-f36450814d2c',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'workfront/index.html:window:error',message:'Window error captured',data:{message:event?.message,filename:event?.filename},timestamp:Date.now(),sessionId:'debug-session',runId:'pre-fix',hypothesisId:'H2'})}).catch(()=>{});
+        // #endregion
+      });
+    </script>
+
     <!-- Spectrum Web Components from JSPM CDN (selected components only) -->
     <script type="module">
       // #region agent log

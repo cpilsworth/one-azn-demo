@@ -10,6 +10,31 @@ Project-specific content mapping patterns and learnings for EDS migrations.
 
 **Location:** `blocks/cards/cards.css` (variant: therapeutic)
 
+#### ⚠️ CRITICAL: Vertical Structure Only (cols-N is CSS, not table columns)
+
+**The `cols-N` variant controls CSS grid display, NOT markdown table columns.**
+
+```markdown
+# ✅ CORRECT - 2-column vertical format (each row = one card)
+| Cards (therapeutic, cols-3) |  |
+|---|---|
+| ![img1](url1) | **Title 1** <br><br> Description 1 |
+| ![img2](url2) | **Title 2** <br><br> Description 2 |
+| ![img3](url3) | **Title 3** <br><br> Description 3 |
+
+# ❌ WRONG - Horizontal grid format (NEVER do this)
+| Cards (therapeutic, cols-3) |   |   |
+|---|---|---|
+| ![img1] | ![img2] | ![img3] |
+| **Title1** | **Title2** | **Title3** |
+```
+
+**Why horizontal grids break:**
+- EDS Cards block JavaScript expects 2-column structure (image | content)
+- It applies `cards-card-image` class to first column, `cards-card-body` to second
+- 3+ column tables break decoration → no styling applied
+- CSS grid with `cols-N` handles visual layout automatically
+
 **Structure:**
 - Each table row = one card (NOT each cell)
 - 2-column format: `| image | content |`
@@ -23,10 +48,11 @@ Project-specific content mapping patterns and learnings for EDS migrations.
 ```
 
 **Key Rules:**
+- **ALWAYS use 2-column vertical format** - regardless of cols-N variant
 - **Do NOT include CTA links** - Cards should not have "Mehr erfahren" or similar call-to-action buttons
 - Use `**bold**` for titles (NOT `###` markdown headings - they don't work in tables)
 - Use `<br><br>` for line breaks between title and description
-- Column options: `cols-2`, `cols-3`, `cols-4`
+- Column options: `cols-2`, `cols-3`, `cols-4` (these control CSS grid, not table structure)
 
 ### accordion-section Block (PREFERRED)
 
@@ -102,6 +128,42 @@ ls blocks/                    # List all available blocks
 
 ## Troubleshooting Guide
 
+### Cards Not Rendering / No Styling Applied
+
+**Problem:** Cards block shows as plain unstyled list or table instead of styled card grid.
+
+**Cause:** Horizontal grid table structure used instead of vertical 2-column format.
+
+**Symptoms:**
+- Cards appear as plain HTML table
+- No card styling (shadows, borders, spacing)
+- Images and text not properly aligned
+
+**Wrong pattern to look for:**
+```markdown
+| Cards (therapeutic, cols-3) |   |   |
+|---|---|---|
+| ![img1] | ![img2] | ![img3] |
+| **Title1** | **Title2** | **Title3** |
+```
+
+**Solution:**
+1. Change to 2-column vertical format (each row = one card)
+2. Keep `cols-N` in block name for CSS grid layout
+3. Structure: `| image | content |` per row
+
+```markdown
+| Cards (therapeutic, cols-3) |  |
+|---|---|
+| ![img1] | **Title1** <br><br> Desc1 |
+| ![img2] | **Title2** <br><br> Desc2 |
+| ![img3] | **Title3** <br><br> Desc3 |
+```
+
+**Root cause:** Source websites display cards in horizontal grids visually. The agent incorrectly replicated this visual layout in markdown table structure instead of using EDS's 2-column vertical format.
+
+---
+
 ### Images Not Rendering
 
 **Problem:** External images from authenticated/protected sites show as broken.
@@ -172,6 +234,7 @@ curl -o content/images/image-name.png "https://source-cdn.com/path/to/image.png"
 | Generic teaser images | Note when multiple cards share same image for content authors |
 | **Used generic block** | **Use preferred variants: `accordion-section` for accordions, `cards-therapeutic` for cards** |
 | **CTA in cards** | **Do NOT migrate CTA links in cards blocks - cards should only have image, title, and description** |
+| **⚠️ Horizontal card grid** | **NEVER use 3+ column tables for cards. `cols-N` is CSS-only. Always use 2-column vertical: `\| image \| content \|` per row** |
 
 ---
 

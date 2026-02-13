@@ -75,7 +75,7 @@ const getDefaultEmbed = (url) => `<div style="left: 0; width: 100%; height: 0; p
     </iframe>
   </div>`;
 
-const embedAemFragment = (url) => `<aem-fragment-embed src="${url.href}"></aem-fragment-embed>`;
+const embedAemFragment = (url) => `<aem-fragment-embed src="${'https://cors.cpilsworth.workers.dev/?target='+url.href}"></aem-fragment-embed>`;
 
 const embedYoutube = (url, autoplay) => {
   const usp = new URLSearchParams(url.search);

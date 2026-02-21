@@ -24,7 +24,7 @@ function getConfig(siteName) {
       }
     },
     extends: {
-      profile: 'nsw-schools',
+      profile: 'cpilsworth',
     }
   }
 }

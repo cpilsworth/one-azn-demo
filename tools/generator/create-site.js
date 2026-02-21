@@ -1,14 +1,17 @@
 import { crawl } from 'https://da.live/nx/public/utils/tree.js';
 import DA_SDK from 'https://da.live/nx/utils/sdk.js';
-const { token } = await DA_SDK;
+const daSdk = await DA_SDK;
 
 const DA_ORIGIN = 'https://admin.da.live';
 const AEM_ORIGIN = 'https://admin.hlx.page';
 
-const HEADERS = {
-  'Content-Type': 'application/json',
-  'Authorization': `Bearer ${token}`,
-};
+async function getAuthHeaders(headers = {}) {
+  const imsToken = await daSdk.auth.getToken();
+  return {
+    ...headers,
+    Authorization: `Bearer ${imsToken}`,
+  };
+}
 
 export const ORG = 'cpilsworth';
 const BLUEPRINT = 'one-azn-demo';
@@ -32,11 +35,12 @@ function getConfig(siteName) {
 async function createConfig(data) {
   const { siteName } = data;
   const config = getConfig(siteName);
+  const headers = await getAuthHeaders({ 'Content-Type': 'application/json' });
 
   const opts = {
     method: 'POST',
     body: JSON.stringify(config),
-    headers: HEADERS,
+    headers,
   };
 
   const res = await fetch(`${AEM_ORIGIN}/config/${ORG}/sites/${data.siteName}.json`, opts);
@@ -49,7 +53,7 @@ async function replaceTemplate(data) {
   await Promise.all(templatePaths.map(async (path) => {
     const daPath = `https://admin.da.live/source/${ORG}/${data.siteName}${path}`;
 
-    const authHeader = { Authorization: `Bearer ${token}` };
+    const authHeader = await getAuthHeaders();
 
     // get index
     const indexRes = await fetch(daPath, { headers: authHeader });
@@ -79,7 +83,8 @@ async function previewOrPublishPages(data, action, setStatus) {
 
   const label = action === 'preview' ? 'Previewing' : 'Publishing';
 
-  const opts = { method: 'POST', headers: { Authorization: `Bearer ${token}` } };
+  const authHeader = await getAuthHeaders();
+  const opts = { method: 'POST', headers: authHeader };
 
   const callback = async (item) => {
     if (item.path.endsWith('.svg') || item.path.endsWith('.png') || item.path.endsWith('.jpg')) return;
@@ -102,7 +107,7 @@ async function copyContent(data) {
 
   formData.set('destination', `/${ORG}/${data.siteName}`);
 
-  const authHeader = { Authorization: `Bearer ${token}` };
+  const authHeader = await getAuthHeaders();
   const opts = { method: 'POST', body: formData, headers: authHeader };
 
   // TODO: Remove force delete. Copying tree doesn't seem to work

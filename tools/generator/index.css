@@ -1,0 +1,30 @@
+body {
+  display: block;
+  position: relative;
+  background-color: #c3e7cb;
+  overflow: hidden;
+}
+
+main {
+  max-width: var(--grid-container-width);
+  margin: 84px auto 0 auto;
+}
+
+picture {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+
+  img {
+    display: block;
+    width: 100%;
+  }
+}
+
+da-generator {
+  display: block;
+  position: relative;
+  max-width: 40%;
+  z-index: 10;
+}

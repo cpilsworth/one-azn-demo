@@ -49,8 +49,10 @@ async function replaceTemplate(data) {
   await Promise.all(templatePaths.map(async (path) => {
     const daPath = `https://admin.da.live/source/${ORG}/${data.siteName}${path}`;
 
+    const authHeader = { Authorization: `Bearer ${token}` };
+
     // get index
-    const indexRes = await fetch(daPath);
+    const indexRes = await fetch(daPath, { headers: authHeader });
     if (!indexRes.ok) throw new Error(`Failed to fetch index.html: ${indexRes.statusText}`);
 
     // replace template values
@@ -65,7 +67,7 @@ async function replaceTemplate(data) {
     const formData = new FormData();
     const blob = new Blob([templatedText], { type: 'text/html' });
     formData.set('data', blob);
-    const updateRes = await fetch(daPath, { method: 'POST', body: formData });
+    const updateRes = await fetch(daPath, { method: 'POST', body: formData, headers: authHeader });
     if (!updateRes.ok) {
       throw new Error(`Failed to update index.html: ${updateRes.statusText}`);
     }
@@ -100,10 +102,11 @@ async function copyContent(data) {
 
   formData.set('destination', `/${ORG}/${data.siteName}`);
 
-  const opts = { method: 'POST', body: formData };
+  const authHeader = { Authorization: `Bearer ${token}` };
+  const opts = { method: 'POST', body: formData, headers: authHeader };
 
   // TODO: Remove force delete. Copying tree doesn't seem to work
-  const del = await fetch(`${DA_ORIGIN}/source${destination}`, { method: 'DELETE' });
+  const del = await fetch(`${DA_ORIGIN}/source${destination}`, { method: 'DELETE', headers: authHeader });
 
   const res = await fetch(`${DA_ORIGIN}/copy${COPY_FROM}`, opts);
 

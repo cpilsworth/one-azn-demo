@@ -1,6 +1,7 @@
 import { crawl } from 'https://da.live/nx/public/utils/tree.js';
 import DA_SDK from 'https://da.live/nx/utils/sdk.js';
-const daSdk = await DA_SDK;
+const { context, token } = await DA_SDK;
+const { org, repo } = context;
 
 const DA_ORIGIN = 'https://admin.da.live';
 const AEM_ORIGIN = 'https://admin.hlx.page';
@@ -13,8 +14,8 @@ async function getAuthHeaders(headers = {}) {
   };
 }
 
-export const ORG = 'cpilsworth';
-const BLUEPRINT = 'one-azn-demo';
+export const ORG = org;
+const BLUEPRINT = repo;
 const COPY_FROM = `/${ORG}/${BLUEPRINT}/`;
 
 function getConfig(siteName) {

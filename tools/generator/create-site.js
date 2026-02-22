@@ -7,10 +7,9 @@ const DA_ORIGIN = 'https://admin.da.live';
 const AEM_ORIGIN = 'https://admin.hlx.page';
 
 async function getAuthHeaders(headers = {}) {
-  const imsToken = await daSdk.auth.getToken();
   return {
     ...headers,
-    Authorization: `Bearer ${imsToken}`,
+    Authorization: `Bearer ${token}`,
   };
 }
 

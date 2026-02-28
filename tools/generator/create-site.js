@@ -7,15 +7,10 @@ const DA_ORIGIN = 'https://admin.da.live';
 const AEM_ORIGIN = 'https://admin.hlx.page';
 
 async function getAuthHeaders(headers = {}) {
+  console.log(headers);
   return {
     ...headers,
     Authorization: `Bearer ${token}`,
-  };
-}
-
-async function getAuthCookie(headers = {}) {
-  return {
-    ...headers,
     Cookie: `auth_token=${token}`,
   };
 }
@@ -90,7 +85,7 @@ async function previewOrPublishPages(data, action, setStatus) {
 
   const label = action === 'preview' ? 'Previewing' : 'Publishing';
 
-  const authHeader = await getAuthCookie();
+  const authHeader = await getAuthHeaders();
   const opts = { method: 'POST', headers: authHeader };
 
   const callback = async (item) => {

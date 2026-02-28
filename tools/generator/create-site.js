@@ -13,6 +13,13 @@ async function getAuthHeaders(headers = {}) {
   };
 }
 
+async function getAuthCookie(headers = {}) {
+  return {
+    ...headers,
+    Cookie: `auth_token=${token}`,
+  };
+}
+
 export const ORG = org;
 const BLUEPRINT = repo;
 const COPY_FROM = `/${ORG}/${BLUEPRINT}/`;
@@ -83,8 +90,8 @@ async function previewOrPublishPages(data, action, setStatus) {
 
   const label = action === 'preview' ? 'Previewing' : 'Publishing';
 
-  const authHeader = await getAuthHeaders();
-  const opts = { method: 'POST' };
+  const authHeader = await getAuthCookie();
+  const opts = { method: 'POST', headers: authHeader };
 
   const callback = async (item) => {
     if (item.path.endsWith('.svg') || item.path.endsWith('.png') || item.path.endsWith('.jpg')) return;

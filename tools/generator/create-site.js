@@ -86,7 +86,7 @@ async function previewOrPublishPages(data, action, setStatus) {
   const label = action === 'preview' ? 'Previewing' : 'Publishing';
 
   const authHeader = await getAuthHeaders();
-  const opts = { method: 'POST', headers: authHeader };
+  const opts = { method: 'POST', headers: authHeader, credentials: 'include' };
 
   const callback = async (item) => {
     if (item.path.endsWith('.svg') || item.path.endsWith('.png') || item.path.endsWith('.jpg')) return;

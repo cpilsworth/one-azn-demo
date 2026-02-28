@@ -27,7 +27,7 @@ function getConfig(siteName) {
       }
     },
     extends: {
-      profile: 'cpilsworth',
+      profile: 'oneaz',
     }
   }
 }

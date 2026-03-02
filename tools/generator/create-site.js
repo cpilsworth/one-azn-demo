@@ -65,8 +65,7 @@ async function replaceTemplate(data) {
     const indexText = await indexRes.text();
     const templatedText = indexText
       .replaceAll('{{name-of-drug}}', data.drugName)
-      .replaceAll('{{name-of-market}}', data.marketName)
-      .replaceAll('{{therapy-area}}', data.therapyArea);
+      .replaceAll('{{name-of-market}}', data.marketName);
     
 
     // update index

@@ -91,10 +91,6 @@ class Generator extends LitElement {
           <label>Market name</label>
           <sl-input name="marketName"></sl-input>
         </div>
-        <div class="fieldgroup">
-          <label>Therapy area</label>
-          <sl-input name="therapyArea"></sl-input>
-        </div>
         <div class="form-footer">
           <div class="time-actions">
             <p>${this._time}</p>

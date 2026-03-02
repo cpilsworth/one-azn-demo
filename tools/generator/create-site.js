@@ -16,10 +16,8 @@ async function getAuthHeaders(headers = {}) {
 }
 
 export const ORG = org;
-const BLUEPRINT = repo;
-const COPY_FROM = `/${ORG}/${BLUEPRINT}/`;
 
-function getConfig(siteName) {
+function getConfig(siteName, profile) {
   return {
     version: 1,
     content: {
@@ -29,14 +27,14 @@ function getConfig(siteName) {
       }
     },
     extends: {
-      profile: 'oneaz',
+      profile,
     }
   }
 }
 
 async function createConfig(data) {
-  const { siteName } = data;
-  const config = getConfig(siteName);
+  const { siteName, profile } = data;
+  const config = getConfig(siteName, profile);
   const headers = await getAuthHeaders({ 'Content-Type': 'application/json' });
 
   const opts = {
@@ -105,6 +103,8 @@ async function previewOrPublishPages(data, action, setStatus) {
 async function copyContent(data) {
   const formData = new FormData();
   const destination = `/${ORG}/${data.siteName}`;
+  const templateSite = data.templateSite.replace(/^\/+|\/$/g, '');
+  const copyFrom = `/${ORG}/${templateSite}/`;
 
   formData.set('destination', `/${ORG}/${data.siteName}`);
 
@@ -114,7 +114,7 @@ async function copyContent(data) {
   // TODO: Remove force delete. Copying tree doesn't seem to work
   const del = await fetch(`${DA_ORIGIN}/source${destination}`, { method: 'DELETE', headers: authHeader });
 
-  const res = await fetch(`${DA_ORIGIN}/copy${COPY_FROM}`, opts);
+  const res = await fetch(`${DA_ORIGIN}/copy${copyFrom}`, opts);
 
   if (!res.ok) throw new Error(`Failed to copy content: ${res.statusText}`);
 }

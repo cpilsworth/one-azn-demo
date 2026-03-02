@@ -4,6 +4,16 @@ import { LitElement, html, nothing } from 'da-lit';
 import { ORG, createSite } from './create-site.js';
 
 const style = await getStyle(import.meta.url);
+const DRUG_TEMPLATES = {
+  oneaz: {
+    profile: 'oneaz',
+    templateSite: 'one-azn-demo',
+  },
+  'oneaz-breztri': {
+    profile: 'oneaz-breztri',
+    templateSite: 'breztri',
+  },
+};
 
 class Generator extends LitElement {
   static properties = {
@@ -36,6 +46,12 @@ class Generator extends LitElement {
       return;
     }
 
+    const selectedDrug = DRUG_TEMPLATES[entries.drugName];
+    if (!selectedDrug) {
+      this._status = { type: 'error', message: 'Invalid drug selection.' };
+      return;
+    }
+
     const startTime = Date.now();
     const getTime = setInterval(() => {
       this._time = this.calculateCrawlTime(startTime);
@@ -43,6 +59,8 @@ class Generator extends LitElement {
     
     this._data = {
       ...entries,
+      profile: selectedDrug.profile,
+      templateSite: selectedDrug.templateSite,
       siteName: `${entries.drugName}-${entries.marketName}`.replaceAll(/[^a-zA-Z0-9]/g, '-').toLowerCase(),
     };
 
@@ -85,7 +103,10 @@ class Generator extends LitElement {
       <form>
         <div class="fieldgroup">
           <label>Drug name</label>
-          <sl-input name="drugName"></sl-input>
+          <sl-select name="drugName" value="oneaz">
+            <sl-option value="oneaz">oneaz: /${ORG}/one-azn-demo</sl-option>
+            <sl-option value="oneaz-breztri">oneaz-breztri: /${ORG}/breztri</sl-option>
+          </sl-select>
         </div>
         <div class="fieldgroup">
           <label>Market name</label>

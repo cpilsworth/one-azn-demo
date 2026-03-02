@@ -9,7 +9,7 @@ const DRUG_TEMPLATES = {
     profile: 'oneaz',
     templateSite: 'one-azn-demo',
   },
-  'oneaz-breztri': {
+  breztri: {
     profile: 'oneaz-breztri',
     templateSite: 'breztri',
   },
@@ -105,7 +105,7 @@ class Generator extends LitElement {
           <label>Drug name</label>
           <sl-select name="drugName" value="oneaz">
             <sl-option value="oneaz">oneaz: /${ORG}/one-azn-demo</sl-option>
-            <sl-option value="oneaz-breztri">oneaz-breztri: /${ORG}/breztri</sl-option>
+            <sl-option value="breztri">breztri: /${ORG}/breztri</sl-option>
           </sl-select>
         </div>
         <div class="fieldgroup">

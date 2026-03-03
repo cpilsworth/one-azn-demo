@@ -12,7 +12,6 @@ async function getAuthHeaders(headers = {}) {
   return {
     ...headers,
     Authorization: `Bearer ${token}`,
-    Cookie: `auth_token=${token}`,
   };
 }
 
@@ -42,7 +41,6 @@ async function createConfig(data) {
     method: 'POST',
     body: JSON.stringify(config),
     headers,
-    credentials: 'include',
   };
 
   const res = await fetch(`${AEM_ORIGIN}/config/${ORG}/sites/${data.siteName}.json`, opts);

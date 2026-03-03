@@ -6,6 +6,7 @@ const { org, repo } = context;
 const DA_ORIGIN = 'https://admin.da.live';
 const AEM_ORIGIN = 'https://admin.hlx.page';
 
+
 async function getAuthHeaders(headers = {}) {
   console.log(headers);
   return {
@@ -41,6 +42,7 @@ async function createConfig(data) {
     method: 'POST',
     body: JSON.stringify(config),
     headers,
+    credentials: 'include',
   };
 
   const res = await fetch(`${AEM_ORIGIN}/config/${ORG}/sites/${data.siteName}.json`, opts);

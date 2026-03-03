@@ -104,8 +104,8 @@ class Generator extends LitElement {
         <div class="fieldgroup">
           <label>Drug name</label>
           <sl-select name="drugName" value="oneaz">
-            <sl-option value="oneaz">oneaz: /${ORG}/one-azn-demo</sl-option>
-            <sl-option value="breztri">breztri: /${ORG}/breztri</sl-option>
+            <option value="oneaz">oneaz: /${ORG}/one-azn-demo</option>
+            <option value="breztri">breztri: /${ORG}/breztri</option>
           </sl-select>
         </div>
         <div class="fieldgroup">

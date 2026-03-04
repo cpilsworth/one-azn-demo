@@ -107,7 +107,7 @@ const loadEmbed = (block, link, autoplay) => {
     return;
   }
 
-  if (link.includes('aem-fragments.adobe.com')) {
+  if (link.includes('/previewtemplates-')) {
     embedAemFragment(block, new URL(link));
     return;
   }

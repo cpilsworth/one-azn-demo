@@ -10,16 +10,17 @@
   justify-content: center;
 }
 
-/* AEM content-fragment embeds render full-bleed (edge to edge of the viewport),
-   breaking out of the section's max-width container. */
-.embed.embed-aem-fragment {
+/* Author option: add the "full-bleed" style to an Embed block to make it render
+   edge to edge of the viewport, breaking out of the section's max-width
+   container (e.g. Embed (full-bleed)). */
+.embed.full-bleed {
   max-width: none;
   width: 100vw;
   margin-left: calc(50% - 50vw);
   margin-right: calc(50% - 50vw);
 }
 
-.embed.embed-aem-fragment .aem-fragment-container {
+.embed.full-bleed .aem-fragment-container {
   width: 100%;
 }
 

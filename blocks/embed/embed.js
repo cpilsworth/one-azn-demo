@@ -66,13 +66,11 @@ const renderFragment = (DOMPurify, html, container) => {
  * sanitized with DOMPurify before insertion (scripts stripped, defense-in-depth).
  */
 class AemFragmentEmbed extends HTMLElement {
-  static get observedAttributes() {
-    return ['src'];
-  }
-
   connectedCallback() {
     const src = this.getAttribute('src');
-    if (!src) return;
+    // Guard against a repeat connectedCallback (e.g. if the element is moved),
+    // which would throw when re-attaching a shadow root.
+    if (!src || this.shadowRoot) return;
     this.attachShadow({ mode: 'open' });
     const container = document.createElement('div');
     container.className = 'aem-fragment-container';
@@ -138,30 +136,31 @@ const embedTwitter = (url) => {
   return embedHTML;
 };
 
+const EMBEDS_CONFIG = [
+  {
+    match: ['youtube', 'youtu.be'],
+    embed: embedYoutube,
+  },
+  {
+    match: ['vimeo'],
+    embed: embedVimeo,
+  },
+  {
+    match: ['twitter', 'x.com'],
+    embed: embedTwitter,
+  },
+  {
+    match: ['/adobe/contentFragments/'],
+    embed: embedAemFragment,
+    className: 'embed-aem-fragment',
+  },
+];
+
 const loadEmbed = (block, link, autoplay) => {
   if (block.classList.contains('embed-is-loaded')) {
     return;
   }
 
-  const EMBEDS_CONFIG = [
-    {
-      match: ['youtube', 'youtu.be'],
-      embed: embedYoutube,
-    },
-    {
-      match: ['vimeo'],
-      embed: embedVimeo,
-    },
-    {
-      match: ['twitter', 'x.com'],
-      embed: embedTwitter,
-    },
-    {
-      match: ['/adobe/contentFragments/'],
-      embed: embedAemFragment,
-      className: 'embed-aem-fragment',
-    },
-  ];
   const config = EMBEDS_CONFIG.find((e) => e.match.some((match) => link.includes(match)));
   const url = new URL(link);
   if (config) {

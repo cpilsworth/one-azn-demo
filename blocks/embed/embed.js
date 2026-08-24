@@ -34,19 +34,30 @@ const getDOMPurify = () => {
 };
 
 /**
- * Sanitizes a full fetched document, preserving its <head> CSS (<style> and
- * <link rel="stylesheet">) alongside the <body>. Scripts and event handlers are
- * always stripped. Returns a sanitized Document.
+ * Renders a fetched AEM fragment document into a shadow-root container.
+ *
+ * The fragment's own CSS (<style> / <link rel="stylesheet"> from <head>) is
+ * preserved verbatim rather than routed through DOMPurify's CSS sanitizer, which
+ * drops an entire stylesheet when it hits modern rules it can't parse (e.g.
+ * :has(), some @media blocks). CSS carries no script-execution vector inside a
+ * shadow root, so this is safe. :root selectors are remapped to :host so the
+ * fragment's custom properties resolve against the shadow root. Only the <body>
+ * markup is run through DOMPurify (scripts stripped) for XSS defense-in-depth.
  */
-const sanitizeDocument = (DOMPurify, html) => {
-  const clean = DOMPurify.sanitize(html, {
-    WHOLE_DOCUMENT: true,
+const renderFragment = (DOMPurify, html, container) => {
+  const doc = new DOMParser().parseFromString(html, 'text/html');
+  doc.head.querySelectorAll('style, link[rel="stylesheet"]').forEach((node) => {
+    const clone = node.cloneNode(true);
+    if (clone.tagName === 'STYLE') {
+      clone.textContent = clone.textContent.replace(/:root\b/g, ':host, :root');
+    }
+    container.appendChild(clone);
+  });
+  const cleanBody = DOMPurify.sanitize(doc.body.innerHTML, {
     USE_PROFILES: { html: true },
-    ADD_TAGS: ['style', 'link'],
-    ADD_ATTR: ['rel', 'href', 'media', 'type'],
     FORBID_TAGS: ['script'],
   });
-  return new DOMParser().parseFromString(clean, 'text/html');
+  container.insertAdjacentHTML('beforeend', cleanBody);
 };
 
 /**
@@ -72,13 +83,7 @@ class AemFragmentEmbed extends HTMLElement {
           if (!r.ok) throw new Error(`HTTP ${r.status}`);
           return r.text();
         })
-        .then((html) => sanitizeDocument(DOMPurify, html)))
-      .then((doc) => {
-        // Preserve the fragment's own CSS from <head> inside the shadow root.
-        doc.head.querySelectorAll('style, link[rel="stylesheet"]')
-          .forEach((node) => container.appendChild(node));
-        container.append(...doc.body.childNodes);
-      })
+        .then((html) => renderFragment(DOMPurify, html, container)))
       .catch(() => {
         container.textContent = 'Failed to load fragment';
       });

@@ -10,6 +10,19 @@
   justify-content: center;
 }
 
+/* AEM content-fragment embeds render full-bleed (edge to edge of the viewport),
+   breaking out of the section's max-width container. */
+.embed.embed-aem-fragment {
+  max-width: none;
+  width: 100vw;
+  margin-left: calc(50% - 50vw);
+  margin-right: calc(50% - 50vw);
+}
+
+.embed.embed-aem-fragment .aem-fragment-container {
+  width: 100%;
+}
+
 .embed.embed-twitter .twitter-tweet-rendered {
   margin-left: auto;
   margin-right: auto;

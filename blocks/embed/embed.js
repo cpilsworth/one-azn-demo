@@ -167,10 +167,9 @@ const loadEmbed = (block, link, autoplay) => {
   if (config) {
     block.innerHTML = config.embed(url, autoplay);
     const embedClass = config.className || `embed-${config.match[0]}`;
-    block.classList = `block embed ${embedClass}`;
+    block.classList.add(embedClass);
   } else {
     block.innerHTML = getDefaultEmbed(url);
-    block.classList = 'block embed';
   }
   block.classList.add('embed-is-loaded');
 };

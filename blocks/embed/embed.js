@@ -40,31 +40,50 @@ const extractBodyHtml = (html) => {
   return doc.body?.innerHTML || html;
 };
 
+/**
+ * Web component that fetches HTML from an AEM Fragment URL and renders it in a shadow root.
+ * Fetched content is sanitized with DOMPurify before insertion (defense-in-depth).
+ */
+class AemFragmentEmbed extends HTMLElement {
+  static get observedAttributes() {
+    return ['src'];
+  }
+
+  connectedCallback() {
+    const src = this.getAttribute('src');
+    if (!src) return;
+    this.attachShadow({ mode: 'open' });
+    const container = document.createElement('div');
+    container.className = 'aem-fragment-container';
+    this.shadowRoot.appendChild(container);
+    getDOMPurify()
+      .then((DOMPurify) => fetch(src)
+        .then((r) => {
+          if (!r.ok) throw new Error(`HTTP ${r.status}`);
+          return r.text();
+        })
+        .then((html) => extractBodyHtml(html))
+        .then((bodyHtml) => DOMPurify.sanitize(bodyHtml, { USE_PROFILES: { html: true } })))
+      .then((sanitized) => {
+        container.innerHTML = sanitized;
+      })
+      .catch(() => {
+        container.textContent = 'Failed to load fragment';
+      });
+  }
+}
+
+if (!customElements.get('aem-fragment-embed')) {
+  customElements.define('aem-fragment-embed', AemFragmentEmbed);
+}
+
 const getDefaultEmbed = (url) => `<div style="left: 0; width: 100%; height: 0; position: relative; padding-bottom: 56.25%;">
     <iframe src="${url.href}" style="border: 0; top: 0; left: 0; width: 100%; height: 100%; position: absolute;" allowfullscreen=""
       scrolling="no" allow="encrypted-media" title="Content from ${url.hostname}" loading="lazy">
     </iframe>
   </div>`;
 
-const embedAemFragment = (block, url) => {
-  getDOMPurify()
-    .then((DOMPurify) => fetch(`${AEM_FRAGMENT_CORS_PROXY}${encodeURIComponent(url.href)}`)
-      .then((r) => {
-        if (!r.ok) throw new Error(`HTTP ${r.status}`);
-        return r.text();
-      })
-      .then((html) => extractBodyHtml(html))
-      .then((bodyHtml) => DOMPurify.sanitize(bodyHtml, { USE_PROFILES: { html: true } })))
-    .then((sanitized) => {
-      block.innerHTML = sanitized;
-      block.classList = 'block embed embed-aem-fragment';
-      block.classList.add('embed-is-loaded');
-    })
-    .catch(() => {
-      block.textContent = 'Failed to load fragment';
-      block.classList = 'block embed embed-aem-fragment embed-is-loaded';
-    });
-};
+const embedAemFragment = (url) => `<aem-fragment-embed src="${AEM_FRAGMENT_CORS_PROXY}${encodeURIComponent(url.href)}"></aem-fragment-embed>`;
 
 const embedYoutube = (url, autoplay) => {
   const usp = new URLSearchParams(url.search);
@@ -107,11 +126,6 @@ const loadEmbed = (block, link, autoplay) => {
     return;
   }
 
-  if (link.includes('/previewtemplates-')) {
-    embedAemFragment(block, new URL(link));
-    return;
-  }
-
   const EMBEDS_CONFIG = [
     {
       match: ['youtube', 'youtu.be'],
@@ -124,6 +138,11 @@ const loadEmbed = (block, link, autoplay) => {
     {
       match: ['twitter', 'x.com'],
       embed: embedTwitter,
+    },
+    {
+      match: ['/adobe/contentFragments/'],
+      embed: embedAemFragment,
+      className: 'embed-aem-fragment',
     },
   ];
   const config = EMBEDS_CONFIG.find((e) => e.match.some((match) => link.includes(match)));

@@ -33,14 +33,26 @@ const getDOMPurify = () => {
   });
 };
 
-const extractBodyHtml = (html) => {
-  const doc = new DOMParser().parseFromString(html, 'text/html');
-  return doc.body?.innerHTML || html;
+/**
+ * Sanitizes a full fetched document, preserving its <head> CSS (<style> and
+ * <link rel="stylesheet">) alongside the <body>. Scripts and event handlers are
+ * always stripped. Returns a sanitized Document.
+ */
+const sanitizeDocument = (DOMPurify, html) => {
+  const clean = DOMPurify.sanitize(html, {
+    WHOLE_DOCUMENT: true,
+    USE_PROFILES: { html: true },
+    ADD_TAGS: ['style', 'link'],
+    ADD_ATTR: ['rel', 'href', 'media', 'type'],
+    FORBID_TAGS: ['script'],
+  });
+  return new DOMParser().parseFromString(clean, 'text/html');
 };
 
 /**
- * Web component that fetches HTML from an AEM Fragment URL and renders it in a shadow root.
- * Fetched content is sanitized with DOMPurify before insertion (defense-in-depth).
+ * Web component that fetches a full HTML document from an AEM Fragment URL and
+ * renders it in a shadow root, preserving the document's CSS. Fetched content is
+ * sanitized with DOMPurify before insertion (scripts stripped, defense-in-depth).
  */
 class AemFragmentEmbed extends HTMLElement {
   static get observedAttributes() {
@@ -60,10 +72,12 @@ class AemFragmentEmbed extends HTMLElement {
           if (!r.ok) throw new Error(`HTTP ${r.status}`);
           return r.text();
         })
-        .then((html) => extractBodyHtml(html))
-        .then((bodyHtml) => DOMPurify.sanitize(bodyHtml, { USE_PROFILES: { html: true } })))
-      .then((sanitized) => {
-        container.innerHTML = sanitized;
+        .then((html) => sanitizeDocument(DOMPurify, html)))
+      .then((doc) => {
+        // Preserve the fragment's own CSS from <head> inside the shadow root.
+        doc.head.querySelectorAll('style, link[rel="stylesheet"]')
+          .forEach((node) => container.appendChild(node));
+        container.append(...doc.body.childNodes);
       })
       .catch(() => {
         container.textContent = 'Failed to load fragment';

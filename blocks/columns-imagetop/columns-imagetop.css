@@ -1,5 +1,5 @@
 /* Import component-specific tokens */
-@import './columns-imagetop-tokens.css';
+@import url('./columns-imagetop-tokens.css');
 
 /* ========================================
    COLUMNS IMAGETOP CONTAINER
@@ -55,7 +55,7 @@
 }
 
 /* Middle rows - no border radius */
-.columns-imagetop > div:not(:first-child):not(:last-child) > div {
+.columns-imagetop > div:not(:first-child, :last-child) > div {
   padding: var(--columns-imagetop-content-padding) var(--columns-imagetop-content-padding) 0;
 }
 

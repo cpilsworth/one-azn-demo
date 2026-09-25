@@ -11,6 +11,7 @@ import {
   loadSection,
   loadSections,
   loadCSS,
+  buildBlock,
 } from './aem.js';
 
 /**
@@ -63,9 +64,51 @@ async function loadFonts() {
  * Builds all synthetic blocks in a container element.
  * @param {Element} main The container element
  */
-function buildAutoBlocks() {
+function buildWidgetAutoBlocks(main) {
+  const widgetLinks = [...main.querySelectorAll('a[href*="/widgets/"]')];
+  widgetLinks.forEach((link) => {
+    if (link.closest('.widget')) return;
+    const widgetBlock = buildBlock('widget', { elems: [link.cloneNode(true)] });
+    const paragraph = link.closest('p');
+    if (
+      paragraph
+      && paragraph.querySelectorAll('a').length === 1
+      && paragraph.querySelector('a') === link
+      && paragraph.textContent.trim() === link.textContent.trim()
+    ) {
+      paragraph.replaceWith(widgetBlock);
+    } else {
+      link.replaceWith(widgetBlock);
+    }
+  });
+}
+
+/**
+ * Builds fragment and widget blocks from authored links.
+ * @param {Element} main The main container element
+ */
+function buildAutoBlocks(main) {
   try {
-    // TODO: add auto block, if needed
+    const fragments = [...main.querySelectorAll('a[href*="/fragments/"]')]
+      .filter((link) => !link.closest('.fragment'));
+    if (fragments.length > 0) {
+      // eslint-disable-next-line import/no-cycle
+      import('../blocks/fragment/fragment.js').then(({ loadFragment }) => {
+        fragments.forEach(async (fragment) => {
+          try {
+            const { pathname } = new URL(fragment.href);
+            const loadedFragment = await loadFragment(pathname);
+            if (loadedFragment && fragment.parentElement) {
+              fragment.parentElement.replaceWith(...loadedFragment.children);
+            }
+          } catch (error) {
+            // eslint-disable-next-line no-console
+            console.error('Fragment loading failed', error);
+          }
+        });
+      });
+    }
+    buildWidgetAutoBlocks(main);
   } catch (error) {
     // eslint-disable-next-line no-console
     console.error('Auto Blocking failed', error);
@@ -135,8 +178,7 @@ async function loadLazy(doc) {
  * without impacting the user experience.
  */
 function loadDelayed() {
-  // eslint-disable-next-line import/no-cycle
-  window.setTimeout(() => import('./delayed.js'), 3000);
+  import('./consent-check.js');
   // load anything that can be postponed to the latest here
 }
 

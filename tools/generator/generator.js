@@ -56,7 +56,7 @@ class Generator extends LitElement {
     const getTime = setInterval(() => {
       this._time = this.calculateCrawlTime(startTime);
     }, 100);
-    
+
     this._data = {
       ...entries,
       profile: selectedDrug.profile,
@@ -91,8 +91,7 @@ class Generator extends LitElement {
       </div>
       <div class="success-panel">
         <h2>View</h2>
-        <p><a href="https://main--${this._data.siteName}--${ORG}.aem.page/" target="_blank">View site</a></p>
-        <p><a href="https://main--${this._data.siteName}--${ORG}.aem.live/" target="_blank">Visit site</a></p>
+        <p><a href="https://main--${this._data.siteName}--${ORG}.aem.page/" target="_blank">View preview site</a></p>
       </div>
       <p class="status success">${this._status.message}</p>
     `;
@@ -120,7 +119,7 @@ class Generator extends LitElement {
         </div>
         ${this._status ? html`<p class="status ${this._status?.type}">${this._status?.message}</p>` : nothing}
       </form>
-    `
+    `;
   }
 
   render() {

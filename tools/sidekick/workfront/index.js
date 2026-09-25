@@ -1,9 +1,9 @@
 /**
  * Workfront Utility - Adobe Spectrum 2 Interface
- * 
+ *
  * This module initializes the Workfront task management utility
  * with Adobe Spectrum 2 web components for a modern UI experience.
- * 
+ *
  * Features:
  * - OAuth2 PKCE authentication flow
  * - Task list with status badges (Complete, In Progress, Pending)
@@ -14,11 +14,11 @@
 
 function init() {
   console.log('Workfront Utility initialized with Adobe Spectrum 2');
-  
+
   try {
     const keys = Object.keys(window.localStorage || {});
     console.log(`[Workfront] localStorage keys: ${keys.length}`);
-    
+
     // Log storage keys (but not sensitive values)
     keys.forEach((key) => {
       const value = window.localStorage.getItem(key);

@@ -56,13 +56,13 @@ function bindEvents(block) {
 
   const prevButton = block.querySelector('.slide-prev');
   const nextButton = block.querySelector('.slide-next');
-  
+
   if (prevButton) {
     prevButton.addEventListener('click', () => {
       showSlide(block, parseInt(block.dataset.activeSlide, 10) - 1);
     });
   }
-  
+
   if (nextButton) {
     nextButton.addEventListener('click', () => {
       showSlide(block, parseInt(block.dataset.activeSlide, 10) + 1);

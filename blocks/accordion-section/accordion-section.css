@@ -1,5 +1,5 @@
 /* Import component-specific tokens */
-@import './accordion-section-tokens.css';
+@import url('./accordion-section-tokens.css');
 
 /* Accordion Section Block Styles */
 .accordion-section {

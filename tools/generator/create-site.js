@@ -1,11 +1,11 @@
 import { crawl } from 'https://da.live/nx/public/utils/tree.js';
 import DA_SDK from 'https://da.live/nx/utils/sdk.js';
+
 const { context, token } = await DA_SDK;
 const { org, repo } = context;
 
 const DA_ORIGIN = 'https://admin.da.live';
 const AEM_ORIGIN = 'https://admin.hlx.page';
-
 
 async function getAuthHeaders(headers = {}) {
   console.log(headers);
@@ -24,12 +24,12 @@ function getConfig(siteName, profile) {
       source: {
         url: `https://content.da.live/${ORG}/${siteName}/`,
         type: 'markup',
-      }
+      },
     },
     extends: {
       profile,
-    }
-  }
+    },
+  };
 }
 
 async function createConfig(data) {
@@ -64,7 +64,6 @@ async function replaceTemplate(data) {
     const templatedText = indexText
       .replaceAll('{{name-of-drug}}', data.drugName)
       .replaceAll('{{name-of-market}}', data.marketName);
-    
 
     // update index
     const formData = new FormData();
@@ -91,11 +90,15 @@ async function previewOrPublishPages(data, action, setStatus) {
     const aemPath = item.path.replace(parent, `${parent}/main`).replace('.html', '');
     const resp = await fetch(`${AEM_ORIGIN}/${action}${aemPath}`, opts);
     if (!resp.ok) throw new Error({ type: 'error', message: `Could not preview ${aemPath}` });
-  }
+  };
 
   // Get the library
-  crawl({ path: `${parent}/.da`, callback, concurrent: 5, throttle: 250 });
-  const { results } = crawl({ path: parent, callback, concurrent: 5, throttle: 250 });
+  crawl({
+    path: `${parent}/.da`, callback, concurrent: 5, throttle: 250,
+  });
+  const { results } = crawl({
+    path: parent, callback, concurrent: 5, throttle: 250,
+  });
 
   await results;
 }

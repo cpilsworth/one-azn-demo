@@ -13,27 +13,27 @@ function truncateDescription(cardBody) {
 
   // Find text nodes that are the description (not inside strong or a)
   const walker = document.createTreeWalker(p, NodeFilter.SHOW_TEXT, null, false);
-  let node;
+  let node = walker.nextNode();
   let descriptionText = '';
   const textNodes = [];
 
-  while ((node = walker.nextNode())) {
+  while (node) {
     const parent = node.parentElement;
-    // Skip text inside strong (title) or a (CTA)
-    if (parent.tagName === 'STRONG' || parent.tagName === 'A') continue;
-    // Skip empty or whitespace-only nodes
-    const trimmed = node.textContent.trim();
-    if (trimmed) {
-      descriptionText += trimmed + ' ';
-      textNodes.push(node);
+    if (parent.tagName !== 'STRONG' && parent.tagName !== 'A') {
+      const trimmed = node.textContent.trim();
+      if (trimmed) {
+        descriptionText += `${trimmed} `;
+        textNodes.push(node);
+      }
     }
+    node = walker.nextNode();
   }
 
   descriptionText = descriptionText.trim();
 
   // Truncate if exceeds limit
   if (descriptionText.length > DESCRIPTION_CHAR_LIMIT) {
-    const truncated = descriptionText.substring(0, DESCRIPTION_CHAR_LIMIT).trim() + '...';
+    const truncated = `${descriptionText.substring(0, DESCRIPTION_CHAR_LIMIT).trim()}...`;
 
     // Clear existing text nodes and set truncated text on first one
     textNodes.forEach((textNode, index) => {

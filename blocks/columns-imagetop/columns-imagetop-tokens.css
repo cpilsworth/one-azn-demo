@@ -45,7 +45,7 @@
   --columns-imagetop-btn-padding-x: 16px;
   --columns-imagetop-btn-padding-y: 8px;
   --columns-imagetop-btn-bg: var(--color-primary);
-  --columns-imagetop-btn-color: #000000;  /* Changed to black for visibility */
+  --columns-imagetop-btn-color: #000;  /* Changed to black for visibility */
   --columns-imagetop-btn-border: 1px solid var(--color-primary);
   --columns-imagetop-btn-radius: var(--radius-base);
   --columns-imagetop-btn-font-family: var(--font-family-text);

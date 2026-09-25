@@ -23,7 +23,7 @@
   --accordion-section-chevron-color: #363b3b;
 
   /* Panel */
-  --accordion-section-panel-bg: #ffffff;
+  --accordion-section-panel-bg: #fff;
   --accordion-section-panel-padding-y: 20px;
 
   /* Content Slot */
@@ -33,7 +33,7 @@
   --accordion-section-slot-border-style: dashed;
   --accordion-section-slot-border-color: #00bc78;
   --accordion-section-slot-border-radius: 4px;
-  --accordion-section-slot-bg: rgba(0, 188, 120, 0.1);
+  --accordion-section-slot-bg: rgb(0 188 120 / 10%);
   --accordion-section-slot-text-color: #00bc78;
   --accordion-section-slot-font-family: 'Inter', sans-serif;
   --accordion-section-slot-font-size: 32px;

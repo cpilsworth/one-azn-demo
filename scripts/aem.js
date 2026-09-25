@@ -16,15 +16,25 @@ function sampleRUM(checkpoint, data) {
   const timeShift = () => (window.performance ? window.performance.now() : Date.now() - window.hlx.rum.firstReadTime);
   try {
     window.hlx = window.hlx || {};
-    sampleRUM.enhance = () => {};
-    if (!window.hlx.rum) {
-      const param = new URLSearchParams(window.location.search).get('rum');
-      const weight = (window.SAMPLE_PAGEVIEWS_AT_RATE === 'high' && 10)
-        || (window.SAMPLE_PAGEVIEWS_AT_RATE === 'low' && 1000)
-        || (param === 'on' && 1)
-        || 100;
-      const id = Math.random().toString(36).slice(-4);
-      const isSelected = param !== 'off' && Math.random() * weight < 1;
+    if (!window.hlx.rum || !window.hlx.rum.collector) {
+      sampleRUM.enhance = () => {};
+      const params = new URLSearchParams(window.location.search);
+      const { currentScript } = document;
+      const rate = params.get('rum')
+        || window.SAMPLE_PAGEVIEWS_AT_RATE
+        || params.get('optel')
+        || (currentScript && currentScript.dataset.rate);
+      const rateValue = {
+        on: 1,
+        off: 0,
+        high: 10,
+        medium: 100,
+        low: 1000,
+      }[rate];
+      const weight = rateValue !== undefined ? rateValue : 100;
+      const id = (window.hlx.rum && window.hlx.rum.id) || crypto.randomUUID().slice(-9);
+      const isSelected = (window.hlx.rum && window.hlx.rum.isSelected)
+        || (weight > 0 && Math.random() * weight < 1);
       // eslint-disable-next-line object-curly-newline, max-len
       window.hlx.rum = {
         weight,
@@ -40,13 +50,15 @@ function sampleRUM(checkpoint, data) {
           const errData = { source: 'undefined error' };
           try {
             errData.target = error.toString();
-            errData.source = error.stack
-              .split('\n')
-              .filter((line) => line.match(/https?:\/\//))
-              .shift()
-              .replace(/at ([^ ]+) \((.+)\)/, '$1@$2')
-              .replace(/ at /, '@')
-              .trim();
+            if (error.stack) {
+              errData.source = error.stack
+                .split('\n')
+                .filter((line) => line.match(/https?:\/\//))
+                .shift()
+                .replace(/at ([^ ]+) \((.+)\)/, '$1@$2')
+                .replace(/ at /, '@')
+                .trim();
+            }
           } catch (err) {
             /* error structure was not as expected */
           }
@@ -69,23 +81,37 @@ function sampleRUM(checkpoint, data) {
           sampleRUM('error', errData);
         });
 
-        sampleRUM.baseURL = sampleRUM.baseURL || new URL(window.RUM_BASE || '/', new URL('https://rum.hlx.page'));
+        window.addEventListener('securitypolicyviolation', (e) => {
+          if (e.blockedURI.includes('helix-rum-enhancer') && e.disposition === 'enforce') {
+            const errData = {
+              source: 'csp',
+              target: e.blockedURI,
+            };
+            sampleRUM.sendPing('error', timeShift(), errData);
+          }
+        });
+
+        sampleRUM.baseURL = sampleRUM.baseURL || new URL(window.RUM_BASE || '/', new URL('https://ot.aem.live'));
         sampleRUM.collectBaseURL = sampleRUM.collectBaseURL || sampleRUM.baseURL;
         sampleRUM.sendPing = (ck, time, pingData = {}) => {
+          const uaExtra = navigator.webdriver && !navigator.userAgent.includes('+http')
+            ? { ua: `${navigator.userAgent} +http://navigator.webdriver` }
+            : {};
           // eslint-disable-next-line max-len, object-curly-newline
           const rumData = JSON.stringify({
             weight,
             id,
-            referer: window.location.href,
+            referer: window.location.origin + window.location.pathname,
             checkpoint: ck,
             t: time,
             ...pingData,
+            ...uaExtra,
           });
           const urlParams = window.RUM_PARAMS
-            ? `?${new URLSearchParams(window.RUM_PARAMS).toString()}`
+            ? new URLSearchParams(window.RUM_PARAMS).toString() || ''
             : '';
           const { href: url, origin } = new URL(
-            `.rum/${weight}${urlParams}`,
+            `.rum/${weight}${urlParams ? `?${urlParams}` : ''}`,
             sampleRUM.collectBaseURL,
           );
           const body = origin === window.location.origin
@@ -99,7 +125,9 @@ function sampleRUM(checkpoint, data) {
 
         sampleRUM.enhance = () => {
           // only enhance once
-          if (document.querySelector('script[src*="rum-enhancer"]')) return;
+          if (document.querySelector('script[src*="rum-enhancer"]')) {
+            return;
+          }
           const { enhancerVersion, enhancerHash } = sampleRUM.enhancerContext || {};
           const script = document.createElement('script');
           if (enhancerHash) {
@@ -158,7 +186,7 @@ function setup() {
 
 function init() {
   setup();
-  sampleRUM.collectBaseURL = window.origin;
+  sampleRUM.collectBaseURL = new URL(`${window.hlx.codeBasePath}/`, window.origin);
   sampleRUM();
 }
 
@@ -407,35 +435,34 @@ function wrapTextNodes(block) {
  * @param {Element} element container element
  */
 function decorateButtons(element) {
-  element.querySelectorAll('a').forEach((a) => {
+  element.querySelectorAll('p a[href]').forEach((a) => {
     a.title = a.title || a.textContent;
-    if (a.href !== a.textContent) {
-      const up = a.parentElement;
-      const twoup = a.parentElement.parentElement;
-      if (!a.querySelector('img')) {
-        if (up.childNodes.length === 1 && (up.tagName === 'P' || up.tagName === 'DIV')) {
-          a.className = 'button'; // default
-          up.classList.add('button-container');
-        }
-        if (
-          up.childNodes.length === 1
-          && up.tagName === 'STRONG'
-          && twoup.childNodes.length === 1
-          && twoup.tagName === 'P'
-        ) {
-          a.className = 'button primary';
-          twoup.classList.add('button-container');
-        }
-        if (
-          up.childNodes.length === 1
-          && up.tagName === 'EM'
-          && twoup.childNodes.length === 1
-          && twoup.tagName === 'P'
-        ) {
-          a.className = 'button secondary';
-          twoup.classList.add('button-container');
-        }
-      }
+    const p = a.closest('p');
+    const textContent = a.textContent.trim();
+
+    if (a.querySelector('img') || p.textContent.trim() !== textContent) return;
+
+    try {
+      if (new URL(a.href).href === new URL(textContent, window.location).href) return;
+    } catch { /* continue */ }
+
+    const strong = a.closest('strong');
+    const em = a.closest('em');
+    if (!strong && !em) return;
+
+    // Keep the project's layout class while adopting upstream's authored emphasis rules.
+    p.classList.add('button-container', 'button-wrapper');
+    a.className = 'button';
+    if (strong && em) {
+      a.classList.add('accent');
+      const outer = strong.contains(em) ? strong : em;
+      outer.replaceWith(a);
+    } else if (strong) {
+      a.classList.add('primary');
+      strong.replaceWith(a);
+    } else {
+      a.classList.add('secondary');
+      em.replaceWith(a);
     }
   });
 }

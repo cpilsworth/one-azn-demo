@@ -22,7 +22,7 @@ Adobe's implementation with this one. Nothing else needs to change.
 ## Install
 
 Add a `prepare` tab to the DA site config
-(<https://da.live/config#/polizzigaetano/one-azn-demo/>) containing:
+(<https://da.live/config#/cpilsworth/one-azn-demo/>) containing:
 
 | title     | path                                                                        | experience       |
 | --------- | --------------------------------------------------------------------------- | ---------------- |
@@ -36,6 +36,12 @@ Notes:
   omit it for DA's smaller default dialog.
 - To trial it on a branch first, add a `ref` column (e.g. `uat`) and open DA with
   `?ref=uat`. `ref=local` points DA at `http://localhost:3000` for development.
+- The org in the config URL is the **DA org of the site you are authoring in**
+  (`cpilsworth`). Note `fstab.yaml` mounts content from a *different* DA org
+  (`polizzigaetano/one-azn-demo`) — that is the upstream template source, not
+  where this plugin gets configured. The plugin itself is org-agnostic: it reads
+  `org`/`site` from the context DA posts at runtime, so the same code works in
+  whichever DA org loads it.
 
 ## Configuring checks
 

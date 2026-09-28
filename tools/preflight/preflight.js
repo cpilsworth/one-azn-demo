@@ -1,12 +1,15 @@
 /*
  * Custom Preflight plugin for DA's Prepare menu.
  *
- * Registered by adding a row titled "Preflight" to the `prepare` tab of the DA
- * site (or org) config, pointing at this page. Because the title matches the
- * always-on Adobe plugin, DA renders this implementation instead.
+ * Registered by adding a row to the `prepare` tab of the DA site (or org) config,
+ * pointing at this page:
  *
- *   title      | path
- *   Preflight  | https://main--one-azn-demo--cpilsworth.aem.live/tools/preflight.html
+ *   title            | path
+ *   Template checks  | https://main--one-azn-demo--cpilsworth.aem.live/tools/preflight.html
+ *
+ * DA merges Prepare entries by title, so the title decides the relationship to
+ * Adobe's built-in Preflight: a distinct title (as above) adds this plugin
+ * alongside it; titling the row "Preflight" shadows and replaces it instead.
  *
  * The plugin reads the current document's source from the DA Source API, works
  * out which template the page declares, then runs the template's checks from

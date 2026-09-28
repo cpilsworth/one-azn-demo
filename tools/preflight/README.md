@@ -7,31 +7,44 @@ only the checks configured for that template.
 Out of the box it enforces that an **Embed block** is present on the templates
 that need one.
 
-## How the override works
+## How menu registration works
 
-`Preflight` is an always-on plugin in DA's Prepare menu. DA merges menu entries
-by `title`, in the order:
+DA merges Prepare menu entries by `title`, in the order:
 
 ```
 built-in  →  org config  →  site config      (later wins)
 ```
 
-So a row titled exactly `Preflight` in the site's `prepare` config replaces
-Adobe's implementation with this one. Nothing else needs to change.
+The `title` therefore decides whether this plugin sits **beside** Adobe's
+Preflight or **replaces** it:
+
+| title in config    | Result                                                        |
+| ------------------ | ------------------------------------------------------------- |
+| `Template checks`  | Runs alongside; Adobe's Preflight stays (**current setup**)   |
+| `Preflight`        | Shadows and replaces Adobe's Preflight entirely               |
+
+Running alongside is the default choice here: Adobe's References / Content / SEO
+checks keep working and keep improving, and template rules are additive. There is
+no supported way to inject a check *into* Adobe's report — its categories are
+hardcoded in DA's own bundle — so a single merged report would mean forking all
+of the built-in checks.
 
 ## Install
 
 Add a `prepare` tab to the DA site config
 (<https://da.live/config#/cpilsworth/one-azn-demo/>) containing:
 
-| title     | path                                                                        | experience       |
-| --------- | --------------------------------------------------------------------------- | ---------------- |
-| Preflight | `https://main--one-azn-demo--cpilsworth.aem.live/tools/preflight.html`       | fullsize-dialog  |
+| title           | path                                                                    | experience       |
+| --------------- | ----------------------------------------------------------------------- | ---------------- |
+| Template checks | `https://main--one-azn-demo--cpilsworth.aem.live/tools/preflight.html`  | fullsize-dialog  |
+
+The author then sees **Prepare → Preflight** (Adobe's) and
+**Prepare → Template checks** (this plugin) as separate entries.
 
 Notes:
 
-- `title` **must** be `Preflight` to shadow the built-in plugin. Use a different
-  title (e.g. `Template checks`) to run this *alongside* the Adobe one instead.
+- Rename the row to `Preflight` to replace Adobe's plugin instead of
+  supplementing it.
 - `experience` is optional. `fullsize-dialog` gives the report room to breathe;
   omit it for DA's smaller default dialog.
 - To trial it on a branch first, add a `ref` column (e.g. `uat`) and open DA with

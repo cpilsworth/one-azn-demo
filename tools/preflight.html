@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Preflight</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <link rel="icon" href="data:,">
+    <!-- Anti-FOUC: components.js removes `sl-loading` once it has defined the
+         custom elements, revealing the body. Scoped to the class so the plugin
+         still renders if the SL bundle fails to load. -->
+    <style>body.sl-loading { visibility: hidden; }</style>
+    <!-- DA "Super Lite" UI components (evergreen, loads its own CSS) -->
+    <script src="https://da.live/nx/public/sl/components.js" type="module"></script>
+    <!-- DA App SDK -->
+    <script src="https://da.live/nx/utils/sdk.js" type="module"></script>
+    <link rel="stylesheet" href="/tools/preflight/preflight.css"/>
+    <!-- Project preflight logic -->
+    <script src="/tools/preflight/preflight.js" type="module"></script>
+  </head>
+  <body class="sl-loading">
+    <main id="preflight">
+      <div class="pf-loading">Running preflight checks&hellip;</div>
+    </main>
+  </body>
+</html>

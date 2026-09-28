@@ -111,6 +111,28 @@ stored:
 
 The `metadata` and `section-metadata` blocks are never counted as content blocks.
 
+## Running the checks as an HTTP API
+
+`preflight-rules.json` in this folder is the machine-readable copy of
+[`rules.js`](./rules.js), published so the hosted API can read it:
+
+    https://main--one-azn-demo--cpilsworth.aem.live/tools/preflight/preflight-rules.json
+
+The API service lives in
+[cpilsworth/da-preflight-checks](https://github.com/cpilsworth/da-preflight-checks)
+and takes the org and site in its path, so it serves any repo:
+
+    GET  https://<worker>/cpilsworth/one-azn-demo/index
+    POST https://<worker>/cpilsworth/one-azn-demo   { "paths": ["/a", "/b"] }
+    GET  https://<worker>/cpilsworth/one-azn-demo/_rules
+
+That is the route to use from Workfront Fusion or any other automation - it
+returns a top-level `status` of `pass`/`fail` to branch on.
+
+> Keep `rules.js` and `preflight-rules.json` in step. The plugin reads the
+> `.js`; the API reads the `.json`. They are separate files because a browser
+> plugin wants an ES module and a remote service must never import remote code.
+
 ## Running the checks headlessly (CLI / CI)
 
 The same checks run outside the browser, so they can gate a build or sweep the

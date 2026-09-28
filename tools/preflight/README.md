@@ -155,6 +155,13 @@ Source **list** endpoint, which some tokens that can read `/source` still lack.
     DA_TOKEN: ${{ secrets.DA_TOKEN }}
 ```
 
+> **Do this first:** run `npm install` locally once and commit the updated
+> `package-lock.json`. `linkedom` was added to `package.json` without a lockfile
+> entry (the environment it was authored in had no registry access), and `npm ci`
+> fails whenever the two disagree — which means the repo's existing `Build`
+> workflow will fail at its `npm ci` step until the lockfile is regenerated,
+> whether or not anything calls the CLI.
+
 ## Tests
 
 ```sh

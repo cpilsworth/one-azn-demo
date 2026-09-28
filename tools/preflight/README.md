@@ -111,15 +111,73 @@ stored:
 
 The `metadata` and `section-metadata` blocks are never counted as content blocks.
 
+## Running the checks headlessly (CLI / CI)
+
+The same checks run outside the browser, so they can gate a build or sweep the
+whole site. The CLI imports `rules.js` and `checks.js` **unmodified** — one
+engine, so the CLI and the plugin can never disagree.
+
+`linkedom` is a **dev**-only dependency that supplies `DOMParser` in Node; the
+browser plugin has no dependencies at all. It was added to `package.json` but
+not to `package-lock.json`, so run `npm install` once (not `npm ci`) to record
+it before using the CLI or the tests — both exit with instructions if it is
+missing.
+
+```sh
+npm install                                   # records linkedom in the lockfile
+
+# one page
+DA_TOKEN=... npm run preflight -- --org <org> /index
+
+# whole site, failures only
+DA_TOKEN=... npm run preflight -- --org <org> --all --quiet
+
+# machine-readable
+DA_TOKEN=... npm run preflight -- --org <org> --json /index > report.json
+```
+
+`--help` lists every option. Exit codes make it usable as a gate: **0** clean,
+**1** blocking failure, **2** could not run (bad auth, unreadable page). Add
+`--strict` to count warnings as blocking.
+
+`--org` is required and is the org the pages are **authored** in — deliberately
+not read from `fstab.yaml`, whose mountpoint may be an upstream template org.
+
+The token needs DA read access. Note `--all` additionally needs permission on the
+Source **list** endpoint, which some tokens that can read `/source` still lack.
+
+### CI example
+
+```yaml
+- run: npm ci
+- run: npm run preflight -- --org <org> --all --quiet
+  env:
+    DA_TOKEN: ${{ secrets.DA_TOKEN }}
+```
+
+## Tests
+
+```sh
+npm run test:preflight
+```
+
+19 tests covering document parsing (both authored shapes), template resolution,
+every check type, Source API URL construction, and the `--all` tree walker.
+Network calls are stubbed, so no test touches a real DA instance.
+
 ## Files
 
 | file            | role                                                       |
 | --------------- | ---------------------------------------------------------- |
 | `../preflight.html` | Plugin entry point; the URL used in the config.        |
 | `preflight.js`  | DA SDK wiring, document fetch, rendering.                  |
-| `checks.js`     | Document parsing (template, blocks) and check implementations. |
+| `checks.js`     | Document parsing (template, blocks), check implementations, Source API URLs. Browser-API free apart from `DOMParser`. |
 | `rules.js`      | **The rules — edit this to add checks.**                   |
+| `cli.mjs`       | Headless runner for CI and site sweeps.                    |
 | `preflight.css` | Styles.                                                    |
+
+Tests live in [`test/preflight/`](../../test/preflight/), which `.hlxignore`
+keeps out of the published site.
 
 ## Local development
 

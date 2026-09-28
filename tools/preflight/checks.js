@@ -183,4 +183,25 @@ export function runChecks(doc, rules) {
   });
 }
 
+const DA_ADMIN = 'https://admin.da.live';
+
+/**
+ * Build the DA Source API URL for the document under edit.
+ *
+ * The Prepare menu posts a context of { view, org, site, repo, ref, path } where
+ * `path` is site-relative and normally carries no extension (e.g. `/drafts/foo`).
+ * `site` and `repo` are the same value; `repo` is accepted for parity with the
+ * Library SDK context. Folder-ish and already-suffixed paths are tolerated.
+ */
+export function sourceUrl({ org, site, repo, path }) {
+  const owner = org;
+  const project = site || repo;
+  const clean = `${path || ''}`
+    .replace(/^\/+/, '')
+    .replace(/\/+$/, '')
+    .replace(/\.html$/, '');
+  const doc = clean || 'index';
+  return `${DA_ADMIN}/source/${owner}/${project}/${doc}.html`;
+}
+
 export default runChecks;

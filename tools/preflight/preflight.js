@@ -18,29 +18,11 @@
 
 import DA_SDK from 'https://da.live/nx/utils/sdk.js';
 import rules, { NO_TEMPLATE } from './rules.js';
-import runChecks, { parseDoc, getTemplate, getBlocks } from './checks.js';
+import runChecks, {
+  parseDoc, getTemplate, getBlocks, sourceUrl,
+} from './checks.js';
 
-const DA_ADMIN = 'https://admin.da.live';
 const SEVERITY_ORDER = { error: 0, warning: 1, info: 2, success: 3 };
-
-/**
- * Build the DA Source API URL for the document under edit.
- *
- * The Prepare menu posts a context of { view, org, site, repo, ref, path } where
- * `path` is site-relative and normally carries no extension (e.g. `/drafts/foo`).
- * `site` and `repo` are the same value; `repo` is accepted for parity with the
- * Library SDK context. Folder-ish and already-suffixed paths are tolerated.
- */
-export function sourceUrl({ org, site, repo, path }) {
-  const owner = org;
-  const project = site || repo;
-  const clean = `${path || ''}`
-    .replace(/^\/+/, '')
-    .replace(/\/+$/, '')
-    .replace(/\.html$/, '');
-  const doc = clean || 'index';
-  return `${DA_ADMIN}/source/${owner}/${project}/${doc}.html`;
-}
 
 /** Fetch the saved source of the current document. */
 async function fetchSource(context, token) {

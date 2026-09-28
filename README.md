@@ -23,7 +23,8 @@ Furthremore, we encourage you to watch the recordings of any of our previous pre
   checks in DA's Prepare menu. Validates a page against rules selected by its
   `template` metadata (e.g. "a video page must contain an Embed block"). Runs
   alongside Adobe's built-in Preflight; rules are declarative in
-  [`tools/preflight/rules.js`](tools/preflight/rules.js).
+  [`tools/preflight/rules.js`](tools/preflight/rules.js). Also runs headlessly
+  for CI: `npm run preflight -- --org <org> --all` (`npm run test:preflight`).
 
 ## Prerequisites
 

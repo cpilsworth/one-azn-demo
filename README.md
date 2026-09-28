@@ -17,6 +17,14 @@ Before using the aem-boilerplate, we recommand you to go through the documentati
 Furthremore, we encourage you to watch the recordings of any of our previous presentations or sessions:
 - [Getting started with AEM Authoring and Edge Delivery Services](https://experienceleague.adobe.com/en/docs/events/experience-manager-gems-recordings/gems2024/aem-authoring-and-edge-delivery)
 
+## Project tools
+
+- **[Custom Preflight](tools/preflight/README.md)** — template-aware pre-flight
+  checks in DA's Prepare menu. Validates a page against rules selected by its
+  `template` metadata (e.g. "a video page must contain an Embed block"). Runs
+  alongside Adobe's built-in Preflight; rules are declarative in
+  [`tools/preflight/rules.js`](tools/preflight/rules.js).
+
 ## Prerequisites
 
 - nodejs 18.3.x or newer

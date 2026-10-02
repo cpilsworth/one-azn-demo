@@ -13,6 +13,9 @@ import {
   loadCSS,
   buildBlock,
 } from './aem.js';
+import registerPreflightChecks from './preflight.js';
+
+registerPreflightChecks();
 
 /**
  * Moves all the attributes from a given elmenet to another given element.

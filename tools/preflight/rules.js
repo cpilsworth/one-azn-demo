@@ -69,4 +69,9 @@ const rules = {
   ],
 };
 
+/** Collect global checks followed by the checks for a specific template. */
+export function rulesFor(template) {
+  return [...(rules['*'] || []), ...(rules[template] || [])];
+}
+
 export default rules;

@@ -94,6 +94,34 @@ only counts `Embed (autoplay)`.
 Only unpassed **`error`** results are reported as blocking; warnings and info are
 advisory.
 
+## Rendered-page extension
+
+The site also registers `window.aem.preflight()` from
+[`/scripts/preflight.js`](../../scripts/preflight.js). Experience Governance can
+call this hook to run the same global and template-specific rules on the current
+page, without the DA SDK or a source API request.
+
+The hook reads `<meta name="template" content="…">` (falling back to an authored
+Metadata block) and counts EDS `data-block-name` markers inside `main`. Wrappers,
+block-internal markup, headers, and footers are not counted. It re-evaluates the
+DOM on every call, including after DA preview updates.
+
+Results have `{ id, title, alignment, reasoning, suggestions }`, where alignment
+is `YES` for passing checks, `NO` for failures (including advisory warnings), and
+`NA` for unsupported check types. Suggestions are included for failures with a
+configured hint. Pages without applicable rules return an empty array.
+
+To inspect the results in the browser console:
+
+```js
+window.aem.preflight();
+```
+
+Browser regression tests are in `/test/preflight.html`. Serve the repository
+with a static server (for example `python3 -m http.server 8765`) and open
+`http://localhost:8765/test/preflight.html` to run them. Test files are excluded
+from EDS delivery by `.hlxignore`.
+
 ## How the template is resolved
 
 From the `template` row of the page's **Metadata** block — the same value EDS

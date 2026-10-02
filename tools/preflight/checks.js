@@ -68,23 +68,34 @@ export function getMetadata(doc) {
   return meta;
 }
 
-/** The template this document declares, or NO_TEMPLATE. */
+/** The template from rendered head metadata or authored source, or NO_TEMPLATE. */
 export function getTemplate(doc) {
-  const meta = getMetadata(doc);
-  const raw = meta[TEMPLATE_METADATA_KEY];
+  const raw = doc.querySelector(`head meta[name="${TEMPLATE_METADATA_KEY}"]`)
+    ?.getAttribute('content') || getMetadata(doc)[TEMPLATE_METADATA_KEY];
   return raw ? toClassName(raw) : NO_TEMPLATE;
 }
 
 /**
  * Every block on the page, as { name, variants }.
- * Covers both authored tables and normalised block divs.
+ * Covers both authored tables and normalised block divs. In rendered mode,
+ * only EDS block markers in main count, not wrappers or block-internal markup.
  */
-export function getBlocks(doc) {
+export function getBlocks(doc, { rendered = false } = {}) {
   const blocks = [];
 
   // Metadata blocks carry page/section configuration, not content, and must
   // never be reported as blocks or matched by a rule.
   const NOT_CONTENT = new Set(['metadata', 'section-metadata']);
+
+  if (rendered) {
+    return [...doc.querySelectorAll('main [data-block-name]')]
+      .filter((block) => !NOT_CONTENT.has(block.dataset.blockName))
+      .map((block) => ({
+        name: block.dataset.blockName,
+        variants: [...block.classList].filter((name) => name !== block.dataset.blockName && name !== 'block'),
+        el: block,
+      }));
+  }
 
   // Authored form: a table whose first cell is the block name.
   doc.querySelectorAll('table').forEach((table) => {
@@ -159,8 +170,8 @@ const checks = {
  * Run a set of rules against a parsed document.
  * Unknown rule types surface as an 'info' result rather than throwing.
  */
-export function runChecks(doc, rules) {
-  const blocks = getBlocks(doc);
+export function runChecks(doc, rules, options) {
+  const blocks = getBlocks(doc, options);
 
   return rules.map((rule) => {
     const impl = checks[rule.type];
@@ -169,6 +180,7 @@ export function runChecks(doc, rules) {
         ...rule,
         severity: 'info',
         passed: true,
+        skipped: true,
         detail: `Unknown check type "${rule.type}" - skipped.`,
       };
     }
@@ -193,7 +205,9 @@ const DA_ADMIN = 'https://admin.da.live';
  * `site` and `repo` are the same value; `repo` is accepted for parity with the
  * Library SDK context. Folder-ish and already-suffixed paths are tolerated.
  */
-export function sourceUrl({ org, site, repo, path }) {
+export function sourceUrl({
+  org, site, repo, path,
+}) {
   const owner = org;
   const project = site || repo;
   const clean = `${path || ''}`

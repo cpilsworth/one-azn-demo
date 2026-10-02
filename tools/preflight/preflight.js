@@ -17,12 +17,14 @@
  */
 
 import DA_SDK from 'https://da.live/nx/utils/sdk.js';
-import rules, { NO_TEMPLATE } from './rules.js';
-import runChecks, {
-  parseDoc, getTemplate, getBlocks, sourceUrl,
+import { NO_TEMPLATE, rulesFor } from './rules.js';
+import {
+  runChecks, parseDoc, getTemplate, getBlocks, sourceUrl,
 } from './checks.js';
 
-const SEVERITY_ORDER = { error: 0, warning: 1, info: 2, success: 3 };
+const SEVERITY_ORDER = {
+  error: 0, warning: 1, info: 2, success: 3,
+};
 
 /** Fetch the saved source of the current document. */
 async function fetchSource(context, token) {
@@ -36,11 +38,6 @@ async function fetchSource(context, token) {
     throw new Error(`Could not read the document source (${reason}).`);
   }
   return resp.text();
-}
-
-/** Collect the rules that apply to a template: global first, then specific. */
-function rulesFor(template) {
-  return [...(rules['*'] || []), ...(rules[template] || [])];
 }
 
 function el(tag, className, text) {
@@ -164,7 +161,9 @@ async function init() {
 
     try {
       const { doc, template, results } = evaluate(await fetchSource(context, token));
-      render({ template, results, doc, onRerun: run });
+      render({
+        template, results, doc, onRerun: run,
+      });
     } catch (e) {
       renderError(e.message);
     }

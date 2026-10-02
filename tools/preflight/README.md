@@ -99,7 +99,10 @@ advisory.
 The site also registers `window.aem.preflight()` from
 [`/scripts/preflight.js`](../../scripts/preflight.js). Experience Governance can
 call this hook to run the same global and template-specific rules on the current
-page, without the DA SDK or a source API request.
+page, without the DA SDK or a source API request. Registration preserves any
+existing preflight checks and appends the template results to their array. It
+supports both synchronous and asynchronous hooks, and registering again does
+not duplicate the custom checks.
 
 The hook reads `<meta name="template" content="…">` (falling back to an authored
 Metadata block) and counts EDS `data-block-name` markers inside `main`. Wrappers,
@@ -109,12 +112,13 @@ DOM on every call, including after DA preview updates.
 Results have `{ id, title, alignment, reasoning, suggestions }`, where alignment
 is `YES` for passing checks, `NO` for failures (including advisory warnings), and
 `NA` for unsupported check types. Suggestions are included for failures with a
-configured hint. Pages without applicable rules return an empty array.
+configured hint. Pages without applicable rules add no template results, leaving
+any existing checks intact.
 
 To inspect the results in the browser console:
 
 ```js
-window.aem.preflight();
+await window.aem.preflight();
 ```
 
 Browser regression tests are in `/test/preflight.html`. Serve the repository

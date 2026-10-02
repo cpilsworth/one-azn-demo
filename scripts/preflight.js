@@ -5,6 +5,8 @@
 import { getTemplate, runChecks } from '../tools/preflight/checks.js';
 import { rulesFor } from '../tools/preflight/rules.js';
 
+const registeredHooks = new WeakSet();
+
 /** Run template checks against the current rendered page on every invocation. */
 export function preflight(doc = document) {
   const template = getTemplate(doc);
@@ -23,8 +25,19 @@ export function preflight(doc = document) {
   });
 }
 
-/** Register the extension while preserving other window.aem properties. */
+/** Append our checks to any existing hook without duplicating registration. */
 export default function registerPreflightChecks() {
   window.aem = window.aem || {};
-  window.aem.preflight = () => preflight();
+  const previous = window.aem.preflight;
+  if (registeredHooks.has(previous)) return;
+
+  window.aem.preflight = function combinedPreflight(...args) {
+    const existing = typeof previous === 'function' ? previous.apply(this, args) : previous;
+    const appendChecks = (checks) => [...(checks || []), ...preflight()];
+    // Preserve synchronous arrays, but also compose hooks that return a Promise.
+    return typeof existing?.then === 'function'
+      ? Promise.resolve(existing).then(appendChecks)
+      : appendChecks(existing);
+  };
+  registeredHooks.add(window.aem.preflight);
 }

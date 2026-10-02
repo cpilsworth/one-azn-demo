@@ -5,18 +5,14 @@ import {
 import rules, { rulesFor } from '../tools/preflight/rules.js';
 
 const results = [];
+const tests = [];
 
 function assert(condition, message = 'Assertion failed') {
   if (!condition) throw new Error(message);
 }
 
 function test(name, fn) {
-  try {
-    fn();
-    results.push({ name, passed: true });
-  } catch (error) {
-    results.push({ name, passed: false, error: error.message });
-  }
+  tests.push({ name, fn });
 }
 
 function page(template, content = '', extra = '') {
@@ -134,7 +130,83 @@ test('Registration preserves aem properties and evaluates current DOM each time'
   main.textContent = '';
 });
 
-window.preflightTestResults = results;
-document.getElementById('results').textContent = results
-  .map((result) => `${result.passed ? 'PASS' : 'FAIL'}: ${result.name}${result.error ? ` — ${result.error}` : ''}`)
-  .join('\n');
+test('Registration appends to existing checks without mutating their array', () => {
+  const existing = [{ id: 'existing', alignment: 'YES' }];
+  let calls = 0;
+  window.aem = {
+    marker: true,
+    preflight(value) {
+      assert(this.marker);
+      assert(value === 'argument');
+      calls += 1;
+      return existing;
+    },
+  };
+  rules['*'].push({ type: 'block-absent', name: 'embed', title: 'Custom check' });
+  try {
+    registerPreflightChecks();
+    registerPreflightChecks();
+    const output = window.aem.preflight('argument');
+    assert(calls === 1);
+    assert(output.length === 2);
+    assert(output[0] === existing[0]);
+    assert(output[1].title === 'Custom check');
+    assert(existing.length === 1);
+  } finally {
+    rules['*'].pop();
+  }
+});
+
+test('Registration composes asynchronous hooks', async () => {
+  const existing = [{ id: 'async-existing', alignment: 'YES' }];
+  window.aem = { preflight: async () => existing };
+  rules['*'].push({ type: 'block-absent', name: 'embed', title: 'Custom check' });
+  try {
+    registerPreflightChecks();
+    const output = await window.aem.preflight();
+    assert(output.length === 2);
+    assert(output[0] === existing[0]);
+    assert(output[1].title === 'Custom check');
+    assert(existing.length === 1);
+  } finally {
+    rules['*'].pop();
+  }
+});
+
+test('Registration retains an existing array when no function was defined', () => {
+  const existing = [{ id: 'existing-array', alignment: 'YES' }];
+  window.aem = { preflight: existing };
+  registerPreflightChecks();
+  assert(typeof window.aem.preflight === 'function');
+  const output = window.aem.preflight();
+  assert(output.length === 1);
+  assert(output[0] === existing[0]);
+  assert(output !== existing);
+});
+
+test('Registration creates the namespace and array when no hook exists', () => {
+  delete window.aem;
+  registerPreflightChecks();
+  assert(Array.isArray(window.aem.preflight()));
+  assert(window.aem.preflight().length === 0);
+});
+
+async function runTests() {
+  for (let index = 0; index < tests.length; index += 1) {
+    const { name, fn } = tests[index];
+    try {
+      // Run sequentially because fixtures temporarily modify shared rules and globals.
+      // eslint-disable-next-line no-await-in-loop
+      await fn();
+      results.push({ name, passed: true });
+    } catch (error) {
+      results.push({ name, passed: false, error: error.message });
+    }
+  }
+  window.preflightTestResults = results;
+  document.getElementById('results').textContent = results
+    .map((result) => `${result.passed ? 'PASS' : 'FAIL'}: ${result.name}${result.error ? ` — ${result.error}` : ''}`)
+    .join('\n');
+}
+
+runTests();
